@@ -326,7 +326,7 @@ service cloud.firestore {
 Один наблюдаемый результат модуля, начиная с глагола:
 Языковой материал — какие именно структуры или лексика, а не тема
 Тон интерфейса — строгий, дружелюбный или свободный
-Два цвета:
+Два цвета, можно оставить пусто и взять стандартные:
 Моё имя, как его увидят обучающиеся:</pre>
     </div>
 
@@ -339,7 +339,7 @@ service cloud.firestore {
 
 Требования к index.html.
 1. Четыре экрана, которые показываются по одному — Welcome, Registration, Module, Finish. Переключение делай в JavaScript, скрывая и показывая секции. Не создавай отдельных страниц и никогда не меняй адрес страницы. Элемент a не используй вообще, всё, на что можно нажать, делай элементом button.
-2. Подключи content.js обычным тегом script. Оба тега script поставь последними внутри body, после всей разметки, сначала content.js, потом твой скрипт. Если COURSE не загрузился, покажи вместо пустой страницы одно предложение о том, что файл content.js не найден и должен лежать рядом с index.html.
+2. Подключи content.js обычным тегом script. Оба тега script поставь последними внутри body, после всей разметки, сначала content.js, потом твой скрипт. К содержанию обращайся прямо по имени COURSE, а наличие файла проверяй строкой typeof COURSE === 'undefined'. Через window.COURSE не обращайся: константа, объявленная через const, на window не попадает, и проверка всегда будет ложной. Если content.js не загрузился, покажи вместо пустой страницы одно предложение о том, что этот файл не найден и должен лежать рядом с index.html.
 3. Заголовок вкладки браузера бери из settings.courseTitle.
 4. Закреплённая полоса сверху — settings.courseTitle слева, название текущего подраздела справа.
 5. Экран Welcome выводит ровно эти пять значений, каждое по одному разу и в этом порядке: settings.courseTitle, settings.unitTitle, settings.audience, settings.outcome, settings.teacherName. Ни одно из них не выводи дважды и не подставляй вместо другого. Ниже кнопка Start, в самом низу кнопка Teacher, без рамки и фона, выглядит как мелкая надпись.
@@ -347,7 +347,7 @@ service cloud.firestore {
 7. Экран Module. Слева или сверху, в зависимости от ширины экрана, список подразделов из COURSE.sections с отметкой пройденных. Рядом содержимое выбранного подраздела — его заголовок, вступительный текст, затем изображение и аудиоплеер, если у подраздела заданы поля image и audio, затем место под задания с комментарием TASKS GO HERE. Внизу кнопки Back и Next, которые ведут по подразделам, а с последнего — на экран Finish.
 8. Отметка пройденного подраздела держится только в памяти страницы. Ничего не сохраняется, при перезагрузке всё начинается заново.
 9. Экран Finish — два предложения с поздравлением, предложение о том, что ничего не сохранено и модуль можно пройти снова, и кнопка Back to start.
-10. Оформление на пользовательских свойствах CSS, построенных из цветов в COURSE.settings. Много воздуха, один шрифт, никакого декора, который сам несёт смысл.
+10. Оформление на пользовательских свойствах CSS. Два цвета бери из settings.primaryColour и settings.accentColour, именно с таким написанием, переименовывать поля нельзя. Если поле пустое или его нет, подставь спокойный цвет по умолчанию, из-за цветов страница ломаться не должна. Много воздуха, один шрифт, никакого декора, который сам несёт смысл.
 11. Над каждым крупным блоком кода одна строка комментария простыми словами.
 
 Присылай файл целиком.</pre>
@@ -368,8 +368,8 @@ const COURSE = {
     audience: "",      // одно предложение, для кого этот модуль
     outcome: "",       // результат модуля целиком
     teacherName: "",
-    primaryColour: "",
-    accentColour: ""
+    primaryColour: "#1f3a5f",
+    accentColour: "#e07a3c"
   },
   sections: [
     { id: "", title: "", intro: "", image: "", imageAlt: "", audio: "", tasks: [] }
@@ -505,7 +505,7 @@ Why they need this, in their words
 One observable outcome of the unit, starting with a verb:
 Language focus — the exact structures or lexis, not the topic
 Interface tone — formal, friendly or relaxed
-Two colours:
+Two colours, you can leave this empty and keep the standard ones:
 My name as learners will see it:</pre>
     </div>
 
@@ -518,7 +518,7 @@ Build the shell of a course platform. Send index.html.
 
 Requirements for index.html.
 1. Four screens shown one at a time, Welcome, Registration, Module and Finish. Switch them in JavaScript by hiding and showing sections. Do not create separate pages and never change the page address. Never use an a element at all, and make everything clickable a button element.
-2. Load content.js with a plain script tag. Put both script tags last inside the body, after all the markup, content.js first and your own script second. If COURSE did not load, show one sentence saying that content.js was not found and must sit next to index.html, instead of an empty page.
+2. Load content.js with a plain script tag. Put both script tags last inside the body, after all the markup, content.js first and your own script second. Reach the content by the bare name COURSE, and test whether the file is there with typeof COURSE === 'undefined'. Do not go through window.COURSE: a constant declared with const never lands on window, so that test would always be false. If content.js did not load, show one sentence saying that the file was not found and must sit next to index.html, instead of an empty page.
 3. Take the browser tab's title from settings.courseTitle.
 4. A fixed bar at the top, settings.courseTitle on the left and the current section's title on the right.
 5. The Welcome screen shows exactly these five values, each once and in this order: settings.courseTitle, settings.unitTitle, settings.audience, settings.outcome, settings.teacherName. Do not show any of them twice and do not put one in place of another. Below them a Start button, and at the very bottom a Teacher button with no border and no background, looking like a small line of text.
@@ -526,7 +526,7 @@ Requirements for index.html.
 7. The Module screen. Depending on the width of the screen, at the side or at the top, a list of the sections from COURSE.sections, marking the ones already visited. Next to it the chosen section: its title, its intro text, then an image and an audio player if the section has image and audio fields, then a place for the tasks holding only a comment that says TASKS GO HERE. At the bottom Back and Next buttons that move through the sections, and from the last one to the Finish screen.
 8. The mark on a visited section lives only in the page's memory. Nothing is saved, and a reload starts everything again.
 9. The Finish screen: two sentences of congratulation, a sentence saying that nothing was saved and the unit can be done again, and a Back to start button.
-10. Style it with CSS custom properties built from the colours in COURSE.settings. Generous white space, one typeface, no decoration that carries meaning on its own.
+10. Style it with CSS custom properties. Take the two colours from settings.primaryColour and settings.accentColour, spelled exactly so, and do not rename the fields. If a field is empty or missing, fall back to a quiet default colour of your own; the page must never break over colours. Generous white space, one typeface, no decoration that carries meaning on its own.
 11. Above each major block of code, one line of comment in plain words.
 
 Send the file in full.</pre>
@@ -547,8 +547,8 @@ const COURSE = {
     audience: "",      // one sentence saying who this unit is for
     outcome: "",       // the unit outcome in full
     teacherName: "",
-    primaryColour: "",
-    accentColour: ""
+    primaryColour: "#1f3a5f",
+    accentColour: "#e07a3c"
   },
   sections: [
     { id: "", title: "", intro: "", image: "", imageAlt: "", audio: "", tasks: [] }
