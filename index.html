@@ -257,7 +257,7 @@ service cloud.firestore {
       <pre>ПРАВИЛА. Соблюдай их во всех ответах в этой переписке.
 
 1. У платформы два файла. index.html — механика. content.js — содержание курса. В одном ответе присылай один файл, тот, который я назвал, и всегда целиком, с первой строки до последней.
-2. Механика ничего не знает о конкретном курсе. Все заголовки, тексты, задания и пути к медиа она берёт из объекта COURSE, объявленного в content.js. В index.html не должно остаться ни одного учебного текста.
+2. Механика ничего не знает о конкретном курсе. Все заголовки, тексты, задания и пути к медиа она берёт из объекта COURSE, объявленного в content.js. В index.html не должно остаться ни одного учебного текста. Служебные надписи интерфейса — названия кнопок, заголовки экранов, сообщения об ошибках — наоборот, пиши прямо в index.html по-английски, в содержание они не выносятся.
 3. Когда я прошу содержание, присылай только content.js и не трогай index.html. Когда я прошу правку механики, присылай только index.html.
 4. Только чистые HTML, CSS и JavaScript. Без React, Vue, jQuery, npm, сборки и любых фреймворков. Стили внутри элемента style, скрипт внутри элемента script, оба в index.html.
 5. Сначала телефон. Страница должна работать на телефоне в вертикальном положении, без горизонтальной прокрутки.
@@ -267,9 +267,10 @@ service cloud.firestore {
 9. Всеми элементами можно пользоваться с клавиатуры, клавишами Tab и Enter.
 10. Никогда не обозначай верный и неверный ответ только цветом. Всегда дублируй словами.
 11. Изображения и звук бери только из папки assets по относительному пути, который задан в содержании. Ничего из интернета. Декоративную графику рисуй в SVG или средствами CSS.
-12. Никогда не присылай фрагмент, заплатку или указание вставить что-то самостоятельно.
-13. Если ответ не помещается целиком, не сокращай код, не выбрасывай части и не пиши «остальное без изменений». Продолжай писать файл, пока он не кончится, а если ответ оборвётся, я попрошу продолжить.
-14. В ответе только блок кода. Без пояснений до и после него.</pre>
+12. Никогда не используй всплывающие окна браузера — alert, confirm и prompt. Любое сообщение и любой вопрос рисуй прямо на странице.
+13. Никогда не присылай фрагмент, заплатку или указание вставить что-то самостоятельно.
+14. Если ответ не помещается целиком, не сокращай код, не выбрасывай части и не пиши «остальное без изменений». Продолжай писать файл, пока он не кончится, а если ответ оборвётся, я попрошу продолжить.
+15. В ответе только блок кода. Без пояснений до и после него.</pre>
     </div>
   </div>
   <div data-l="en">
@@ -281,7 +282,7 @@ service cloud.firestore {
       <pre>RULES. Apply all of these to every answer in this conversation.
 
 1. The platform has two files. index.html holds the mechanics. content.js holds the course content. Send one file per answer, the one I named, and always in full, from the first line to the last.
-2. The mechanics know nothing about any particular course. Every heading, text, task and media path comes from the COURSE object declared in content.js. Not one line of teaching text may stay in index.html.
+2. The mechanics know nothing about any particular course. Every heading, text, task and media path comes from the COURSE object declared in content.js. Not one line of teaching text may stay in index.html. Interface wording, on the other hand — button labels, screen headings, error messages — is written straight into index.html in English and never moved into the content.
 3. When I ask for content, send content.js only and leave index.html alone. When I ask for a change to the mechanics, send index.html only.
 4. Plain HTML, CSS and JavaScript only. No React, Vue, jQuery, npm, build step or frameworks of any kind. The CSS inside a style element and the JavaScript inside a script element, both in index.html.
 5. Mobile first. It must work on a phone held upright, with no horizontal scrolling.
@@ -291,9 +292,10 @@ service cloud.firestore {
 9. Every control must be usable with the keyboard alone, with Tab and Enter.
 10. Never mark an answer right or wrong by colour alone. Always say it in words as well.
 11. Take images and sound only from the assets folder, by the relative path given in the content. Nothing from the internet. Draw decorative graphics in SVG or with CSS.
-12. Never send a fragment, a patch, or an instruction to insert something myself.
-13. If an answer does not fit, do not shorten the code, drop parts or write "the rest is unchanged". Keep writing the file until it ends, and if the answer is cut off I will ask you to continue.
-14. Answer with the code block only. No explanation before or after it.</pre>
+12. Never use the browser's pop-up windows, that is alert, confirm and prompt. Draw every message and every question on the page itself.
+13. Never send a fragment, a patch, or an instruction to insert something myself.
+14. If an answer does not fit, do not shorten the code, drop parts or write "the rest is unchanged". Keep writing the file until it ends, and if the answer is cut off I will ask you to continue.
+15. Answer with the code block only. No explanation before or after it.</pre>
     </div>
   </div>
 </section>
@@ -317,6 +319,7 @@ service cloud.firestore {
   2.
   3.
 Кто учится — возраст, уровень по CEFR, чем занимаются
+Одно предложение для обучающихся о том, для кого этот модуль:
 Зачем им это нужно, их словами
 Один наблюдаемый результат модуля, начиная с глагола:
 Языковой материал — какие именно структуры или лексика, а не тема
@@ -335,9 +338,9 @@ service cloud.firestore {
 Требования к index.html.
 1. Четыре экрана, которые показываются по одному — Welcome, Registration, Module, Finish. Переключение делай в JavaScript, скрывая и показывая секции. Не создавай отдельных страниц и не меняй адрес.
 2. Подключи content.js обычным тегом script до своего скрипта. Весь текст на экранах бери из объекта COURSE. Если COURSE не загрузился, покажи одно понятное предложение вместо пустой страницы.
-3. Закреплённая полоса сверху — название курса слева, название текущего подраздела справа.
-4. Экран Welcome — название курса, название модуля, одно предложение о том, для кого он, результат модуля целиком, имя преподавателя, кнопка Start и внизу маленькая неброская ссылка Teacher.
-5. Экран Registration — пока только заголовок, одно предложение-заглушка и кнопка Continue.
+3. Закреплённая полоса сверху — название курса слева, название текущего подраздела справа. Заголовок вкладки браузера тоже бери из settings.courseTitle.
+4. Экран Welcome — название курса, название модуля, предложение из settings.audience о том, для кого модуль, результат модуля целиком, имя преподавателя, кнопка Start и внизу маленькая неброская ссылка Teacher. Ни одно из этих предложений не пиши в index.html, все они берутся из COURSE.
+5. Экран Registration — пока только заголовок, одно предложение-заглушка и кнопка Continue. Ссылка Teacher на этом шаге ещё никуда не ведёт, просто оставь её на месте и ничего по ней не делай.
 6. Экран Module. Слева или сверху, в зависимости от ширины экрана, список подразделов из COURSE.sections с отметкой пройденных. Справа содержимое выбранного подраздела — его заголовок, вступительный текст, затем изображение и аудиоплеер, если у подраздела заданы поля image и audio, затем место под задания с комментарием TASKS GO HERE. Внизу кнопки Back и Next, которые ведут по подразделам, а с последнего — на экран Finish.
 7. Отметка пройденного подраздела держится только в памяти страницы. Ничего не сохраняется, при перезагрузке всё начинается заново.
 8. Экран Finish — два предложения с поздравлением, предложение о том, что ничего не сохранено и модуль можно пройти снова, и кнопка Back to start.
@@ -348,9 +351,17 @@ service cloud.firestore {
 11. Файл объявляет одну константу COURSE и больше ничего. Структура такая.
 
 const COURSE = {
-  settings: { courseTitle, unitTitle, outcome, teacherName, primaryColour, accentColour },
+  settings: {
+    courseTitle: "",
+    unitTitle: "",
+    audience: "",      // одно предложение, для кого этот модуль
+    outcome: "",       // результат модуля целиком
+    teacherName: "",
+    primaryColour: "",
+    accentColour: ""
+  },
   sections: [
-    { id, title, intro, image, imageAlt, audio, tasks: [] }
+    { id: "", title: "", intro: "", image: "", imageAlt: "", audio: "", tasks: [] }
   ]
 };
 
@@ -468,6 +479,7 @@ Sections of the unit, in order:
   2.
   3.
 Who is learning — age, CEFR level, what they study or do
+One sentence for learners saying who this unit is for:
 Why they need this, in their words
 One observable outcome of the unit, starting with a verb:
 Language focus — the exact structures or lexis, not the topic
@@ -486,9 +498,9 @@ Build the shell of a course platform. Send two files, one per message, one after
 Requirements for index.html.
 1. Four screens shown one at a time, Welcome, Registration, Module and Finish. Switch them in JavaScript by hiding and showing sections. Do not create separate pages and do not change the address.
 2. Load content.js with a plain script tag before your own script. Take every word on screen from the COURSE object. If COURSE did not load, show one clear sentence instead of an empty page.
-3. A fixed bar at the top, the course title on the left and the current section's title on the right.
-4. The Welcome screen: the course title, the unit title, one sentence saying who it is for, the unit outcome in full, the teacher's name, a Start button, and at the bottom a small discreet link saying Teacher.
-5. The Registration screen: for now only a heading, one placeholder sentence and a Continue button.
+3. A fixed bar at the top, the course title on the left and the current section's title on the right. Take the browser tab's title from settings.courseTitle as well.
+4. The Welcome screen: the course title, the unit title, the sentence from settings.audience saying who the unit is for, the unit outcome in full, the teacher's name, a Start button, and at the bottom a small discreet link saying Teacher. Write none of these sentences into index.html, they all come from COURSE.
+5. The Registration screen: for now only a heading, one placeholder sentence and a Continue button. The Teacher link leads nowhere yet at this step, so leave it in place and make it do nothing.
 6. The Module screen. Depending on the width of the screen, at the side or at the top, a list of the sections from COURSE.sections, marking the ones already visited. Next to it the chosen section: its title, its intro text, then an image and an audio player if the section has image and audio fields, then a place for the tasks holding only a comment that says TASKS GO HERE. At the bottom Back and Next buttons that move through the sections, and from the last one to the Finish screen.
 7. The mark on a visited section lives only in the page's memory. Nothing is saved, and a reload starts everything again.
 8. The Finish screen: two sentences of congratulation, a sentence saying that nothing was saved and the unit can be done again, and a Back to start button.
@@ -499,9 +511,17 @@ Requirements for content.js.
 11. The file declares one constant, COURSE, and nothing else. The shape is this.
 
 const COURSE = {
-  settings: { courseTitle, unitTitle, outcome, teacherName, primaryColour, accentColour },
+  settings: {
+    courseTitle: "",
+    unitTitle: "",
+    audience: "",      // one sentence saying who this unit is for
+    outcome: "",       // the unit outcome in full
+    teacherName: "",
+    primaryColour: "",
+    accentColour: ""
+  },
   sections: [
-    { id, title, intro, image, imageAlt, audio, tasks: [] }
+    { id: "", title: "", intro: "", image: "", imageAlt: "", audio: "", tasks: [] }
   ]
 };
 
