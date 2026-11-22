@@ -306,7 +306,7 @@ service cloud.firestore {
   <div data-l="ru">
     <div class="kind num"><i></i><b>Шаг 04</b></div>
     <h2>Сборка</h2>
-    <p class="lead">Пять запросов, по одному за раз. Первые четыре собирают механику в <code>index.html</code>, пятый наполняет <code>content.js</code>. Первая публикация делается сразу после запроса 1, дальше после каждого запроса обновляйте сайт и смотрите, что получилось. Перед каждым запросом вставляйте правила из шага 03.</p>
+    <p class="lead">Шесть запросов, по одному за раз, и на каждый запрос один файл в ответ. Запросы 1, 3, 4 и 5 наращивают механику в <code>index.html</code>, запросы 2 и 6 наполняют <code>content.js</code>. Первая публикация делается после запроса 2, когда оба файла уже есть, дальше после каждого запроса обновляйте сайт и смотрите, что получилось. Перед каждым запросом вставляйте правила из шага 03.</p>
 
     <h3>Задание на курс</h3>
     <p>Сначала заполните этот блок своими словами. Всё, что не решите здесь, ИИ решит за Вас.</p>
@@ -335,7 +335,7 @@ service cloud.firestore {
       <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
       <pre>Ты разработчик интерфейсов. Я преподаватель и код читаю плохо, поэтому всё должно работать без моих правок.
 
-Собери каркас платформы курса. Пришли два файла, по одному в двух сообщениях подряд — сначала index.html, потом content.js с примером заполнения.
+Собери каркас платформы курса. Пришли index.html.
 
 Требования к index.html.
 1. Четыре экрана, которые показываются по одному — Welcome, Registration, Module, Finish. Переключение делай в JavaScript, скрывая и показывая секции. Не создавай отдельных страниц и никогда не меняй адрес страницы. Элемент a не используй вообще, всё, на что можно нажать, делай элементом button.
@@ -350,8 +350,16 @@ service cloud.firestore {
 10. Оформление на пользовательских свойствах CSS, построенных из цветов в COURSE.settings. Много воздуха, один шрифт, никакого декора, который сам несёт смысл.
 11. Над каждым крупным блоком кода одна строка комментария простыми словами.
 
-Требования к content.js.
-12. Файл объявляет одну константу COURSE и больше ничего. Структура такая.
+Присылай файл целиком.</pre>
+    </div>
+    <p class="muted">Сохраните ответ как <code>index.html</code>. Смотреть пока не на что, без содержания страница покажет только сообщение о том, что <code>content.js</code> не найден. Содержание даёт следующий запрос.</p>
+
+    <h3>Запрос 2. Черновик содержания</h3>
+    <div class="block">
+      <div class="block-head"><b>content.js</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Теперь пришли content.js.
+
+1. Файл объявляет одну константу COURSE и больше ничего. Структура такая.
 
 const COURSE = {
   settings: {
@@ -368,21 +376,23 @@ const COURSE = {
   ]
 };
 
-13. Поля image, imageAlt и audio необязательные. Если они есть, это относительные пути вида assets/img/market.jpg и assets/audio/dialogue.mp3.
-14. Заполни его по моему заданию на курс, по одному подразделу на каждый пункт из списка подразделов, с пустым массивом tasks.
+2. Поля image, imageAlt и audio необязательные. Если они есть, это относительные пути вида assets/img/market.jpg и assets/audio/dialogue.mp3.
+3. Заполни его по моему заданию на курс, по одному подразделу на каждый пункт из списка подразделов, с пустым массивом tasks.
 
-Присылай файлы целиком.</pre>
+Присылай файл целиком.</pre>
     </div>
-    <h3>Что делать с ответом</h3>
+    <p class="muted">Этот файл временный. Он нужен, чтобы платформу было на чём проверять, а запрос 6 заменит его целиком.</p>
+
+    <h3>Что делать с двумя файлами</h3>
     <ol class="steps">
-      <li>Если модель предлагает скачать файл, скачайте его и переименуйте в <code>index.html</code>. Убедитесь, что имя оканчивается именно на <code>.html</code> и второго расширения за ним нет. Если модель дала только блок кода, нажмите копирование, вставьте код в простой текстовый редактор и сохраните под тем же именем в кодировке UTF-8.</li>
-      <li>Так же получите второй файл и назовите его <code>content.js</code>. Оба файла лежат в одной папке, рядом друг с другом, без вложенных папок.</li>
-      <li>Откройте шаг 05 и выполните «Первый раз» до конца. Публикуйте уже сейчас, потому что дальше каждый запрос проверяется на живой странице. После публикации возвращайтесь сюда, к запросу 2.</li>
+      <li>Сохраните оба ответа в одну папку на своём компьютере, под именами <code>index.html</code> и <code>content.js</code>, рядом друг с другом, без вложенных папок. Если модель предлагает скачать файл, скачайте и переименуйте, проверив, что второго расширения за именем нет. Если модель дала только блок кода, нажмите копирование, вставьте код в простой текстовый редактор и сохраните в кодировке UTF-8.</li>
+      <li>Откройте <code>index.html</code> двойным нажатием. Должен появиться экран Welcome с названием курса. Если вместо него сообщение о ненайденном <code>content.js</code>, значит второй файл лежит не рядом или назван иначе.</li>
+      <li>Откройте шаг 05 и выполните «Первый раз» до конца. Дальше каждый запрос проверяется на живой странице. После публикации возвращайтесь сюда, к запросу 3.</li>
     </ol>
     <p class="muted">Папку <code>assets</code> пока не делайте. Она появится вместе с первым изображением или первой записью, об этом шаг 05.</p>
     <div class="note"><p>Прежде чем идти дальше, проверьте четыре вещи. На экране Welcome пять разных предложений, и результат модуля не напечатан дважды. В заголовке вкладки браузера стоит название курса, а не слово Course. Нажатие на кнопку Teacher не меняет адрес страницы. И главное: поменяйте название курса в <code>content.js</code>, обновите страницу, и если заголовок изменился, значит механика и содержание действительно разделены.</p></div>
 
-    <h3>Запрос 2. Регистрация</h3>
+    <h3>Запрос 3. Регистрация</h3>
     <div class="block">
       <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
       <pre>Добавь в index.html регистрацию участников. Всё, что уже работает, оставь как есть. content.js не трогай.
@@ -407,7 +417,7 @@ const COURSE = {
     </div>
     <p class="muted">Пока групп нет, форма честно об этом скажет. Заведите одну группу прямо в консоли, в коллекции <code>groups</code>, чтобы проверить регистрацию сейчас. Дальше группы добавляются на экране преподавателя.</p>
 
-    <h3>Запрос 3. Экран преподавателя</h3>
+    <h3>Запрос 4. Экран преподавателя</h3>
     <div class="block">
       <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
       <pre>Добавь в index.html экран преподавателя. Всё, что уже работает, оставь как есть. content.js не трогай.
@@ -428,7 +438,7 @@ const COURSE = {
     </div>
     <p class="muted">Проверьте дважды. Сначала войдите и убедитесь, что группы добавляются, а список виден. Затем нажмите Sign out, откройте ссылку в приватном окне и убедитесь, что без входа список не открывается.</p>
 
-    <h3>Запрос 4. Механика заданий</h3>
+    <h3>Запрос 5. Механика заданий</h3>
     <div class="block">
       <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
       <pre>Добавь в index.html механику трёх типов заданий. Всё, что уже работает, оставь как есть. content.js пока не трогай, я попрошу его отдельно.
@@ -447,15 +457,16 @@ const COURSE = {
 Общее для всех типов.
 Обратная связь называет ошибку, а не просто помечает её. Ничего не сохраняется, перезагрузка начинает задание заново. Если у задания нет ни одного элемента, не показывай пустую рамку, пропусти его. Если встретился неизвестный тип, напиши одну строку о том, что этот тип не поддерживается, и продолжи отрисовку остальных.
 
-В конце добавь в content.js по одному показательному заданию каждого типа, чтобы механику можно было проверить, и пришли оба файла, index.html первым.</pre>
+Присылай index.html целиком.</pre>
     </div>
+    <p class="muted">На странице после этого запроса ничего не изменится, потому что заданий в содержании пока нет. Механика заданий проверяется после запроса 6.</p>
 
-    <h3>Запрос 5. Содержание</h3>
+    <h3>Запрос 6. Содержание</h3>
     <div class="block">
       <div class="block-head"><b>content.js</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
       <pre>Наполни content.js настоящим содержанием. index.html не трогай совсем, механика уже готова.
 
-Структуру объекта COURSE и формат заданий не меняй, используй те же три типа — gap, choice и match.
+Структуру объекта COURSE и формат заданий не меняй, используй те же три типа — gap, choice и match. В модуле обязательно должен встретиться каждый из трёх типов, иначе часть механики останется непроверенной.
 
 <span class="fill">Напиши задания для моих обучающихся, описанных в задании на курс, на том языковом материале, который я там указала. В каждом подразделе от одного до трёх заданий. В заданиях gap по пять пунктов, в choice по пять, в match по шесть пар.</span>
 
@@ -474,7 +485,7 @@ const COURSE = {
   <div data-l="en">
     <div class="kind num"><i></i><b>Step 04</b></div>
     <h2>Building</h2>
-    <p class="lead">Five requests, one at a time. The first four build the mechanics in <code>index.html</code>, the fifth fills <code>content.js</code>. The first publication happens right after request 1, and from then on you reload the site and look at the result after each one. Paste the rules from step 03 before every request.</p>
+    <p class="lead">Six requests, one at a time, and one file in answer to each. Requests 1, 3, 4 and 5 build the mechanics in <code>index.html</code>, requests 2 and 6 fill <code>content.js</code>. The first publication happens after request 2, once both files exist, and from then on you reload the site and look at the result after each one. Paste the rules from step 03 before every request.</p>
 
     <h3>Course brief</h3>
     <p>Fill this in first, in your own words. Everything you do not decide here, the AI will decide for you.</p>
@@ -503,7 +514,7 @@ My name as learners will see it:</pre>
       <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Copy</button></div>
       <pre>You are a front-end developer. I am a teacher and I read code poorly, so everything must work without edits from me.
 
-Build the shell of a course platform. Send two files, one per message, one after the other, index.html first and then content.js filled in as an example.
+Build the shell of a course platform. Send index.html.
 
 Requirements for index.html.
 1. Four screens shown one at a time, Welcome, Registration, Module and Finish. Switch them in JavaScript by hiding and showing sections. Do not create separate pages and never change the page address. Never use an a element at all, and make everything clickable a button element.
@@ -518,8 +529,16 @@ Requirements for index.html.
 10. Style it with CSS custom properties built from the colours in COURSE.settings. Generous white space, one typeface, no decoration that carries meaning on its own.
 11. Above each major block of code, one line of comment in plain words.
 
-Requirements for content.js.
-12. The file declares one constant, COURSE, and nothing else. The shape is this.
+Send the file in full.</pre>
+    </div>
+    <p class="muted">Save the answer as <code>index.html</code>. There is nothing to look at yet, because with no content the page shows only the message that <code>content.js</code> was not found. The content comes from the next request.</p>
+
+    <h3>Request 2. A draft of the content</h3>
+    <div class="block">
+      <div class="block-head"><b>content.js</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>Now send content.js.
+
+1. The file declares one constant, COURSE, and nothing else. The shape is this.
 
 const COURSE = {
   settings: {
@@ -536,21 +555,23 @@ const COURSE = {
   ]
 };
 
-13. The image, imageAlt and audio fields are optional. When present they are relative paths of the form assets/img/market.jpg and assets/audio/dialogue.mp3.
-14. Fill it in from my course brief, one section per entry in my list of sections, with an empty tasks array.
+2. The image, imageAlt and audio fields are optional. When present they are relative paths of the form assets/img/market.jpg and assets/audio/dialogue.mp3.
+3. Fill it in from my course brief, one section per entry in my list of sections, with an empty tasks array.
 
-Send both files in full.</pre>
+Send the file in full.</pre>
     </div>
-    <h3>What to do with the answer</h3>
+    <p class="muted">This file is temporary. It exists so that there is something to check the platform against, and request 6 replaces it in full.</p>
+
+    <h3>What to do with the two files</h3>
     <ol class="steps">
-      <li>If the model offers the file for download, download it and rename it <code>index.html</code>. Make sure the name ends in <code>.html</code> and that no second extension follows it. If the model gave only a code block, copy it, paste it into a plain-text editor and save it under the same name in UTF-8.</li>
-      <li>Get the second file the same way and name it <code>content.js</code>. Both files sit in one folder, next to each other, with no folders inside.</li>
-      <li>Open step 05 and work through "The first time" to the end. Publish now, because from here on every request is checked on the live page. Once it is published, come back here, to request 2.</li>
+      <li>Save both answers into one folder on your computer, as <code>index.html</code> and <code>content.js</code>, next to each other, with no folders inside. If the model offers a file for download, download it and rename it, checking that no second extension follows the name. If the model gave only a code block, copy it, paste it into a plain-text editor and save it in UTF-8.</li>
+      <li>Open <code>index.html</code> with a double click. The Welcome screen should appear, with the course title on it. If you get the message about content.js instead, the second file is not next to it or is named differently.</li>
+      <li>Open step 05 and work through "The first time" to the end. From here on every request is checked on the live page. Once it is published, come back here, to request 3.</li>
     </ol>
     <p class="muted">Leave the <code>assets</code> folder alone for now. It appears together with the first image or the first recording, which step 05 covers.</p>
     <div class="note"><p>Before going on, check four things. The Welcome screen shows five different sentences, and the unit outcome is not printed twice. The browser tab's title is the course title rather than the word Course. Clicking the Teacher button does not change the page address. And above all, change the course title in <code>content.js</code>, reload the page, and if the heading changed, the mechanics and the content really are apart.</p></div>
 
-    <h3>Request 2. Registration</h3>
+    <h3>Request 3. Registration</h3>
     <div class="block">
       <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Copy</button></div>
       <pre>Add participant registration to index.html. Keep everything that already works. Leave content.js alone.
@@ -575,7 +596,7 @@ Send index.html in full.</pre>
     </div>
     <p class="muted">While there are no groups the form says so. Create one group in the console, in the <code>groups</code> collection, so that you can test registration now. After this, groups are added on the teacher screen.</p>
 
-    <h3>Request 3. The teacher screen</h3>
+    <h3>Request 4. The teacher screen</h3>
     <div class="block">
       <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Copy</button></div>
       <pre>Add a teacher screen to index.html. Keep everything that already works. Leave content.js alone.
@@ -596,7 +617,7 @@ Send index.html in full.</pre>
     </div>
     <p class="muted">Check it twice. First sign in and make sure groups can be added and the list appears. Then click Sign out, open the link in a private window and make sure the list cannot be reached without signing in.</p>
 
-    <h3>Request 4. The task mechanics</h3>
+    <h3>Request 5. The task mechanics</h3>
     <div class="block">
       <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Copy</button></div>
       <pre>Add the mechanics of three task types to index.html. Keep everything that already works. Leave content.js for now, I will ask for it separately.
@@ -615,15 +636,16 @@ An item has left and right. Two columns of buttons. A tap on the left selects an
 Common to all three.
 Feedback names the error rather than merely marking it. Nothing is saved, and a reload starts the task again. If a task has no items, skip it rather than drawing an empty frame. If an unknown type appears, write one line saying that type is not supported and carry on drawing the rest.
 
-At the end, add one example task of each type to content.js so that the mechanics can be tested, and send both files, index.html first.</pre>
+Send index.html in full.</pre>
     </div>
+    <p class="muted">Nothing on the page changes after this request, because the content holds no tasks yet. The task mechanics are checked after request 6.</p>
 
-    <h3>Request 5. The content</h3>
+    <h3>Request 6. The content</h3>
     <div class="block">
       <div class="block-head"><b>content.js</b><button class="btn btn-sm copy" type="button">Copy</button></div>
       <pre>Fill content.js with the real content. Do not touch index.html at all, the mechanics are finished.
 
-Keep the shape of the COURSE object and the task format exactly as they are, and use the same three types, gap, choice and match.
+Keep the shape of the COURSE object and the task format exactly as they are, and use the same three types, gap, choice and match. Each of the three types must appear somewhere in the unit, otherwise part of the mechanics stays untested.
 
 <span class="fill">Write the tasks for my learners, described in my course brief, on the language focus I named there. One to three tasks in each section. Five items in each gap task, five in each choice task, six pairs in each match task.</span>
 
