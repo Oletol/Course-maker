@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Своя платформа курса — Cherdak</title>
+<meta name="description" content="Как собрать сайт курса с регистрацией участников и интерактивными заданиями при помощи ИИ. Учебный проект канала «Чердак», t.me/engattic.">
+<meta name="theme-color" content="#14284A">
+<meta property="og:title" content="Своя платформа курса — Cherdak">
+<meta property="og:description" content="Как собрать сайт курса с регистрацией участников и интерактивными заданиями при помощи ИИ. Проект канала «Чердак», t.me/engattic.">
+<meta property="og:image" content="assets/img/logo.svg">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/logo.svg">
+<link rel="preload" href="assets/fonts/onest/onest-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<script>
+  try{
+    var t=localStorage.getItem('cherdak-platform-theme');
+    if(t){document.documentElement.dataset.theme=t;}
+    var l=localStorage.getItem('cherdak-platform-lang');
+    if(l){document.documentElement.dataset.lang=l;document.documentElement.lang=l;}
+  }catch(e){}
+</script>
+</head>
+<body>
+<a class="skip" href="#view"><span data-l="ru">К содержанию</span><span data-l="en">Skip to content</span></a>
+
+<header class="topbar">
+  <a class="brand" href="#view"><img src="assets/img/logo.svg" alt=""><span>Cherdak</span></a>
+  <nav class="nav" aria-label="Разделы">
+    <a href="#need"><span data-l="ru">Что нужно</span><span data-l="en">What you need</span></a>
+    <a href="#db"><span data-l="ru">База данных</span><span data-l="en">Database</span></a>
+    <a href="#rules"><span data-l="ru">Правила для ИИ</span><span data-l="en">Rules for the AI</span></a>
+    <a href="#build"><span data-l="ru">Сборка</span><span data-l="en">Building</span></a>
+    <a href="#publish"><span data-l="ru">Публикация</span><span data-l="en">Publishing</span></a>
+    <a href="#fix"><span data-l="ru">Если не работает</span><span data-l="en">If it breaks</span></a>
+    <a href="#check"><span data-l="ru">Проверка</span><span data-l="en">Final check</span></a>
+  </nav>
+  <div class="tools">
+    <button class="icon-btn" id="theme" type="button" aria-label="Сменить тему">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+    <div class="lang" role="group" aria-label="Язык">
+      <button type="button" data-set="ru" aria-pressed="true">RU</button>
+      <button type="button" data-set="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <p class="eyebrow" data-l="ru">Руководство</p>
+  <p class="eyebrow" data-l="en">Guide</p>
+  <h1 data-l="ru">Своя платформа курса</h1>
+  <h1 data-l="en">Your own course platform</h1>
+  <p data-l="ru">Как собрать сайт курса с регистрацией участников и интерактивными заданиями при помощи ИИ. Нужны только браузер, аккаунт GitHub и база данных Firebase.</p>
+  <p data-l="en">How to build a course website with participant registration and interactive tasks using AI. All you need is a browser, a GitHub account and a Firebase database.</p>
+</div>
+
+<main id="view" class="sheet" tabindex="-1">
+
+<section id="need">
+  <div data-l="ru">
+    <div class="kind num"><i></i><b>Шаг 01</b></div>
+    <h2>Что нужно</h2>
+    <p class="lead">Весь сайт — это один файл <code>index.html</code>. Его пишет ИИ по Вашему заданию, а Вы его только публикуете. Ничего устанавливать не нужно.</p>
+    <div class="cards">
+      <div class="c"><h4>Аккаунт GitHub</h4><p>Здесь будет жить сайт. Регистрация на github.com, адрес почты нужно подтвердить.</p></div>
+      <div class="c"><h4>Доступ к ИИ</h4><p>Любая модель, которая умеет писать код. Откройте одну новую пустую переписку и работайте в ней до конца.</p></div>
+      <div class="c"><h4>База данных Firebase</h4><p>Сюда придут записи о регистрации участников. Настройка — шаг 02.</p></div>
+    </div>
+    <div class="note"><p>Одна переписка — одна платформа. Если начать новую, ИИ потеряет и правила, и текущий файл, и начнёт собирать всё заново. Перед каждым следующим шагом сохраняйте последнюю рабочую версию файла отдельно, чтобы неудачный ответ стоил одной вставки, а не всей работы.</p></div>
+  </div>
+  <div data-l="en">
+    <div class="kind num"><i></i><b>Step 01</b></div>
+    <h2>What you need</h2>
+    <p class="lead">The whole website is a single <code>index.html</code> file. The AI writes it from your brief and you simply publish it. Nothing has to be installed.</p>
+    <div class="cards">
+      <div class="c"><h4>A GitHub account</h4><p>This is where the site will live. Sign up at github.com and confirm your e-mail address.</p></div>
+      <div class="c"><h4>Access to an AI</h4><p>Any model that writes code. Open one new empty conversation and stay in it to the end.</p></div>
+      <div class="c"><h4>A Firebase database</h4><p>This is where registration records arrive. Setting it up is step 02.</p></div>
+    </div>
+    <div class="note"><p>One conversation per platform. Starting a new one loses both the rules and the current file, and the AI begins again from nothing. Before each new step, save the last working version of the file somewhere separate, so a bad answer costs you one paste rather than the whole build.</p></div>
+  </div>
+</section>
+
+<section id="db">
+  <div data-l="ru">
+    <div class="kind num"><i></i><b>Шаг 02</b></div>
+    <h2>База данных</h2>
+    <p class="lead">Делается один раз, до сборки. На выходе нужен файл <code>my-config.txt</code> с настройками подключения.</p>
+    <ol class="steps">
+      <li>Откройте console.firebase.google.com и войдите в аккаунт Google.</li>
+      <li>Нажмите «Создать проект». Имя задайте латиницей, например <code>my-course</code>. Аналитику подключать не нужно.</li>
+      <li>В левом меню откройте Build, затем Firestore Database, и нажмите «Создать базу данных». Режим выберите производственный (production). Регион возьмите ближайший — сменить его потом нельзя.</li>
+      <li>Перейдите на вкладку Rules, удалите всё, что там есть, вставьте текст ниже и нажмите Publish.</li>
+    </ol>
+    <div class="block">
+      <div class="block-head"><b>Правила доступа</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /participants/{docId} {
+      allow create: if request.resource.data.keys().hasOnly(['displayName', 'groupCode', 'platformId', 'createdAt'])
+        &amp;&amp; request.resource.data.displayName is string
+        &amp;&amp; request.resource.data.displayName.size() &gt;= 2
+        &amp;&amp; request.resource.data.displayName.size() &lt;= 40
+        &amp;&amp; request.resource.data.groupCode == <span class="fill">'WS-2026'</span>;
+      allow read, update, delete: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}</pre>
+    </div>
+    <p>Код группы <code>WS-2026</code> замените на свой. Тот же код понадобится при сборке — без него запись в базу не пройдёт.</p>
+    <ol class="steps" start="5">
+      <li>Нажмите шестерёнку рядом с названием проекта и выберите Project settings. Внизу, в разделе Your apps, нажмите значок с угловыми скобками. Имя приложения любое, Firebase Hosting подключать не нужно, затем нажмите Register app.</li>
+      <li>На экране появится блок <code>firebaseConfig</code>. Скопируйте его целиком в текстовый файл и сохраните под именем <code>my-config.txt</code>.</li>
+      <li>Записи участников смотрите там же — Firestore Database, вкладка Data, коллекция <code>participants</code>.</li>
+    </ol>
+    <div class="note"><p>Значение <code>apiKey</code> в этом блоке — не пароль, а идентификатор проекта, поэтому он спокойно лежит в открытом коде сайта. Доступ к данным определяют правила. По правилам выше в коллекцию можно только добавить запись; прочитать, изменить или удалить данные из браузера нельзя. Видите их только Вы, в консоли.</p></div>
+  </div>
+  <div data-l="en">
+    <div class="kind num"><i></i><b>Step 02</b></div>
+    <h2>The database</h2>
+    <p class="lead">Done once, before building. What you need at the end is a <code>my-config.txt</code> file holding the connection settings.</p>
+    <ol class="steps">
+      <li>Open console.firebase.google.com and sign in with a Google account.</li>
+      <li>Click Create a project. Give it a plain name such as <code>my-course</code>. Analytics is not needed.</li>
+      <li>In the left menu open Build, then Firestore Database, and click Create database. Choose production mode. Pick the region closest to you — it cannot be changed later.</li>
+      <li>Open the Rules tab, delete everything in it, paste the text below and click Publish.</li>
+    </ol>
+    <div class="block">
+      <div class="block-head"><b>Security rules</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /participants/{docId} {
+      allow create: if request.resource.data.keys().hasOnly(['displayName', 'groupCode', 'platformId', 'createdAt'])
+        &amp;&amp; request.resource.data.displayName is string
+        &amp;&amp; request.resource.data.displayName.size() &gt;= 2
+        &amp;&amp; request.resource.data.displayName.size() &lt;= 40
+        &amp;&amp; request.resource.data.groupCode == <span class="fill">'WS-2026'</span>;
+      allow read, update, delete: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}</pre>
+    </div>
+    <p>Replace the group code <code>WS-2026</code> with your own. You will need the same code when building, because without it nothing can be written to the database.</p>
+    <ol class="steps" start="5">
+      <li>Click the gear icon next to the project name and choose Project settings. At the bottom, under Your apps, click the angle brackets icon. Any app name will do, Firebase Hosting is not needed, then click Register app.</li>
+      <li>A <code>firebaseConfig</code> block appears on screen. Copy the whole of it into a text file and save it as <code>my-config.txt</code>.</li>
+      <li>Registration records are in the same console — Firestore Database, the Data tab, the <code>participants</code> collection.</li>
+    </ol>
+    <div class="note"><p>The <code>apiKey</code> value in that block is not a password but a project identifier, which is why it can sit openly in the site's code. Access is decided by the rules. Under the rules above a record can only be added to the collection; nothing can be read, changed or deleted from a browser. You are the only one who sees the records, in the console.</p></div>
+  </div>
+</section>
+
+<section id="rules">
+  <div data-l="ru">
+    <div class="kind num"><i></i><b>Шаг 03</b></div>
+    <h2>Правила для ИИ</h2>
+    <p class="lead">Этот блок вставляется в начало каждого запроса, без изменений. Он удерживает результат в одном файле, который работает на телефоне и который можно править, не читая код.</p>
+    <div class="block">
+      <div class="block-head"><b>Правила</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>ПРАВИЛА. Соблюдай их во всех ответах в этой переписке.
+
+1. Присылай один готовый HTML-файл. Стили внутри элемента style, скрипт внутри элемента script, в том же файле. Никогда не присылай больше одного файла.
+2. Только чистые HTML, CSS и JavaScript. Без React, Vue, jQuery, npm, сборки и любых фреймворков.
+3. Сначала телефон. Страница должна работать на телефоне в вертикальном положении, без горизонтальной прокрутки.
+4. Язык интерфейса — английский.
+5. Никогда не используй символы стрелок в интерфейсе. Пиши словами — Next, Back, Continue, Check.
+6. Основной текст не меньше 16 пикселей. Контраст текста к фону не ниже 4,5 к 1.
+7. Всеми элементами можно пользоваться с клавиатуры, клавишами Tab и Enter.
+8. Никогда не обозначай верный и неверный ответ только цветом. Всегда дублируй словами.
+9. Без картинок из интернета. Если нужно изображение, рисуй его в SVG или средствами CSS.
+10. Все мои настройки и всё содержание держи в именованных объектах в самом начале скрипта, чтобы я мог их править, не читая остальной код.
+11. При любой правке присылай файл целиком, с первой строки до последней. Никогда не присылай фрагмент, заплатку или указание вставить что-то самостоятельно.
+12. В ответе только блок кода. Без пояснений до и после него.</pre>
+    </div>
+  </div>
+  <div data-l="en">
+    <div class="kind num"><i></i><b>Step 03</b></div>
+    <h2>Rules for the AI</h2>
+    <p class="lead">This block goes at the start of every request, unchanged. It keeps the result in one file that works on a phone and that you can edit without reading the code.</p>
+    <div class="block">
+      <div class="block-head"><b>Rules</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>RULES. Apply all of these to every answer in this conversation.
+
+1. Return one complete HTML file. The CSS inside a style element and the JavaScript inside a script element, in that same file. Never give me more than one file.
+2. Plain HTML, CSS and JavaScript only. No React, Vue, jQuery, npm, build step or frameworks of any kind.
+3. Mobile first. It must work on a phone held upright, with no horizontal scrolling.
+4. The interface language is English.
+5. Never use arrow characters in the interface. Use words such as Next, Back, Continue, Check.
+6. Body text at least 16 pixels. Text contrast at least 4.5 to 1 against its background.
+7. Every control must be usable with the keyboard alone, with Tab and Enter.
+8. Never mark an answer right or wrong by colour alone. Always say it in words as well.
+9. No images from the internet. If a picture is needed, draw it in SVG or with CSS.
+10. Keep all of my settings and all content in named objects at the very start of the script, so that I can edit them without reading the rest of the code.
+11. Whenever you change anything, return the whole file again, from the first line to the last. Never send a fragment, a patch, or an instruction to insert something myself.
+12. Answer with the code block only. No explanation before or after it.</pre>
+    </div>
+  </div>
+</section>
+
+<section id="build">
+  <div data-l="ru">
+    <div class="kind num"><i></i><b>Шаг 04</b></div>
+    <h2>Сборка</h2>
+    <p class="lead">Пять запросов, по одному за раз. После каждого открывайте результат и публикуйте его, и только потом переходите к следующему. Перед каждым запросом вставляйте правила из шага 03.</p>
+
+    <h3>Задание на курс</h3>
+    <p>Сначала заполните этот блок своими словами. Всё, что не решите здесь, ИИ решит за Вас.</p>
+    <div class="block">
+      <div class="block-head"><b>Задание</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>МОЁ ЗАДАНИЕ НА КУРС
+
+Название курса:
+Название модуля:
+Кто учится — возраст, уровень по CEFR, чем занимаются
+Зачем им это нужно, их словами
+Один наблюдаемый результат модуля, начиная с глагола:
+Три задания модуля, по порядку:
+  1.
+  2.
+  3.
+Языковой материал — какие именно структуры или лексика, а не тема
+Тон интерфейса — строгий, дружелюбный или свободный
+Два цвета:
+Моё имя, как его увидят обучающиеся:</pre>
+    </div>
+
+    <h3>Каркас</h3>
+    <div class="block">
+      <div class="block-head"><b>Запрос 1</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Ты разработчик интерфейсов. Я преподаватель и код читаю плохо, поэтому всё должно работать без моих правок.
+
+Собери каркас платформы курса. Заданий пока не нужно.
+
+Требования.
+1. Один HTML-файл с четырьмя экранами, которые показываются по одному — Welcome, Registration, Unit, Finish. Переключение экранов делай в JavaScript, скрывая и показывая секции. Не создавай отдельных страниц и не меняй адрес.
+2. В самом начале скрипта объект SETTINGS с полями courseTitle, unitTitle, outcome, teacherName, primaryColour, accentColour. Весь остальной код берёт значения из него. Заполни его по моему заданию на курс.
+3. Закреплённая полоса сверху на каждом экране — название курса слева, отметка шага справа, вида Step 1 of 4. Отметка обновляется при смене экрана.
+4. Экран Welcome — название курса, одно предложение о том, для кого модуль, результат модуля целиком и кнопка Start.
+5. Экран Registration — пока только заголовок, одно предложение-заглушка и кнопка Continue. Форму добавим позже.
+6. Экран Unit — название модуля и пустой элемент с id tasks, внутри только комментарий TASKS GO HERE.
+7. Экран Finish — два предложения с поздравлением, отдельное предложение о том, что ничего не сохранено и модуль можно пройти снова, и кнопка Back to start.
+8. Оформление на пользовательских свойствах CSS, построенных из двух цветов в SETTINGS. Много воздуха, один шрифт, никакого декора, который сам несёт смысл.
+9. Над каждым крупным блоком кода одна строка комментария простыми словами, что этот блок делает.
+
+Присылай файл целиком.</pre>
+    </div>
+    <p class="muted">Прежде чем публиковать, найдите в ответе три вещи — объект <code>SETTINGS</code>, надпись на кнопке Start и комментарий TASKS GO HERE. Поменяйте в SETTINGS название курса и убедитесь, что заголовок изменился.</p>
+
+    <h3>Регистрация</h3>
+    <div class="block">
+      <div class="block-head"><b>Запрос 2</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Добавь в этот файл регистрацию участников. Всё, что уже работает, оставь как есть.
+
+Используй Firebase Firestore, подключённый с CDN Google в варианте compat, чтобы всё работало в одном HTML-файле без установки. Вот мои настройки, вставь их ровно так, как написано, ничего внутри не меняя.
+
+<span class="fill">ВСТАВЬТЕ СЮДА СОДЕРЖИМОЕ ФАЙЛА my-config.txt</span>
+
+Требования.
+1. Вместо заглушки на экране Registration сделай форму из двух полей. Display name — обязательное, от 2 до 40 знаков. Group code — обязательное, должно совпасть со значением константы GROUP_CODE, которую объяви в начале скрипта, я её заполню.
+2. Под полями одно предложение простыми словами о том, что именно отправляется и кто это увидит, и флажок согласия, без которого продолжить нельзя. Подпись флажка должна быть понятна сама по себе.
+3. Проверяй поля в JavaScript до отправки. Ошибку показывай словами рядом с тем полем, к которому она относится. Не опирайся на цвет и не используй всплывающие окна.
+4. При отправке записывай ровно один документ в коллекцию participants с полями displayName, groupCode, platformId и createdAt. Константу platformId объяви в начале скрипта. Для createdAt возьми серверную отметку времени Firestore.
+5. Платформа никогда ничего не читает, не перечисляет, не изменяет и не удаляет в этой коллекции. Запись — единственная операция во всём коде.
+6. Пока идёт отправка, кнопка заблокирована и подписана Sending. При успехе переходи на экран Unit. При ошибке покажи одно предложение о том, что регистрацию записать не удалось, дай кнопку Try again и всё равно пропусти дальше, на экран Unit, потому что сбой базы не должен останавливать занятие.
+7. Каждый вызов, который обращается к сети или к хранилищу браузера, оберни в try и catch, чтобы сбой в одном месте не ломал остальное.
+8. Не храни в браузере ничего об обучающемся дольше текущего посещения.
+
+Присылай файл целиком.</pre>
+    </div>
+    <p class="muted">Зарегистрируйтесь один раз и найдите свою запись в консоли Firebase. Потом попробуйте имя из одной буквы и неверный код группы — оба раза должен быть отказ словами, рядом с полем.</p>
+
+    <h3>Задания</h3>
+    <div class="block">
+      <div class="block-head"><b>Запрос 3. Заполнение пропусков</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Добавь в файл первое задание. Всё, что уже работает, оставь как есть.
+
+Тип задания — заполнение пропуска, по одному предложению за раз, с ответом сразу.
+
+1. Вместо комментария TASKS GO HERE поставь задание.
+2. В начале скрипта объяви массив TASK_1. У каждого элемента поля sentence, где пропуск обозначен тремя подчёркиваниями, answer, accept — массив других написаний и форм, которые тоже считаются верными, и hint, который указывает на правило, но не выдаёт слово.
+3. Показывай по одному предложению, с полем ввода на месте пропуска, кнопкой Check и кнопкой Hint. Над заданием простая строка вида Item 2 of 5.
+4. По кнопке Check сравнивай введённое с answer и accept, убрав пробелы по краям и не различая регистр. Если верно — одно короткое предложение и кнопка Next. Если неверно — оставь введённое, покажи подсказку и дай вторую попытку. После второй попытки покажи ответ и одно предложение о том, в чём была ошибка.
+5. Обратная связь называет ошибку, а не просто помечает её. Не Incorrect, а, например, That form is the past simple and this sentence needs the present perfect.
+6. Ничего не сохраняется. После перезагрузки страницы задание начинается заново.
+
+<span class="fill">Заполни TASK_1 пятью пунктами для моих обучающихся из задания на курс, на том языковом материале, который я там указал.</span>
+
+Присылай файл целиком.</pre>
+    </div>
+    <div class="block">
+      <div class="block-head"><b>Запрос 4. Выбор одного варианта</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Добавь в файл второе задание, под первым. Всё, что уже работает, оставь как есть.
+
+Тип задания — выбор одного варианта из четырёх, верный ровно один.
+
+1. В начале скрипта объяви массив TASK_2. У каждого элемента поля question, options из четырёх строк, correctIndex и why — массив из четырёх коротких строк, по одной на вариант, о том, почему этот вариант верен или какую ошибку он отражает.
+2. Варианты показывай крупными подписями с переключателями внутри, доступными с клавиатуры. Кнопка Check под ними.
+3. После Check заблокируй варианты, обозначь выбранный и верный словами и цветом, покажи строку why для выбранного варианта, затем кнопку Next.
+4. Держи верный вариант примерно той же длины, что остальные, и меняй его позицию от пункта к пункту.
+
+<span class="fill">Напиши пять пунктов для моих обучающихся. Каждый неверный вариант — ошибка, которую они действительно делают, и строка why называет эту ошибку. Не пиши вариантов, которые никто не выберет.</span>
+
+Присылай файл целиком.</pre>
+    </div>
+    <div class="block">
+      <div class="block-head"><b>Запрос 5. Сопоставление</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Добавь в файл третье задание, под вторым. Всё, что уже работает, оставь как есть.
+
+Тип задания — сопоставление пар нажатием, без перетаскивания, чтобы работало на телефоне и с клавиатуры.
+
+1. В начале скрипта объяви массив TASK_3, у каждого элемента поля left и right.
+2. Показывай два столбца кнопок. Нажатие слева выбирает и явно обозначает выбор словами и оформлением. Нажатие справа — попытка составить пару.
+3. Верная пара закрепляется, гаснет и больше не нажимается. Неверная пара сбрасывает выбор и даёт одну короткую строку о том, что эти два не сочетаются. Держи счёт вида 3 of 6 pairs found.
+4. Правый столбец перемешивай при каждой загрузке страницы, в коде, а не в данных.
+5. Когда собраны все пары, одно предложение и кнопка Finish, ведущая на экран Finish.
+
+<span class="fill">Напиши шесть пар для моих обучающихся, на языковом материале из задания на курс.</span>
+
+Присылай файл целиком.</pre>
+    </div>
+  </div>
+  <div data-l="en">
+    <div class="kind num"><i></i><b>Step 04</b></div>
+    <h2>Building</h2>
+    <p class="lead">Five requests, one at a time. After each one, open the result and publish it before moving on. Paste the rules from step 03 before every request.</p>
+
+    <h3>Course brief</h3>
+    <p>Fill this in first, in your own words. Everything you do not decide here, the AI will decide for you.</p>
+    <div class="block">
+      <div class="block-head"><b>Brief</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>MY COURSE BRIEF
+
+Course title:
+Unit title:
+Who is learning — age, CEFR level, what they study or do
+Why they need this, in their words
+One observable outcome of the unit, starting with a verb:
+Three tasks in the unit, in order:
+  1.
+  2.
+  3.
+Language focus — the exact structures or lexis, not the topic
+Interface tone — formal, friendly or relaxed
+Two colours:
+My name as learners will see it:</pre>
+    </div>
+
+    <h3>The shell</h3>
+    <div class="block">
+      <div class="block-head"><b>Request 1</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>You are a front-end developer. I am a teacher and I read code poorly, so everything must work without edits from me.
+
+Build the shell of a course platform. No tasks yet.
+
+Requirements.
+1. One HTML file with four screens shown one at a time — Welcome, Registration, Unit, Finish. Switch screens in JavaScript by hiding and showing sections. Do not create separate pages and do not change the address.
+2. At the very start of the script, an object SETTINGS with the fields courseTitle, unitTitle, outcome, teacherName, primaryColour, accentColour. All the rest of the code takes its values from it. Fill it in from my course brief.
+3. A fixed bar at the top of every screen — the course title on the left, a step marker on the right, of the form Step 1 of 4. The marker updates when the screen changes.
+4. Welcome screen — the course title, one sentence saying who the unit is for, the unit outcome in full, and a Start button.
+5. Registration screen — for now only a heading, one placeholder sentence and a Continue button. The form comes later.
+6. Unit screen — the unit title and an empty element with the id tasks, containing only a comment that says TASKS GO HERE.
+7. Finish screen — two sentences of congratulation, a separate sentence saying that nothing was saved and the unit can be done again, and a Back to start button.
+8. Style it with CSS custom properties built from the two colours in SETTINGS. Generous white space, one typeface, no decoration that carries meaning on its own.
+9. Above each major block of code, one line of comment in plain words saying what that block does.
+
+Return the full file.</pre>
+    </div>
+    <p class="muted">Before publishing, find three things in the answer — the <code>SETTINGS</code> object, the label on the Start button, and the TASKS GO HERE comment. Change the course title in SETTINGS and check that the heading changes.</p>
+
+    <h3>Registration</h3>
+    <div class="block">
+      <div class="block-head"><b>Request 2</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>Add participant registration to this file. Keep everything that already works exactly as it is.
+
+Use Firebase Firestore loaded from the Google CDN in the compat build, so that everything works in a single HTML file with no installation. Here are my settings. Insert them exactly as written and change nothing inside them.
+
+<span class="fill">PASTE THE CONTENTS OF my-config.txt HERE</span>
+
+Requirements.
+1. Replace the placeholder on the Registration screen with a form of two fields. Display name, required, between 2 and 40 characters. Group code, required, which must match the value of a constant GROUP_CODE that you declare at the start of the script and I will fill in.
+2. Below the fields, one sentence in plain words about what exactly is sent and who will see it, and a consent checkbox without which the learner cannot continue. The checkbox label must make sense on its own.
+3. Validate the fields in JavaScript before anything is sent. Show each error in words next to the field it belongs to. Do not rely on colour and do not use pop-up dialogs.
+4. On submit, write exactly one document to the collection participants, with the fields displayName, groupCode, platformId and createdAt. Declare platformId as a constant at the start of the script. For createdAt use the Firestore server timestamp.
+5. The platform never reads, lists, changes or deletes anything in that collection. Writing is the only operation anywhere in the code.
+6. While the write is in progress, the button is disabled and labelled Sending. On success, go to the Unit screen. On failure, show one sentence saying the registration could not be recorded, offer a Try again button, and still let the learner through to the Unit screen, because a database failure must not stop the lesson.
+7. Wrap every call that touches the network or browser storage in try and catch, so that a failure in one place does not break the rest.
+8. Do not keep anything about the learner in the browser beyond the current visit.
+
+Return the full file.</pre>
+    </div>
+    <p class="muted">Register once and find your own record in the Firebase console. Then try a one-letter name and a wrong group code — both should be refused in words, next to the field.</p>
+
+    <h3>Tasks</h3>
+    <div class="block">
+      <div class="block-head"><b>Request 3. Gap fill</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>Add the first task to the file. Keep everything that already works.
+
+Task type — gap fill, one sentence at a time, with feedback straight away.
+
+1. Put the task where the TASKS GO HERE comment is.
+2. At the start of the script declare an array TASK_1. Each item has sentence, with the gap marked by three underscores, answer, accept as an array of other spellings and forms that also count as correct, and hint, which points at the rule without giving the word away.
+3. Show one sentence at a time, with a text input where the gap is, a Check button and a Hint button. Above the task a plain line of the form Item 2 of 5.
+4. On Check, compare the input with answer and accept, trimming spaces and ignoring capitals. If correct, one short sentence and a Next button. If wrong, keep what was typed, show the hint and allow a second attempt. After the second attempt show the answer and one sentence about what the error was.
+5. Feedback names the error rather than merely marking it. Not Incorrect, but for example That form is the past simple and this sentence needs the present perfect.
+6. Nothing is saved. Reloading the page starts the task again.
+
+<span class="fill">Fill TASK_1 with five items for my learners from the course brief, on the language focus I named there.</span>
+
+Return the full file.</pre>
+    </div>
+    <div class="block">
+      <div class="block-head"><b>Request 4. Multiple choice</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>Add the second task below the first. Keep everything that already works.
+
+Task type — multiple choice, four options, exactly one correct.
+
+1. At the start of the script declare an array TASK_2. Each item has question, options as four strings, correctIndex, and why — an array of four short lines, one per option, about why that option is correct or what mistake it represents.
+2. Show the options as large labels with radio controls inside them, reachable from the keyboard. A Check button below.
+3. After Check, lock the options, mark the chosen one and the correct one in words as well as colour, show the why line for the chosen option, then a Next button.
+4. Keep the correct option roughly the same length as the others, and vary its position from item to item.
+
+<span class="fill">Write five items for my learners. Every wrong option must be a mistake they actually make, and its why line names that mistake. Do not write options nobody would choose.</span>
+
+Return the full file.</pre>
+    </div>
+    <div class="block">
+      <div class="block-head"><b>Request 5. Matching</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>Add the third task below the second. Keep everything that already works.
+
+Task type — matching pairs by tapping, without dragging, so that it works on a phone and with a keyboard.
+
+1. At the start of the script declare an array TASK_3, each item with the fields left and right.
+2. Show two columns of buttons. A tap on the left selects and marks the selection clearly, in words as well as in style. A tap on the right is an attempt to form a pair.
+3. A correct pair locks, dims and cannot be tapped again. A wrong pair clears the selection and gives one short line saying those two do not go together. Keep a count of the form 3 of 6 pairs found.
+4. Shuffle the right column on every page load, in the code rather than in the data.
+5. When all pairs are found, one sentence and a Finish button leading to the Finish screen.
+
+<span class="fill">Write six pairs for my learners, on the language focus from the course brief.</span>
+
+Return the full file.</pre>
+    </div>
+  </div>
+</section>
+
+<section id="publish">
+  <div data-l="ru">
+    <div class="kind num"><i></i><b>Шаг 05</b></div>
+    <h2>Публикация</h2>
+    <p class="lead">Всё делается в браузере на github.com. Ничего устанавливать не нужно.</p>
+    <h3>Первый раз</h3>
+    <ol class="steps">
+      <li>На github.com нажмите плюс справа сверху и выберите New repository.</li>
+      <li>Имя задайте строчными латинскими буквами и дефисами, например <code>my-english-course</code>. Отметьте Public и нажмите Create repository.</li>
+      <li>На пустой странице нажмите ссылку creating a new file.</li>
+      <li>Назовите файл ровно <code>index.html</code>. Вставьте в большое поле весь файл от ИИ. Нажмите Commit changes и подтвердите.</li>
+      <li>Откройте вкладку Settings, затем Pages в левом меню. В разделе Source выберите Deploy from a branch, ветку main, папку root, и нажмите Save.</li>
+      <li>Подождите пару минут и обновите страницу Pages. Сверху появится ссылка вида <code>https://ИМЯ.github.io/my-english-course/</code>. Откройте её на телефоне.</li>
+    </ol>
+    <h3>Каждое обновление</h3>
+    <ol class="steps">
+      <li>Откройте репозиторий, нажмите на <code>index.html</code>, затем на значок карандаша.</li>
+      <li>Выделите всё в поле и удалите. Вставьте новый файл целиком.</li>
+      <li>Нажмите Commit changes и подождите минуту.</li>
+      <li>Обновите живую страницу с зажатой клавишей Shift, чтобы браузер взял новую версию, а не ту, которую запомнил.</li>
+    </ol>
+    <div class="note warn"><p>Пустая страница почти всегда означает, что файл назван не <code>index.html</code> или не задан источник в разделе Pages. Страница, которая не меняется, — это память браузера, и лечится обновлением с зажатым Shift.</p></div>
+  </div>
+  <div data-l="en">
+    <div class="kind num"><i></i><b>Step 05</b></div>
+    <h2>Publishing</h2>
+    <p class="lead">Everything happens in the browser on github.com. Nothing has to be installed.</p>
+    <h3>The first time</h3>
+    <ol class="steps">
+      <li>On github.com click the plus sign at the top right and choose New repository.</li>
+      <li>Name it in lower-case letters and hyphens, for example <code>my-english-course</code>. Tick Public and click Create repository.</li>
+      <li>On the empty page, click the link called creating a new file.</li>
+      <li>Name the file exactly <code>index.html</code>. Paste the whole file from the AI into the large box. Click Commit changes and confirm.</li>
+      <li>Open the Settings tab, then Pages in the left menu. Under Source choose Deploy from a branch, the main branch and the root folder, then click Save.</li>
+      <li>Wait a couple of minutes and reload the Pages screen. A link appears at the top, of the form <code>https://NAME.github.io/my-english-course/</code>. Open it on a phone.</li>
+    </ol>
+    <h3>Every update</h3>
+    <ol class="steps">
+      <li>Open the repository, click <code>index.html</code>, then the pencil icon.</li>
+      <li>Select everything in the box and delete it. Paste the whole new file.</li>
+      <li>Click Commit changes and wait a minute.</li>
+      <li>Reload the live page with the Shift key held down, so the browser takes the new version rather than the one it remembers.</li>
+    </ol>
+    <div class="note warn"><p>A blank page almost always means the file is not named <code>index.html</code> or the source was never set under Pages. A page that refuses to change is the browser's memory, and a reload with Shift held fixes it.</p></div>
+  </div>
+</section>
+
+<section id="fix">
+  <div data-l="ru">
+    <div class="kind check"><i></i><b>Шаг 06</b></div>
+    <h2>Если не работает</h2>
+    <p class="lead">Три запроса на обычные сбои. Править код руками не нужно ни в одном из случаев.</p>
+    <div class="block">
+      <div class="block-head"><b>Что-то работает не так</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Файл, который ты прислал, работает неправильно.
+
+Я ожидал: <span class="fill">одно предложение</span>
+Происходит вот что: <span class="fill">что именно видно и где</span>
+Экран и кнопка: <span class="fill">назовите их</span>
+
+Ничего не переделывай и не трогай то, что уже работает. Найди самую мелкую причину, исправь только её и пришли исправленный файл целиком. После блока кода одним предложением скажи, что было сломано.</pre>
+    </div>
+    <div class="block">
+      <div class="block-head"><b>Ответ оборвался</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Твой ответ оборвался на середине. Последняя строка, которую я вижу, —
+
+<span class="fill">вставьте последнюю целую строку</span>
+
+Продолжи ровно с этого места. Не начинай заново и не повторяй то, что уже прислал. Когда закончишь, напиши DONE отдельной строкой.</pre>
+    </div>
+    <div class="block">
+      <div class="block-head"><b>Нарушено правило</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Ты нарушил одно из правил, которые я дал в начале переписки.
+
+Правило: <span class="fill">приведите его дословно</span>
+Где нарушено: <span class="fill">назовите экран или элемент</span>
+
+Исправь это во всём файле, а не только там, где я указал, и пришли файл целиком.</pre>
+    </div>
+  </div>
+  <div data-l="en">
+    <div class="kind check"><i></i><b>Step 06</b></div>
+    <h2>If it breaks</h2>
+    <p class="lead">Three requests for the ordinary failures. In none of these cases do you edit the code by hand.</p>
+    <div class="block">
+      <div class="block-head"><b>Something works wrongly</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>The file you sent does not work properly.
+
+What I expected: <span class="fill">one sentence</span>
+What actually happens: <span class="fill">what exactly you see, and where</span>
+Screen and button: <span class="fill">name them</span>
+
+Do not redesign anything and do not touch what already works. Find the smallest cause, fix only that, and send the corrected file in full. After the code block, in one sentence, say what was broken.</pre>
+    </div>
+    <div class="block">
+      <div class="block-head"><b>The answer was cut off</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>Your answer stopped in the middle. The last line I can see is
+
+<span class="fill">paste the last complete line</span>
+
+Continue from exactly that point. Do not start again and do not repeat what you have already sent. When you finish, write DONE on its own line.</pre>
+    </div>
+    <div class="block">
+      <div class="block-head"><b>A rule was broken</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>You have broken one of the rules I gave you at the start of this conversation.
+
+The rule: <span class="fill">quote it word for word</span>
+Where it is broken: <span class="fill">name the screen or the element</span>
+
+Fix it throughout the file, not only where I pointed, and send the whole file again.</pre>
+    </div>
+  </div>
+</section>
+
+<section id="check">
+  <div data-l="ru">
+    <div class="kind idea"><i></i><b>Шаг 07</b></div>
+    <h2>Проверка</h2>
+    <p class="lead">Пройдите платформу на телефоне и отметьте каждый пункт. Всё, что здесь перечислено, видно без чтения кода.</p>
+    <ul class="cl">
+      <li>Результат модуля виден до первого задания, понятными обучающемуся словами.</li>
+      <li>Форма регистрации говорит, что отправляется и кто это увидит, до того как что-то введено.</li>
+      <li>Любое задание проходится с одной клавиатуры, без мыши.</li>
+      <li>Неверный ответ получает обратную связь, которая называет ошибку, а не только помечает её.</li>
+      <li>Каждый неверный вариант в задании на выбор — ошибка, которую делают настоящие обучающиеся.</li>
+      <li>Верный вариант не самый длинный.</li>
+      <li>Платформа работает на телефоне в вертикальном положении, без прокрутки в сторону.</li>
+      <li>Ничего на экране не понятно только по цвету.</li>
+      <li>Нигде в интерфейсе нет символов стрелок.</li>
+      <li>Обучающемуся сказано, что ничего не сохраняется.</li>
+      <li>Примеры звучат как то, что человек действительно сказал бы.</li>
+      <li>Язык заданий соответствует уровню из задания на курс.</li>
+    </ul>
+  </div>
+  <div data-l="en">
+    <div class="kind idea"><i></i><b>Step 07</b></div>
+    <h2>Final check</h2>
+    <p class="lead">Go through the platform on a phone and tick every line. Everything listed here is visible without reading any code.</p>
+    <ul class="cl">
+      <li>The unit outcome is visible before the first task, in words a learner understands.</li>
+      <li>The registration form says what is sent and who will see it, before anything is typed.</li>
+      <li>Every task can be completed with the keyboard alone, without a mouse.</li>
+      <li>A wrong answer gets feedback that names the error rather than merely marking it.</li>
+      <li>Every wrong option in the multiple choice is a mistake real learners make.</li>
+      <li>The correct option is not the longest one.</li>
+      <li>The platform works on a phone held upright, with no sideways scrolling.</li>
+      <li>Nothing on screen is understood by colour alone.</li>
+      <li>There are no arrow characters anywhere in the interface.</li>
+      <li>The learner is told that nothing is saved.</li>
+      <li>The examples sound like something a person would actually say.</li>
+      <li>The language of the tasks matches the level in the course brief.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <p data-l="ru">Учебный проект канала «Чердак». Шрифты распространяются по лицензии SIL Open Font License.</p>
+  <p data-l="en">A teaching project of the Cherdak channel. The fonts are distributed under the SIL Open Font License.</p>
+  <a class="tg" href="https://t.me/engattic">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 4.5 2.8 11.3c-.7.3-.7 1.3 0 1.5l4.3 1.4 1.6 5c.2.7 1.1.8 1.5.2l2.3-3 4.5 3.3c.6.4 1.4.1 1.6-.6l3.4-14c.2-.8-.6-1.4-1.3-1.1z"/><path d="M7.1 14.2 18 7.2"/></svg>
+    <span>@engattic</span>
+  </a>
+</footer>
+
+<script>
+  (function(){
+    var root = document.documentElement;
+
+    document.getElementById('theme').addEventListener('click', function(){
+      var dark = root.dataset.theme === 'dark' ||
+        (!root.dataset.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      root.dataset.theme = dark ? 'light' : 'dark';
+      try{ localStorage.setItem('cherdak-platform-theme', root.dataset.theme); }catch(e){}
+    });
+
+    function setLang(l){
+      root.dataset.lang = l;
+      root.lang = l;
+      document.querySelectorAll('.lang button').forEach(function(b){
+        b.setAttribute('aria-pressed', String(b.dataset.set === l));
+      });
+      try{ localStorage.setItem('cherdak-platform-lang', l); }catch(e){}
+    }
+    document.querySelectorAll('.lang button').forEach(function(b){
+      b.addEventListener('click', function(){ setLang(b.dataset.set); });
+    });
+    setLang(root.dataset.lang === 'en' ? 'en' : 'ru');
+
+    document.querySelectorAll('.copy').forEach(function(btn){
+      var labels = { ru: ['Копировать','Скопировано','Выделите вручную'],
+                     en: ['Copy','Copied','Select it by hand'] };
+      btn.addEventListener('click', function(){
+        var block = btn.closest('.block');
+        if(!block) return;
+        var pre = block.querySelector('pre');
+        if(!pre) return;
+        var set = labels[root.dataset.lang === 'en' ? 'en' : 'ru'];
+        var done = function(ok){
+          btn.textContent = ok ? set[1] : set[2];
+          btn.classList.toggle('ok', ok);
+          setTimeout(function(){ btn.textContent = set[0]; btn.classList.remove('ok'); }, 2200);
+        };
+        try{
+          navigator.clipboard.writeText(pre.innerText).then(function(){ done(true); },
+                                                           function(){ done(false); });
+        }catch(e){ done(false); }
+      });
+    });
+  })();
+</script>
+</body>
+</html>
