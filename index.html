@@ -63,24 +63,40 @@
   <div data-l="ru">
     <div class="kind num"><i></i><b>Шаг 01</b></div>
     <h2>Что нужно</h2>
-    <p class="lead">Весь сайт — это один файл <code>index.html</code>. Его пишет ИИ по Вашему заданию, а Вы его только публикуете. Ничего устанавливать не нужно.</p>
+    <p class="lead">Платформа состоит из двух файлов и одной папки. Механику пишет ИИ, содержание курса пишете Вы, медиа кладёте сами.</p>
+    <div class="block">
+      <div class="block-head"><b>Устройство платформы</b></div>
+      <pre>index.html      механика — экраны, задания, вход, таблица
+content.js      содержание — модуль, подразделы, тексты заданий
+assets/img/     изображения
+assets/audio/   аудиозаписи</pre>
+    </div>
+    <p>Разделение здесь главное. <code>index.html</code> собирается один раз и больше не меняется. Всё, что Вы будете править из года в год, лежит в <code>content.js</code> обычным текстом в кавычках, и чтобы поправить задание, код открывать не нужно.</p>
     <div class="cards">
       <div class="c"><h4>Аккаунт GitHub</h4><p>Здесь будет жить сайт. Регистрация на github.com, адрес почты нужно подтвердить.</p></div>
       <div class="c"><h4>Доступ к ИИ</h4><p>Любая модель, которая умеет писать код. Откройте одну новую пустую переписку и работайте в ней до конца.</p></div>
       <div class="c"><h4>База данных Firebase</h4><p>Сюда придут записи о регистрации участников. Настройка — шаг 02.</p></div>
     </div>
-    <div class="note"><p>Одна переписка — одна платформа. Если начать новую, ИИ потеряет и правила, и текущий файл, и начнёт собирать всё заново. Перед каждым следующим шагом сохраняйте последнюю рабочую версию файла отдельно, чтобы неудачный ответ стоил одной вставки, а не всей работы.</p></div>
+    <div class="note"><p>Одна переписка — одна платформа. Если начать новую, ИИ потеряет и правила, и текущие файлы, и начнёт собирать всё заново. Перед каждым следующим шагом сохраняйте последнюю рабочую версию отдельно, чтобы неудачный ответ стоил одной вставки, а не всей работы.</p></div>
   </div>
   <div data-l="en">
     <div class="kind num"><i></i><b>Step 01</b></div>
     <h2>What you need</h2>
-    <p class="lead">The whole website is a single <code>index.html</code> file. The AI writes it from your brief and you simply publish it. Nothing has to be installed.</p>
+    <p class="lead">The platform is two files and one folder. The AI writes the mechanics, you write the course content, and you add the media yourself.</p>
+    <div class="block">
+      <div class="block-head"><b>How the platform is built</b></div>
+      <pre>index.html      mechanics — screens, tasks, sign-in, table
+content.js      content — the unit, its sections, the task texts
+assets/img/     images
+assets/audio/   audio recordings</pre>
+    </div>
+    <p>This split is the point. <code>index.html</code> is built once and then left alone. Everything you will revise from year to year sits in <code>content.js</code> as plain text between quotation marks, so changing a task never means opening the code.</p>
     <div class="cards">
       <div class="c"><h4>A GitHub account</h4><p>This is where the site will live. Sign up at github.com and confirm your e-mail address.</p></div>
       <div class="c"><h4>Access to an AI</h4><p>Any model that writes code. Open one new empty conversation and stay in it to the end.</p></div>
       <div class="c"><h4>A Firebase database</h4><p>This is where registration records arrive. Setting it up is step 02.</p></div>
     </div>
-    <div class="note"><p>One conversation per platform. Starting a new one loses both the rules and the current file, and the AI begins again from nothing. Before each new step, save the last working version of the file somewhere separate, so a bad answer costs you one paste rather than the whole build.</p></div>
+    <div class="note"><p>One conversation per platform. Starting a new one loses both the rules and the current files, and the AI begins again from nothing. Before each new step, save the last working version somewhere separate, so a bad answer costs you one paste rather than the whole build.</p></div>
   </div>
 </section>
 
@@ -235,45 +251,49 @@ service cloud.firestore {
   <div data-l="ru">
     <div class="kind num"><i></i><b>Шаг 03</b></div>
     <h2>Правила для ИИ</h2>
-    <p class="lead">Этот блок вставляется в начало каждого запроса, без изменений. Он удерживает результат в одном файле, который работает на телефоне и который можно править, не читая код.</p>
+    <p class="lead">Этот блок вставляется в начало каждого запроса, без изменений. Он удерживает механику отдельно от содержания и не даёт модели присылать куски, которые пришлось бы сращивать вручную.</p>
     <div class="block">
       <div class="block-head"><b>Правила</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
       <pre>ПРАВИЛА. Соблюдай их во всех ответах в этой переписке.
 
-1. Присылай один готовый HTML-файл. Стили внутри элемента style, скрипт внутри элемента script, в том же файле. Никогда не присылай больше одного файла.
-2. Только чистые HTML, CSS и JavaScript. Без React, Vue, jQuery, npm, сборки и любых фреймворков.
-3. Сначала телефон. Страница должна работать на телефоне в вертикальном положении, без горизонтальной прокрутки.
-4. Язык интерфейса — английский.
-5. Никогда не используй символы стрелок в интерфейсе. Пиши словами — Next, Back, Continue, Check.
-6. Основной текст не меньше 16 пикселей. Контраст текста к фону не ниже 4,5 к 1.
-7. Всеми элементами можно пользоваться с клавиатуры, клавишами Tab и Enter.
-8. Никогда не обозначай верный и неверный ответ только цветом. Всегда дублируй словами.
-9. Без картинок из интернета. Если нужно изображение, рисуй его в SVG или средствами CSS.
-10. Все мои настройки и всё содержание держи в именованных объектах в самом начале скрипта, чтобы я мог их править, не читая остальной код.
-11. При любой правке присылай файл целиком, с первой строки до последней. Никогда не присылай фрагмент, заплатку или указание вставить что-то самостоятельно.
-12. В ответе только блок кода. Без пояснений до и после него.</pre>
+1. У платформы два файла. index.html — механика. content.js — содержание курса. В одном ответе присылай один файл, тот, который я назвал, и всегда целиком, с первой строки до последней.
+2. Механика ничего не знает о конкретном курсе. Все заголовки, тексты, задания и пути к медиа она берёт из объекта COURSE, объявленного в content.js. В index.html не должно остаться ни одного учебного текста.
+3. Когда я прошу содержание, присылай только content.js и не трогай index.html. Когда я прошу правку механики, присылай только index.html.
+4. Только чистые HTML, CSS и JavaScript. Без React, Vue, jQuery, npm, сборки и любых фреймворков. Стили внутри элемента style, скрипт внутри элемента script, оба в index.html.
+5. Сначала телефон. Страница должна работать на телефоне в вертикальном положении, без горизонтальной прокрутки.
+6. Язык интерфейса — английский.
+7. Никогда не используй символы стрелок в интерфейсе. Пиши словами — Next, Back, Continue, Check.
+8. Основной текст не меньше 16 пикселей. Контраст текста к фону не ниже 4,5 к 1.
+9. Всеми элементами можно пользоваться с клавиатуры, клавишами Tab и Enter.
+10. Никогда не обозначай верный и неверный ответ только цветом. Всегда дублируй словами.
+11. Изображения и звук бери только из папки assets по относительному пути, который задан в содержании. Ничего из интернета. Декоративную графику рисуй в SVG или средствами CSS.
+12. Никогда не присылай фрагмент, заплатку или указание вставить что-то самостоятельно.
+13. Если ответ не помещается целиком, не сокращай код, не выбрасывай части и не пиши «остальное без изменений». Продолжай писать файл, пока он не кончится, а если ответ оборвётся, я попрошу продолжить.
+14. В ответе только блок кода. Без пояснений до и после него.</pre>
     </div>
   </div>
   <div data-l="en">
     <div class="kind num"><i></i><b>Step 03</b></div>
     <h2>Rules for the AI</h2>
-    <p class="lead">This block goes at the start of every request, unchanged. It keeps the result in one file that works on a phone and that you can edit without reading the code.</p>
+    <p class="lead">This block goes at the start of every request, unchanged. It keeps the mechanics apart from the content and stops the model sending pieces you would have to splice together by hand.</p>
     <div class="block">
       <div class="block-head"><b>Rules</b><button class="btn btn-sm copy" type="button">Copy</button></div>
       <pre>RULES. Apply all of these to every answer in this conversation.
 
-1. Return one complete HTML file. The CSS inside a style element and the JavaScript inside a script element, in that same file. Never give me more than one file.
-2. Plain HTML, CSS and JavaScript only. No React, Vue, jQuery, npm, build step or frameworks of any kind.
-3. Mobile first. It must work on a phone held upright, with no horizontal scrolling.
-4. The interface language is English.
-5. Never use arrow characters in the interface. Use words such as Next, Back, Continue, Check.
-6. Body text at least 16 pixels. Text contrast at least 4.5 to 1 against its background.
-7. Every control must be usable with the keyboard alone, with Tab and Enter.
-8. Never mark an answer right or wrong by colour alone. Always say it in words as well.
-9. No images from the internet. If a picture is needed, draw it in SVG or with CSS.
-10. Keep all of my settings and all content in named objects at the very start of the script, so that I can edit them without reading the rest of the code.
-11. Whenever you change anything, return the whole file again, from the first line to the last. Never send a fragment, a patch, or an instruction to insert something myself.
-12. Answer with the code block only. No explanation before or after it.</pre>
+1. The platform has two files. index.html holds the mechanics. content.js holds the course content. Send one file per answer, the one I named, and always in full, from the first line to the last.
+2. The mechanics know nothing about any particular course. Every heading, text, task and media path comes from the COURSE object declared in content.js. Not one line of teaching text may stay in index.html.
+3. When I ask for content, send content.js only and leave index.html alone. When I ask for a change to the mechanics, send index.html only.
+4. Plain HTML, CSS and JavaScript only. No React, Vue, jQuery, npm, build step or frameworks of any kind. The CSS inside a style element and the JavaScript inside a script element, both in index.html.
+5. Mobile first. It must work on a phone held upright, with no horizontal scrolling.
+6. The interface language is English.
+7. Never use arrow characters in the interface. Use words such as Next, Back, Continue, Check.
+8. Body text at least 16 pixels. Text contrast at least 4.5 to 1 against its background.
+9. Every control must be usable with the keyboard alone, with Tab and Enter.
+10. Never mark an answer right or wrong by colour alone. Always say it in words as well.
+11. Take images and sound only from the assets folder, by the relative path given in the content. Nothing from the internet. Draw decorative graphics in SVG or with CSS.
+12. Never send a fragment, a patch, or an instruction to insert something myself.
+13. If an answer does not fit, do not shorten the code, drop parts or write "the rest is unchanged". Keep writing the file until it ends, and if the answer is cut off I will ask you to continue.
+14. Answer with the code block only. No explanation before or after it.</pre>
     </div>
   </div>
 </section>
@@ -282,7 +302,7 @@ service cloud.firestore {
   <div data-l="ru">
     <div class="kind num"><i></i><b>Шаг 04</b></div>
     <h2>Сборка</h2>
-    <p class="lead">Шесть запросов, по одному за раз. После каждого открывайте результат и публикуйте его, и только потом переходите к следующему. Перед каждым запросом вставляйте правила из шага 03.</p>
+    <p class="lead">Пять запросов, по одному за раз. Первые четыре собирают механику в <code>index.html</code>, пятый наполняет <code>content.js</code>. После каждого запроса обновляйте сайт и смотрите, что получилось. Перед каждым запросом вставляйте правила из шага 03.</p>
 
     <h3>Задание на курс</h3>
     <p>Сначала заполните этот блок своими словами. Всё, что не решите здесь, ИИ решит за Вас.</p>
@@ -292,141 +312,148 @@ service cloud.firestore {
 
 Название курса:
 Название модуля:
-Кто учится — возраст, уровень по CEFR, чем занимаются
-Зачем им это нужно, их словами
-Один наблюдаемый результат модуля, начиная с глагола:
-Три задания модуля, по порядку:
+Подразделы модуля, по порядку:
   1.
   2.
   3.
+Кто учится — возраст, уровень по CEFR, чем занимаются
+Зачем им это нужно, их словами
+Один наблюдаемый результат модуля, начиная с глагола:
 Языковой материал — какие именно структуры или лексика, а не тема
 Тон интерфейса — строгий, дружелюбный или свободный
 Два цвета:
 Моё имя, как его увидят обучающиеся:</pre>
     </div>
 
-    <h3>Каркас</h3>
+    <h3>Запрос 1. Каркас</h3>
     <div class="block">
-      <div class="block-head"><b>Запрос 1</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
       <pre>Ты разработчик интерфейсов. Я преподаватель и код читаю плохо, поэтому всё должно работать без моих правок.
 
-Собери каркас платформы курса. Заданий пока не нужно.
+Собери каркас платформы курса. Пришли два файла, по одному в двух сообщениях подряд — сначала index.html, потом content.js с примером заполнения.
 
-Требования.
-1. Один HTML-файл с четырьмя экранами, которые показываются по одному — Welcome, Registration, Unit, Finish. Переключение экранов делай в JavaScript, скрывая и показывая секции. Не создавай отдельных страниц и не меняй адрес.
-2. В самом начале скрипта объект SETTINGS с полями courseTitle, unitTitle, outcome, teacherName, primaryColour, accentColour. Весь остальной код берёт значения из него. Заполни его по моему заданию на курс.
-3. Закреплённая полоса сверху на каждом экране — название курса слева, отметка шага справа, вида Step 1 of 4. Отметка обновляется при смене экрана.
-4. Экран Welcome — название курса, одно предложение о том, для кого модуль, результат модуля целиком и кнопка Start.
-5. Экран Registration — пока только заголовок, одно предложение-заглушка и кнопка Continue. Форму добавим позже.
-6. Экран Unit — название модуля и пустой элемент с id tasks, внутри только комментарий TASKS GO HERE.
-7. Экран Finish — два предложения с поздравлением, отдельное предложение о том, что ничего не сохранено и модуль можно пройти снова, и кнопка Back to start.
-8. Оформление на пользовательских свойствах CSS, построенных из двух цветов в SETTINGS. Много воздуха, один шрифт, никакого декора, который сам несёт смысл.
-9. Над каждым крупным блоком кода одна строка комментария простыми словами, что этот блок делает.
+Требования к index.html.
+1. Четыре экрана, которые показываются по одному — Welcome, Registration, Module, Finish. Переключение делай в JavaScript, скрывая и показывая секции. Не создавай отдельных страниц и не меняй адрес.
+2. Подключи content.js обычным тегом script до своего скрипта. Весь текст на экранах бери из объекта COURSE. Если COURSE не загрузился, покажи одно понятное предложение вместо пустой страницы.
+3. Закреплённая полоса сверху — название курса слева, название текущего подраздела справа.
+4. Экран Welcome — название курса, название модуля, одно предложение о том, для кого он, результат модуля целиком, имя преподавателя, кнопка Start и внизу маленькая неброская ссылка Teacher.
+5. Экран Registration — пока только заголовок, одно предложение-заглушка и кнопка Continue.
+6. Экран Module. Слева или сверху, в зависимости от ширины экрана, список подразделов из COURSE.sections с отметкой пройденных. Справа содержимое выбранного подраздела — его заголовок, вступительный текст, затем изображение и аудиоплеер, если у подраздела заданы поля image и audio, затем место под задания с комментарием TASKS GO HERE. Внизу кнопки Back и Next, которые ведут по подразделам, а с последнего — на экран Finish.
+7. Отметка пройденного подраздела держится только в памяти страницы. Ничего не сохраняется, при перезагрузке всё начинается заново.
+8. Экран Finish — два предложения с поздравлением, предложение о том, что ничего не сохранено и модуль можно пройти снова, и кнопка Back to start.
+9. Оформление на пользовательских свойствах CSS, построенных из цветов в COURSE.settings. Много воздуха, один шрифт, никакого декора, который сам несёт смысл.
+10. Над каждым крупным блоком кода одна строка комментария простыми словами.
 
-Присылай файл целиком.</pre>
+Требования к content.js.
+11. Файл объявляет одну константу COURSE и больше ничего. Структура такая.
+
+const COURSE = {
+  settings: { courseTitle, unitTitle, outcome, teacherName, primaryColour, accentColour },
+  sections: [
+    { id, title, intro, image, imageAlt, audio, tasks: [] }
+  ]
+};
+
+12. Поля image, imageAlt и audio необязательные. Если они есть, это относительные пути вида assets/img/market.jpg и assets/audio/dialogue.mp3.
+13. Заполни его по моему заданию на курс, по одному подразделу на каждый пункт из списка подразделов, с пустым массивом tasks.
+
+Присылай файлы целиком.</pre>
     </div>
-    <p class="muted">Прежде чем публиковать, найдите в ответе три вещи — объект <code>SETTINGS</code>, надпись на кнопке Start и комментарий TASKS GO HERE. Поменяйте в SETTINGS название курса и убедитесь, что заголовок изменился.</p>
+    <p class="muted">Создайте в репозитории пустые папки <code>assets/img</code> и <code>assets/audio</code> сразу, чтобы потом не думать, куда класть файлы. Проверьте, что смена названия курса в <code>content.js</code> меняет заголовок на сайте — это и есть доказательство того, что механика и содержание разделены.</p>
 
-    <h3>Регистрация</h3>
+    <h3>Запрос 2. Регистрация</h3>
     <div class="block">
-      <div class="block-head"><b>Запрос 2</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
-      <pre>Добавь в этот файл регистрацию участников. Всё, что уже работает, оставь как есть.
+      <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Добавь в index.html регистрацию участников. Всё, что уже работает, оставь как есть. content.js не трогай.
 
-Используй Firebase Firestore, подключённый с CDN Google в варианте compat, чтобы всё работало в одном HTML-файле без установки. Вот мои настройки, вставь их ровно так, как написано, ничего внутри не меняя.
+Используй Firebase Firestore, подключённый с CDN Google в варианте compat, чтобы всё работало без установки. Вот мои настройки, вставь их ровно так, как написано, ничего внутри не меняя.
 
 <span class="fill">ВСТАВЬТЕ СЮДА СОДЕРЖИМОЕ ФАЙЛА my-config.txt</span>
 
 Требования.
 1. При открытии экрана Registration прочитай коллекцию groups. У каждого документа идентификатор — это код группы, а поле name — её название для обучающегося.
-2. Вместо заглушки сделай форму из двух полей. Display name — текстовое, обязательное, от 2 до 40 знаков. Group — выпадающий список, обязательный, собранный из прочитанных групп. В списке показывай name, а в базу записывай код, то есть идентификатор документа. Первым пунктом поставь пустое значение, чтобы группа выбиралась осознанно.
+2. Вместо заглушки сделай форму из двух полей. Display name — текстовое, обязательное, от 2 до 40 знаков. Group — выпадающий список, обязательный, собранный из прочитанных групп. В списке показывай name, а в базу записывай код, то есть идентификатор документа. Первым пунктом поставь пустое значение.
 3. Если коллекция groups пуста или не прочиталась, не показывай пустой список. Покажи одно предложение о том, что группы ещё не заведены, и кнопку Try again.
 4. Под полями одно предложение простыми словами о том, что именно отправляется и кто это увидит, и флажок согласия, без которого продолжить нельзя. Подпись флажка должна быть понятна сама по себе.
 5. Проверяй поля в JavaScript до отправки. Ошибку показывай словами рядом с тем полем, к которому она относится. Не опирайся на цвет и не используй всплывающие окна.
 6. При отправке записывай ровно один документ в коллекцию participants с полями displayName, groupCode, platformId и createdAt. Константу platformId объяви в начале скрипта. Для createdAt возьми серверную отметку времени Firestore.
-7. Платформа никогда ничего не изменяет и не удаляет в коллекции participants и не читает её на этом экране.
-8. Пока идёт отправка, кнопка заблокирована и подписана Sending. При успехе переходи на экран Unit. При ошибке покажи одно предложение о том, что регистрацию записать не удалось, дай кнопку Try again и всё равно пропусти дальше, на экран Unit, потому что сбой базы не должен останавливать занятие.
+7. Платформа ничего не изменяет и не удаляет в коллекции participants и не читает её на этом экране.
+8. Пока идёт отправка, кнопка заблокирована и подписана Sending. При успехе переходи на экран Module. При ошибке покажи одно предложение о том, что регистрацию записать не удалось, дай кнопку Try again и всё равно пропусти дальше, потому что сбой базы не должен останавливать занятие.
 9. Каждый вызов, который обращается к сети или к хранилищу браузера, оберни в try и catch.
 10. Не храни в браузере ничего об обучающемся дольше текущего посещения.
 
-Присылай файл целиком.</pre>
+Присылай index.html целиком.</pre>
     </div>
-    <p class="muted">Пока групп нет, форма скажет об этом, и это правильно. Заведите одну группу прямо в консоли, в коллекции <code>groups</code>, чтобы проверить регистрацию сейчас. Дальше группы добавляются на экране преподавателя. Зарегистрируйтесь один раз, найдите свою запись в консоли, затем попробуйте имя из одной буквы — должен быть отказ словами, рядом с полем.</p>
+    <p class="muted">Пока групп нет, форма честно об этом скажет. Заведите одну группу прямо в консоли, в коллекции <code>groups</code>, чтобы проверить регистрацию сейчас. Дальше группы добавляются на экране преподавателя.</p>
 
-    <h3>Задания</h3>
+    <h3>Запрос 3. Экран преподавателя</h3>
     <div class="block">
-      <div class="block-head"><b>Запрос 3. Заполнение пропусков</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
-      <pre>Добавь в файл первое задание. Всё, что уже работает, оставь как есть.
+      <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Добавь в index.html экран преподавателя. Всё, что уже работает, оставь как есть. content.js не трогай.
 
-Тип задания — заполнение пропуска, по одному предложению за раз, с ответом сразу.
-
-1. Вместо комментария TASKS GO HERE поставь задание.
-2. В начале скрипта объяви массив TASK_1. У каждого элемента поля sentence, где пропуск обозначен тремя подчёркиваниями, answer, accept — массив других написаний и форм, которые тоже считаются верными, и hint, который указывает на правило, но не выдаёт слово.
-3. Показывай по одному предложению, с полем ввода на месте пропуска, кнопкой Check и кнопкой Hint. Над заданием простая строка вида Item 2 of 5.
-4. По кнопке Check сравнивай введённое с answer и accept, убрав пробелы по краям и не различая регистр. Если верно — одно короткое предложение и кнопка Next. Если неверно — оставь введённое, покажи подсказку и дай вторую попытку. После второй попытки покажи ответ и одно предложение о том, в чём была ошибка.
-5. Обратная связь называет ошибку, а не просто помечает её. Не Incorrect, а, например, That form is the past simple and this sentence needs the present perfect.
-6. Ничего не сохраняется. После перезагрузки страницы задание начинается заново.
-
-<span class="fill">Заполни TASK_1 пятью пунктами для моих обучающихся из задания на курс, на том языковом материале, который я там указал.</span>
-
-Присылай файл целиком.</pre>
-    </div>
-    <div class="block">
-      <div class="block-head"><b>Запрос 4. Выбор одного варианта</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
-      <pre>Добавь в файл второе задание, под первым. Всё, что уже работает, оставь как есть.
-
-Тип задания — выбор одного варианта из четырёх, верный ровно один.
-
-1. В начале скрипта объяви массив TASK_2. У каждого элемента поля question, options из четырёх строк, correctIndex и why — массив из четырёх коротких строк, по одной на вариант, о том, почему этот вариант верен или какую ошибку он отражает.
-2. Варианты показывай крупными подписями с переключателями внутри, доступными с клавиатуры. Кнопка Check под ними.
-3. После Check заблокируй варианты, обозначь выбранный и верный словами и цветом, покажи строку why для выбранного варианта, затем кнопку Next.
-4. Держи верный вариант примерно той же длины, что остальные, и меняй его позицию от пункта к пункту.
-
-<span class="fill">Напиши пять пунктов для моих обучающихся. Каждый неверный вариант — ошибка, которую они действительно делают, и строка why называет эту ошибку. Не пиши вариантов, которые никто не выберет.</span>
-
-Присылай файл целиком.</pre>
-    </div>
-    <div class="block">
-      <div class="block-head"><b>Запрос 5. Сопоставление</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
-      <pre>Добавь в файл третье задание, под вторым. Всё, что уже работает, оставь как есть.
-
-Тип задания — сопоставление пар нажатием, без перетаскивания, чтобы работало на телефоне и с клавиатуры.
-
-1. В начале скрипта объяви массив TASK_3, у каждого элемента поля left и right.
-2. Показывай два столбца кнопок. Нажатие слева выбирает и явно обозначает выбор словами и оформлением. Нажатие справа — попытка составить пару.
-3. Верная пара закрепляется, гаснет и больше не нажимается. Неверная пара сбрасывает выбор и даёт одну короткую строку о том, что эти два не сочетаются. Держи счёт вида 3 of 6 pairs found.
-4. Правый столбец перемешивай при каждой загрузке страницы, в коде, а не в данных.
-5. Когда собраны все пары, одно предложение и кнопка Finish, ведущая на экран Finish.
-
-<span class="fill">Напиши шесть пар для моих обучающихся, на языковом материале из задания на курс.</span>
-
-Присылай файл целиком.</pre>
-    </div>
-
-    <h3>Экран преподавателя</h3>
-    <div class="block">
-      <div class="block-head"><b>Запрос 6. Список зарегистрировавшихся</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
-      <pre>Добавь в файл экран преподавателя. Всё, что уже работает, оставь как есть.
-
-1. Внизу экрана Welcome маленькая неброская ссылка Teacher. По нажатию открывается экран Sign in, а не экран Registration.
-2. Экран Sign in — поля Email и Password и кнопка Sign in. Вход делай через Firebase Authentication, способом email и пароль. Возможности зарегистрировать нового пользователя на этом экране быть не должно, только вход.
+1. Ссылка Teacher на экране Welcome открывает экран Sign in, а не экран Registration.
+2. Экран Sign in — поля Email и Password и кнопка Sign in. Вход делай через Firebase Authentication, способом email и пароль. Возможности зарегистрировать нового пользователя быть не должно, только вход.
 3. Перед входом задай хранение сессии на время вкладки, в сборке compat это firebase.auth.Auth.Persistence.SESSION. Закрыли вкладку — вход сброшен. Платформу открывают с чужих компьютеров.
 4. После входа открывается экран Teacher с двумя частями — Groups и Registrations.
-5. Часть Groups. Список заведённых групп, у каждой код и название. Под ним форма из двух полей, Code и Name, и кнопка Add group. Код — латинские буквы, цифры и дефис, от 2 до 20 знаков, пробелов нет. По нажатию создавай документ в коллекции groups, где идентификатор документа — это код, а поле name — название. Если группа с таким кодом уже есть, скажи об этом словами и ничего не перезаписывай.
-6. Часть Registrations. Таблица из трёх столбцов — Name, Group и Registered. Сортируй по времени, новые записи сверху, время показывай в местном формате. Над таблицей выпадающий список групп со значением All groups по умолчанию и строка с числом показанных записей вида 14 records. В столбце Group показывай название группы, а если её код в списке групп не найден, покажи сам код.
+5. Часть Groups. Список заведённых групп, у каждой код и название. Под ним форма из двух полей, Code и Name, и кнопка Add group. Код — латинские буквы, цифры и дефис, от 2 до 20 знаков, без пробелов. По нажатию создавай документ в коллекции groups, где идентификатор документа это код, а поле name — название. Если группа с таким кодом уже есть, скажи об этом словами и ничего не перезаписывай.
+6. Часть Registrations. Таблица из трёх столбцов — Name, Group и Registered. Сортируй по времени, новые сверху, время показывай в местном формате. Над таблицей выпадающий список групп со значением All groups по умолчанию и строка с числом показанных записей вида 14 records. В столбце Group показывай название группы, а если её кода в списке групп нет, покажи сам код.
 7. Кнопка Sign out возвращает на экран Welcome.
 8. Если войти не удалось, покажи одно предложение простыми словами. Не выводи техническое сообщение Firebase и не уточняй, что именно неверно, почта или пароль.
 9. Если вход прошёл, но список прочитать не дали, покажи одно предложение о том, что у этой учётной записи нет прав преподавателя, и кнопку Sign out.
-10. Чтение коллекции participants происходит только на этом экране и только после входа. Больше нигде платформа её не читает.
+10. Чтение коллекции participants происходит только на этом экране и только после входа.
 11. Пока данные загружаются, показывай строку Loading. При ошибке чтения — одно предложение и кнопку Try again.
 
-Присылай файл целиком.</pre>
+Присылай index.html целиком.</pre>
     </div>
-    <p class="muted">Проверьте экран дважды. Сначала войдите и убедитесь, что список виден и фильтр работает. Затем нажмите Sign out, откройте ссылку в приватном окне и убедитесь, что без входа список не открывается.</p>
+    <p class="muted">Проверьте дважды. Сначала войдите и убедитесь, что группы добавляются, а список виден. Затем нажмите Sign out, откройте ссылку в приватном окне и убедитесь, что без входа список не открывается.</p>
+
+    <h3>Запрос 4. Механика заданий</h3>
+    <div class="block">
+      <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Добавь в index.html механику трёх типов заданий. Всё, что уже работает, оставь как есть. content.js пока не трогай, я попрошу его отдельно.
+
+Задания берутся из массива tasks каждого подраздела и отрисовываются на месте комментария TASKS GO HERE, по порядку. Тип задания определяется полем type. Поддержи ровно три типа.
+
+Тип gap, заполнение пропуска.
+Поля задания — instruction и items. У каждого элемента items поля sentence, где пропуск обозначен тремя подчёркиваниями, answer, accept — массив других написаний, которые тоже верны, и hint. Показывай по одному элементу за раз, с полем ввода на месте пропуска, кнопками Check и Hint и строкой вида Item 2 of 5. По Check сравнивай введённое с answer и accept, убрав пробелы по краям и не различая регистр. Верно — короткое предложение и кнопка Next. Неверно — оставь введённое, покажи подсказку, дай вторую попытку, после неё покажи ответ и одно предложение о том, в чём была ошибка.
+
+Тип choice, выбор одного варианта.
+Поля элемента — question, options из четырёх строк, correctIndex и why, массив из четырёх коротких строк, по одной на вариант. Показывай варианты крупными подписями с переключателями внутри, доступными с клавиатуры, и кнопку Check. После Check заблокируй варианты, обозначь выбранный и верный словами и цветом, покажи строку why для выбранного, затем кнопку Next.
+
+Тип match, сопоставление пар нажатием, без перетаскивания.
+Поля элемента — left и right. Два столбца кнопок. Нажатие слева выбирает и явно обозначает выбор словами и оформлением, нажатие справа — попытка составить пару. Верная пара закрепляется и гаснет, неверная сбрасывает выбор и даёт одну короткую строку. Правый столбец перемешивай при каждой загрузке, в коде, а не в данных. Держи счёт вида 3 of 6 pairs found.
+
+Общее для всех типов.
+Обратная связь называет ошибку, а не просто помечает её. Ничего не сохраняется, перезагрузка начинает задание заново. Если у задания нет ни одного элемента, не показывай пустую рамку, пропусти его. Если встретился неизвестный тип, напиши одну строку о том, что этот тип не поддерживается, и продолжи отрисовку остальных.
+
+В конце добавь в content.js по одному показательному заданию каждого типа, чтобы механику можно было проверить, и пришли оба файла, index.html первым.</pre>
+    </div>
+
+    <h3>Запрос 5. Содержание</h3>
+    <div class="block">
+      <div class="block-head"><b>content.js</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Наполни content.js настоящим содержанием. index.html не трогай совсем, механика уже готова.
+
+Структуру объекта COURSE и формат заданий не меняй, используй те же три типа — gap, choice и match.
+
+<span class="fill">Напиши задания для моих обучающихся, описанных в задании на курс, на том языковом материале, который я там указала. В каждом подразделе от одного до трёх заданий. В заданиях gap по пять пунктов, в choice по пять, в match по шесть пар.</span>
+
+Требования к содержанию.
+1. Каждый неверный вариант в choice — ошибка, которую мои обучающиеся действительно делают, и строка why называет эту ошибку. Не пиши вариантов, которые никто не выберет.
+2. Верный вариант примерно той же длины, что остальные, и его позиция меняется от пункта к пункту.
+3. Примеры должны звучать как то, что человек действительно сказал бы, а не как учебная фраза.
+4. Уровень языка — ровно тот, что указан в задании на курс, без подъёма вверх по лексике.
+5. Вступительный текст каждого подраздела — одно-два предложения, обращённые к обучающемуся.
+6. Поля image и audio оставь незаполненными там, где у меня нет своих файлов.
+
+Присылай content.js целиком.</pre>
+    </div>
+    <p class="muted">Дальше содержание правится уже без ИИ. Откройте <code>content.js</code>, найдите нужную строку в кавычках и поменяйте текст. Чтобы добавить аудирование, положите запись в <code>assets/audio</code>, впишите её путь в поле <code>audio</code> нужного подраздела, и плеер появится сам.</p>
   </div>
   <div data-l="en">
     <div class="kind num"><i></i><b>Step 04</b></div>
     <h2>Building</h2>
-    <p class="lead">Six requests, one at a time. After each one, open the result and publish it before moving on. Paste the rules from step 03 before every request.</p>
+    <p class="lead">Five requests, one at a time. The first four build the mechanics in <code>index.html</code>, the fifth fills <code>content.js</code>. Publish and look at the result after each one. Paste the rules from step 03 before every request.</p>
 
     <h3>Course brief</h3>
     <p>Fill this in first, in your own words. Everything you do not decide here, the AI will decide for you.</p>
@@ -436,123 +463,87 @@ service cloud.firestore {
 
 Course title:
 Unit title:
-Who is learning — age, CEFR level, what they study or do
-Why they need this, in their words
-One observable outcome of the unit, starting with a verb:
-Three tasks in the unit, in order:
+Sections of the unit, in order:
   1.
   2.
   3.
+Who is learning — age, CEFR level, what they study or do
+Why they need this, in their words
+One observable outcome of the unit, starting with a verb:
 Language focus — the exact structures or lexis, not the topic
 Interface tone — formal, friendly or relaxed
 Two colours:
 My name as learners will see it:</pre>
     </div>
 
-    <h3>The shell</h3>
+    <h3>Request 1. The shell</h3>
     <div class="block">
-      <div class="block-head"><b>Request 1</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Copy</button></div>
       <pre>You are a front-end developer. I am a teacher and I read code poorly, so everything must work without edits from me.
 
-Build the shell of a course platform. No tasks yet.
+Build the shell of a course platform. Send two files, one per message, one after the other, index.html first and then content.js filled in as an example.
 
-Requirements.
-1. One HTML file with four screens shown one at a time — Welcome, Registration, Unit, Finish. Switch screens in JavaScript by hiding and showing sections. Do not create separate pages and do not change the address.
-2. At the very start of the script, an object SETTINGS with the fields courseTitle, unitTitle, outcome, teacherName, primaryColour, accentColour. All the rest of the code takes its values from it. Fill it in from my course brief.
-3. A fixed bar at the top of every screen — the course title on the left, a step marker on the right, of the form Step 1 of 4. The marker updates when the screen changes.
-4. Welcome screen — the course title, one sentence saying who the unit is for, the unit outcome in full, and a Start button.
-5. Registration screen — for now only a heading, one placeholder sentence and a Continue button. The form comes later.
-6. Unit screen — the unit title and an empty element with the id tasks, containing only a comment that says TASKS GO HERE.
-7. Finish screen — two sentences of congratulation, a separate sentence saying that nothing was saved and the unit can be done again, and a Back to start button.
-8. Style it with CSS custom properties built from the two colours in SETTINGS. Generous white space, one typeface, no decoration that carries meaning on its own.
-9. Above each major block of code, one line of comment in plain words saying what that block does.
+Requirements for index.html.
+1. Four screens shown one at a time, Welcome, Registration, Module and Finish. Switch them in JavaScript by hiding and showing sections. Do not create separate pages and do not change the address.
+2. Load content.js with a plain script tag before your own script. Take every word on screen from the COURSE object. If COURSE did not load, show one clear sentence instead of an empty page.
+3. A fixed bar at the top, the course title on the left and the current section's title on the right.
+4. The Welcome screen: the course title, the unit title, one sentence saying who it is for, the unit outcome in full, the teacher's name, a Start button, and at the bottom a small discreet link saying Teacher.
+5. The Registration screen: for now only a heading, one placeholder sentence and a Continue button.
+6. The Module screen. Depending on the width of the screen, at the side or at the top, a list of the sections from COURSE.sections, marking the ones already visited. Next to it the chosen section: its title, its intro text, then an image and an audio player if the section has image and audio fields, then a place for the tasks holding only a comment that says TASKS GO HERE. At the bottom Back and Next buttons that move through the sections, and from the last one to the Finish screen.
+7. The mark on a visited section lives only in the page's memory. Nothing is saved, and a reload starts everything again.
+8. The Finish screen: two sentences of congratulation, a sentence saying that nothing was saved and the unit can be done again, and a Back to start button.
+9. Style it with CSS custom properties built from the colours in COURSE.settings. Generous white space, one typeface, no decoration that carries meaning on its own.
+10. Above each major block of code, one line of comment in plain words.
 
-Return the full file.</pre>
+Requirements for content.js.
+11. The file declares one constant, COURSE, and nothing else. The shape is this.
+
+const COURSE = {
+  settings: { courseTitle, unitTitle, outcome, teacherName, primaryColour, accentColour },
+  sections: [
+    { id, title, intro, image, imageAlt, audio, tasks: [] }
+  ]
+};
+
+12. The image, imageAlt and audio fields are optional. When present they are relative paths of the form assets/img/market.jpg and assets/audio/dialogue.mp3.
+13. Fill it in from my course brief, one section per entry in my list of sections, with an empty tasks array.
+
+Send both files in full.</pre>
     </div>
-    <p class="muted">Before publishing, find three things in the answer — the <code>SETTINGS</code> object, the label on the Start button, and the TASKS GO HERE comment. Change the course title in SETTINGS and check that the heading changes.</p>
+    <p class="muted">Create the empty <code>assets/img</code> and <code>assets/audio</code> folders in the repository straight away, so that later you know where files go. Check that changing the course title in <code>content.js</code> changes the heading on the site. That is the proof that mechanics and content are genuinely apart.</p>
 
-    <h3>Registration</h3>
+    <h3>Request 2. Registration</h3>
     <div class="block">
-      <div class="block-head"><b>Request 2</b><button class="btn btn-sm copy" type="button">Copy</button></div>
-      <pre>Add participant registration to this file. Keep everything that already works exactly as it is.
+      <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>Add participant registration to index.html. Keep everything that already works. Leave content.js alone.
 
-Use Firebase Firestore loaded from the Google CDN in the compat build, so that everything works in a single HTML file with no installation. Here are my settings. Insert them exactly as written and change nothing inside them.
+Use Firebase Firestore loaded from the Google CDN in the compat build, so that everything works with no installation. Here are my settings. Insert them exactly as written and change nothing inside them.
 
 <span class="fill">PASTE THE CONTENTS OF my-config.txt HERE</span>
 
 Requirements.
 1. When the Registration screen opens, read the groups collection. Each document's id is the group code, and its name field is the group's name as a learner sees it.
-2. Replace the placeholder with a form of two fields. Display name, a text field, required, between 2 and 40 characters. Group, a drop-down list, required, built from the groups you read. Show name in the list and write the code, that is the document id, to the database. Make the first entry empty, so that a group is chosen deliberately.
+2. Replace the placeholder with a form of two fields. Display name, a text field, required, between 2 and 40 characters. Group, a drop-down list, required, built from the groups you read. Show name in the list and write the code, that is the document id, to the database. Make the first entry empty.
 3. If the groups collection is empty or could not be read, do not show an empty list. Show one sentence saying that no groups have been created yet, and a Try again button.
 4. Below the fields, one sentence in plain words about what exactly is sent and who will see it, and a consent checkbox without which the learner cannot continue. The checkbox label must make sense on its own.
 5. Validate the fields in JavaScript before anything is sent. Show each error in words next to the field it belongs to. Do not rely on colour and do not use pop-up dialogs.
 6. On submit, write exactly one document to the collection participants, with the fields displayName, groupCode, platformId and createdAt. Declare platformId as a constant at the start of the script. For createdAt use the Firestore server timestamp.
 7. The platform never changes or deletes anything in the participants collection and never reads it on this screen.
-8. While the write is in progress, the button is disabled and labelled Sending. On success, go to the Unit screen. On failure, show one sentence saying the registration could not be recorded, offer a Try again button, and still let the learner through to the Unit screen, because a database failure must not stop the lesson.
+8. While the write is in progress, the button is disabled and labelled Sending. On success, go to the Module screen. On failure, show one sentence saying the registration could not be recorded, offer a Try again button, and still let the learner through, because a database failure must not stop the lesson.
 9. Wrap every call that touches the network or browser storage in try and catch.
 10. Do not keep anything about the learner in the browser beyond the current visit.
 
-Return the full file.</pre>
+Send index.html in full.</pre>
     </div>
-    <p class="muted">While there are no groups the form says so, and that is correct. Create one group in the console, in the <code>groups</code> collection, so that you can test registration now. After this, groups are added on the teacher screen. Register once, find your record in the console, then try a one-letter name — it should be refused in words, next to the field.</p>
+    <p class="muted">While there are no groups the form says so. Create one group in the console, in the <code>groups</code> collection, so that you can test registration now. After this, groups are added on the teacher screen.</p>
 
-    <h3>Tasks</h3>
+    <h3>Request 3. The teacher screen</h3>
     <div class="block">
-      <div class="block-head"><b>Request 3. Gap fill</b><button class="btn btn-sm copy" type="button">Copy</button></div>
-      <pre>Add the first task to the file. Keep everything that already works.
+      <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>Add a teacher screen to index.html. Keep everything that already works. Leave content.js alone.
 
-Task type — gap fill, one sentence at a time, with feedback straight away.
-
-1. Put the task where the TASKS GO HERE comment is.
-2. At the start of the script declare an array TASK_1. Each item has sentence, with the gap marked by three underscores, answer, accept as an array of other spellings and forms that also count as correct, and hint, which points at the rule without giving the word away.
-3. Show one sentence at a time, with a text input where the gap is, a Check button and a Hint button. Above the task a plain line of the form Item 2 of 5.
-4. On Check, compare the input with answer and accept, trimming spaces and ignoring capitals. If correct, one short sentence and a Next button. If wrong, keep what was typed, show the hint and allow a second attempt. After the second attempt show the answer and one sentence about what the error was.
-5. Feedback names the error rather than merely marking it. Not Incorrect, but for example That form is the past simple and this sentence needs the present perfect.
-6. Nothing is saved. Reloading the page starts the task again.
-
-<span class="fill">Fill TASK_1 with five items for my learners from the course brief, on the language focus I named there.</span>
-
-Return the full file.</pre>
-    </div>
-    <div class="block">
-      <div class="block-head"><b>Request 4. Multiple choice</b><button class="btn btn-sm copy" type="button">Copy</button></div>
-      <pre>Add the second task below the first. Keep everything that already works.
-
-Task type — multiple choice, four options, exactly one correct.
-
-1. At the start of the script declare an array TASK_2. Each item has question, options as four strings, correctIndex, and why — an array of four short lines, one per option, about why that option is correct or what mistake it represents.
-2. Show the options as large labels with radio controls inside them, reachable from the keyboard. A Check button below.
-3. After Check, lock the options, mark the chosen one and the correct one in words as well as colour, show the why line for the chosen option, then a Next button.
-4. Keep the correct option roughly the same length as the others, and vary its position from item to item.
-
-<span class="fill">Write five items for my learners. Every wrong option must be a mistake they actually make, and its why line names that mistake. Do not write options nobody would choose.</span>
-
-Return the full file.</pre>
-    </div>
-    <div class="block">
-      <div class="block-head"><b>Request 5. Matching</b><button class="btn btn-sm copy" type="button">Copy</button></div>
-      <pre>Add the third task below the second. Keep everything that already works.
-
-Task type — matching pairs by tapping, without dragging, so that it works on a phone and with a keyboard.
-
-1. At the start of the script declare an array TASK_3, each item with the fields left and right.
-2. Show two columns of buttons. A tap on the left selects and marks the selection clearly, in words as well as in style. A tap on the right is an attempt to form a pair.
-3. A correct pair locks, dims and cannot be tapped again. A wrong pair clears the selection and gives one short line saying those two do not go together. Keep a count of the form 3 of 6 pairs found.
-4. Shuffle the right column on every page load, in the code rather than in the data.
-5. When all pairs are found, one sentence and a Finish button leading to the Finish screen.
-
-<span class="fill">Write six pairs for my learners, on the language focus from the course brief.</span>
-
-Return the full file.</pre>
-    </div>
-
-    <h3>The teacher screen</h3>
-    <div class="block">
-      <div class="block-head"><b>Request 6. The list of registrations</b><button class="btn btn-sm copy" type="button">Copy</button></div>
-      <pre>Add a teacher screen to the file. Keep everything that already works.
-
-1. At the bottom of the Welcome screen, a small discreet link saying Teacher. It opens the Sign in screen, not the Registration screen.
-2. The Sign in screen has Email and Password fields and a Sign in button. Sign in through Firebase Authentication with email and password. There must be no way to create a new user on this screen, only to sign in.
+1. The Teacher link on the Welcome screen opens the Sign in screen, not the Registration screen.
+2. The Sign in screen has Email and Password fields and a Sign in button. Sign in through Firebase Authentication with email and password. There must be no way to create a new user, only to sign in.
 3. Before signing in, set session persistence to the lifetime of the tab, which in the compat build is firebase.auth.Auth.Persistence.SESSION. Close the tab and the sign-in is gone. The platform is opened on other people's computers.
 4. After signing in, the Teacher screen opens with two parts, Groups and Registrations.
 5. The Groups part. A list of the groups that exist, each with its code and name. Below it a form of two fields, Code and Name, and an Add group button. A code is Latin letters, digits and hyphens, between 2 and 20 characters, no spaces. On the button, create a document in the groups collection whose document id is the code and whose name field is the name. If a group with that code already exists, say so in words and overwrite nothing.
@@ -560,12 +551,55 @@ Return the full file.</pre>
 7. A Sign out button returns to the Welcome screen.
 8. If signing in fails, show one sentence in plain words. Do not print the technical Firebase message and do not say which of the two was wrong, the e-mail or the password.
 9. If the sign-in succeeded but the list could not be read, show one sentence saying this account has no teacher rights, and a Sign out button.
-10. Reading the participants collection happens only on this screen and only after signing in. Nowhere else does the platform read it.
+10. Reading the participants collection happens only on this screen and only after signing in.
 11. While data loads, show a Loading line. If a read fails, show one sentence and a Try again button.
 
-Return the full file.</pre>
+Send index.html in full.</pre>
     </div>
-    <p class="muted">Check this screen twice. First sign in and make sure the list appears and the filter works. Then click Sign out, open the link in a private window and make sure the list cannot be reached without signing in.</p>
+    <p class="muted">Check it twice. First sign in and make sure groups can be added and the list appears. Then click Sign out, open the link in a private window and make sure the list cannot be reached without signing in.</p>
+
+    <h3>Request 4. The task mechanics</h3>
+    <div class="block">
+      <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>Add the mechanics of three task types to index.html. Keep everything that already works. Leave content.js for now, I will ask for it separately.
+
+Tasks come from the tasks array of each section and are drawn where the TASKS GO HERE comment is, in order. A task's type field decides which one it is. Support exactly three types.
+
+Type gap, filling a blank.
+A task has instruction and items. Each item has sentence, with the blank marked by three underscores, answer, accept as an array of other spellings that also count, and hint. Show one item at a time, with a text input where the blank is, Check and Hint buttons, and a line of the form Item 2 of 5. On Check, compare the input with answer and accept, trimming spaces and ignoring capitals. Correct, one short sentence and a Next button. Wrong, keep what was typed, show the hint, allow a second attempt, and after it show the answer with one sentence about what the error was.
+
+Type choice, one option from four.
+An item has question, options as four strings, correctIndex, and why, an array of four short lines, one per option. Show the options as large labels with radio controls inside them, reachable from the keyboard, and a Check button. After Check, lock the options, mark the chosen one and the correct one in words as well as colour, show the why line for the chosen one, then a Next button.
+
+Type match, pairing by tapping, without dragging.
+An item has left and right. Two columns of buttons. A tap on the left selects and marks the selection in words as well as in style, a tap on the right is an attempt to pair. A correct pair locks and dims, a wrong one clears the selection and gives one short line. Shuffle the right column on every load, in the code rather than in the data. Keep a count of the form 3 of 6 pairs found.
+
+Common to all three.
+Feedback names the error rather than merely marking it. Nothing is saved, and a reload starts the task again. If a task has no items, skip it rather than drawing an empty frame. If an unknown type appears, write one line saying that type is not supported and carry on drawing the rest.
+
+At the end, add one example task of each type to content.js so that the mechanics can be tested, and send both files, index.html first.</pre>
+    </div>
+
+    <h3>Request 5. The content</h3>
+    <div class="block">
+      <div class="block-head"><b>content.js</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>Fill content.js with the real content. Do not touch index.html at all, the mechanics are finished.
+
+Keep the shape of the COURSE object and the task format exactly as they are, and use the same three types, gap, choice and match.
+
+<span class="fill">Write the tasks for my learners, described in my course brief, on the language focus I named there. One to three tasks in each section. Five items in each gap task, five in each choice task, six pairs in each match task.</span>
+
+Requirements for the content.
+1. Every wrong option in a choice task is a mistake my learners actually make, and its why line names that mistake. Do not write options nobody would choose.
+2. The correct option is roughly the same length as the others, and its position changes from item to item.
+3. The examples must sound like something a person would really say, not like a textbook sentence.
+4. The language level is exactly the one in my course brief, with no drift upwards in vocabulary.
+5. Each section's intro is one or two sentences addressed to the learner.
+6. Leave the image and audio fields empty where I have no files of my own.
+
+Send content.js in full.</pre>
+    </div>
+    <p class="muted">From here on the content is edited without the AI. Open <code>content.js</code>, find the line in quotation marks and change the text. To add listening, put the recording in <code>assets/audio</code> and write its path into that section's <code>audio</code> field, and the player appears by itself.</p>
   </div>
 </section>
 
@@ -576,21 +610,26 @@ Return the full file.</pre>
     <p class="lead">Всё делается в браузере на github.com. Ничего устанавливать не нужно.</p>
     <h3>Первый раз</h3>
     <ol class="steps">
-      <li>На github.com нажмите плюс справа сверху и выберите New repository.</li>
-      <li>Имя задайте строчными латинскими буквами и дефисами, например <code>my-english-course</code>. Отметьте Public и нажмите Create repository.</li>
-      <li>На пустой странице нажмите ссылку creating a new file.</li>
-      <li>Назовите файл ровно <code>index.html</code>. Вставьте в большое поле весь файл от ИИ. Нажмите Commit changes и подтвердите.</li>
+      <li>Соберите у себя на компьютере папку курса. В ней <code>index.html</code>, <code>content.js</code> и папка <code>assets</code> с вложенными <code>img</code> и <code>audio</code>.</li>
+      <li>На github.com нажмите плюс справа сверху и выберите New repository. Имя задайте строчными латинскими буквами и дефисами, например <code>my-english-course</code>. Отметьте Public и нажмите Create repository.</li>
+      <li>Нажмите Add file, затем Upload files. Перетащите в окно содержимое папки курса, то есть оба файла и папку <code>assets</code>, а не саму внешнюю папку. Нажмите Commit changes.</li>
       <li>Откройте вкладку Settings, затем Pages в левом меню. В разделе Source выберите Deploy from a branch, ветку main, папку root, и нажмите Save.</li>
       <li>Подождите пару минут и обновите страницу Pages. Сверху появится ссылка вида <code>https://ИМЯ.github.io/my-english-course/</code>. Откройте её на телефоне.</li>
     </ol>
     <h3>Каждое обновление</h3>
     <ol class="steps">
-      <li>Откройте репозиторий, нажмите на <code>index.html</code>, затем на значок карандаша.</li>
-      <li>Выделите всё в поле и удалите. Вставьте новый файл целиком.</li>
+      <li>Откройте репозиторий, нажмите на нужный файл, затем на значок карандаша.</li>
+      <li>Выделите всё в поле и удалите. Вставьте новую версию файла целиком.</li>
       <li>Нажмите Commit changes и подождите минуту.</li>
       <li>Обновите живую страницу с зажатой клавишей Shift, чтобы браузер взял новую версию, а не ту, которую запомнил.</li>
     </ol>
-    <div class="note warn"><p>Пустая страница почти всегда означает, что файл назван не <code>index.html</code> или не задан источник в разделе Pages. Страница, которая не меняется, — это память браузера, и лечится обновлением с зажатым Shift.</p></div>
+    <h3>Как добавить аудио или изображение</h3>
+    <ol class="steps">
+      <li>Откройте в репозитории папку <code>assets/audio</code> или <code>assets/img</code>, нажмите Add file, затем Upload files и перетащите свой файл.</li>
+      <li>Имя файла задайте строчными латинскими буквами, без пробелов, например <code>unit1-dialogue.mp3</code>. Пробелы и кириллица в именах приводят к ссылкам, которые не открываются.</li>
+      <li>Откройте <code>content.js</code> и впишите путь в поле нужного подраздела, например <code>audio: "assets/audio/unit1-dialogue.mp3"</code>. Плеер появится сам.</li>
+    </ol>
+    <div class="note warn"><p>Пустая страница почти всегда означает, что файл назван не <code>index.html</code> или не задан источник в разделе Pages. Если страница открылась, но всё содержание пропало, значит не загрузился <code>content.js</code> — проверьте, что он лежит рядом с <code>index.html</code>, а не внутри папки. Страница, которая не меняется, — это память браузера, и лечится обновлением с зажатым Shift.</p></div>
   </div>
   <div data-l="en">
     <div class="kind num"><i></i><b>Step 05</b></div>
@@ -598,21 +637,26 @@ Return the full file.</pre>
     <p class="lead">Everything happens in the browser on github.com. Nothing has to be installed.</p>
     <h3>The first time</h3>
     <ol class="steps">
-      <li>On github.com click the plus sign at the top right and choose New repository.</li>
-      <li>Name it in lower-case letters and hyphens, for example <code>my-english-course</code>. Tick Public and click Create repository.</li>
-      <li>On the empty page, click the link called creating a new file.</li>
-      <li>Name the file exactly <code>index.html</code>. Paste the whole file from the AI into the large box. Click Commit changes and confirm.</li>
+      <li>Put the course folder together on your computer. It holds <code>index.html</code>, <code>content.js</code> and an <code>assets</code> folder with <code>img</code> and <code>audio</code> inside it.</li>
+      <li>On github.com click the plus sign at the top right and choose New repository. Name it in lower-case letters and hyphens, for example <code>my-english-course</code>. Tick Public and click Create repository.</li>
+      <li>Click Add file, then Upload files. Drag in the contents of the course folder, that is both files and the <code>assets</code> folder, rather than the outer folder itself. Click Commit changes.</li>
       <li>Open the Settings tab, then Pages in the left menu. Under Source choose Deploy from a branch, the main branch and the root folder, then click Save.</li>
       <li>Wait a couple of minutes and reload the Pages screen. A link appears at the top, of the form <code>https://NAME.github.io/my-english-course/</code>. Open it on a phone.</li>
     </ol>
     <h3>Every update</h3>
     <ol class="steps">
-      <li>Open the repository, click <code>index.html</code>, then the pencil icon.</li>
-      <li>Select everything in the box and delete it. Paste the whole new file.</li>
+      <li>Open the repository, click the file you need, then the pencil icon.</li>
+      <li>Select everything in the box and delete it. Paste the whole new version of the file.</li>
       <li>Click Commit changes and wait a minute.</li>
       <li>Reload the live page with the Shift key held down, so the browser takes the new version rather than the one it remembers.</li>
     </ol>
-    <div class="note warn"><p>A blank page almost always means the file is not named <code>index.html</code> or the source was never set under Pages. A page that refuses to change is the browser's memory, and a reload with Shift held fixes it.</p></div>
+    <h3>Adding audio or an image</h3>
+    <ol class="steps">
+      <li>Open <code>assets/audio</code> or <code>assets/img</code> in the repository, click Add file, then Upload files, and drag your file in.</li>
+      <li>Name the file in lower-case letters with no spaces, for example <code>unit1-dialogue.mp3</code>. Spaces and non-Latin letters in file names produce links that do not open.</li>
+      <li>Open <code>content.js</code> and write the path into the field of the section you want, for example <code>audio: "assets/audio/unit1-dialogue.mp3"</code>. The player appears by itself.</li>
+    </ol>
+    <div class="note warn"><p>A blank page almost always means the file is not named <code>index.html</code> or the source was never set under Pages. If the page opens but all the content is missing, <code>content.js</code> did not load: check that it sits next to <code>index.html</code> rather than inside a folder. A page that refuses to change is the browser's memory, and a reload with Shift held fixes it.</p></div>
   </div>
 </section>
 
@@ -704,6 +748,7 @@ Fix it throughout the file, not only where I pointed, and send the whole file ag
       <li>Список зарегистрировавшихся не открывается без входа. Проверено в приватном окне, после выхода из аккаунта.</li>
       <li>Примеры звучат как то, что человек действительно сказал бы.</li>
       <li>Язык заданий соответствует уровню из задания на курс.</li>
+      <li>Текст задания можно поправить, открыв только <code>content.js</code>, не касаясь <code>index.html</code>.</li>
     </ul>
   </div>
   <div data-l="en">
@@ -726,6 +771,7 @@ Fix it throughout the file, not only where I pointed, and send the whole file ag
       <li>The list of registrations cannot be reached without signing in. Checked in a private window, after signing out.</li>
       <li>The examples sound like something a person would actually say.</li>
       <li>The language of the tasks matches the level in the course brief.</li>
+      <li>A task's text can be changed by opening <code>content.js</code> alone, without touching <code>index.html</code>.</li>
     </ul>
   </div>
 </section>
