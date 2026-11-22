@@ -306,7 +306,7 @@ service cloud.firestore {
   <div data-l="ru">
     <div class="kind num"><i></i><b>Шаг 04</b></div>
     <h2>Сборка</h2>
-    <p class="lead">Пять запросов, по одному за раз. Первые четыре собирают механику в <code>index.html</code>, пятый наполняет <code>content.js</code>. После каждого запроса обновляйте сайт и смотрите, что получилось. Перед каждым запросом вставляйте правила из шага 03.</p>
+    <p class="lead">Пять запросов, по одному за раз. Первые четыре собирают механику в <code>index.html</code>, пятый наполняет <code>content.js</code>. Первая публикация делается сразу после запроса 1, дальше после каждого запроса обновляйте сайт и смотрите, что получилось. Перед каждым запросом вставляйте правила из шага 03.</p>
 
     <h3>Задание на курс</h3>
     <p>Сначала заполните этот блок своими словами. Всё, что не решите здесь, ИИ решит за Вас.</p>
@@ -373,7 +373,13 @@ const COURSE = {
 
 Присылай файлы целиком.</pre>
     </div>
-    <p class="muted">Создайте в репозитории пустые папки <code>assets/img</code> и <code>assets/audio</code> сразу, чтобы потом не думать, куда класть файлы.</p>
+    <h3>Что делать с ответом</h3>
+    <ol class="steps">
+      <li>Если модель предлагает скачать файл, скачайте его и переименуйте в <code>index.html</code>. Убедитесь, что имя оканчивается именно на <code>.html</code> и второго расширения за ним нет. Если модель дала только блок кода, нажмите копирование, вставьте код в простой текстовый редактор и сохраните под тем же именем в кодировке UTF-8.</li>
+      <li>Так же получите второй файл и назовите его <code>content.js</code>. Оба файла лежат в одной папке, рядом друг с другом, без вложенных папок.</li>
+      <li>Откройте шаг 05 и выполните «Первый раз» до конца. Публикуйте уже сейчас, потому что дальше каждый запрос проверяется на живой странице. После публикации возвращайтесь сюда, к запросу 2.</li>
+    </ol>
+    <p class="muted">Папку <code>assets</code> пока не делайте. Она появится вместе с первым изображением или первой записью, об этом шаг 05.</p>
     <div class="note"><p>Прежде чем идти дальше, проверьте четыре вещи. На экране Welcome пять разных предложений, и результат модуля не напечатан дважды. В заголовке вкладки браузера стоит название курса, а не слово Course. Нажатие на кнопку Teacher не меняет адрес страницы. И главное: поменяйте название курса в <code>content.js</code>, обновите страницу, и если заголовок изменился, значит механика и содержание действительно разделены.</p></div>
 
     <h3>Запрос 2. Регистрация</h3>
@@ -468,7 +474,7 @@ const COURSE = {
   <div data-l="en">
     <div class="kind num"><i></i><b>Step 04</b></div>
     <h2>Building</h2>
-    <p class="lead">Five requests, one at a time. The first four build the mechanics in <code>index.html</code>, the fifth fills <code>content.js</code>. Publish and look at the result after each one. Paste the rules from step 03 before every request.</p>
+    <p class="lead">Five requests, one at a time. The first four build the mechanics in <code>index.html</code>, the fifth fills <code>content.js</code>. The first publication happens right after request 1, and from then on you reload the site and look at the result after each one. Paste the rules from step 03 before every request.</p>
 
     <h3>Course brief</h3>
     <p>Fill this in first, in your own words. Everything you do not decide here, the AI will decide for you.</p>
@@ -535,7 +541,13 @@ const COURSE = {
 
 Send both files in full.</pre>
     </div>
-    <p class="muted">Create the empty <code>assets/img</code> and <code>assets/audio</code> folders in the repository straight away, so that later you know where files go.</p>
+    <h3>What to do with the answer</h3>
+    <ol class="steps">
+      <li>If the model offers the file for download, download it and rename it <code>index.html</code>. Make sure the name ends in <code>.html</code> and that no second extension follows it. If the model gave only a code block, copy it, paste it into a plain-text editor and save it under the same name in UTF-8.</li>
+      <li>Get the second file the same way and name it <code>content.js</code>. Both files sit in one folder, next to each other, with no folders inside.</li>
+      <li>Open step 05 and work through "The first time" to the end. Publish now, because from here on every request is checked on the live page. Once it is published, come back here, to request 2.</li>
+    </ol>
+    <p class="muted">Leave the <code>assets</code> folder alone for now. It appears together with the first image or the first recording, which step 05 covers.</p>
     <div class="note"><p>Before going on, check four things. The Welcome screen shows five different sentences, and the unit outcome is not printed twice. The browser tab's title is the course title rather than the word Course. Clicking the Teacher button does not change the page address. And above all, change the course title in <code>content.js</code>, reload the page, and if the heading changed, the mechanics and the content really are apart.</p></div>
 
     <h3>Request 2. Registration</h3>
@@ -636,9 +648,9 @@ Send content.js in full.</pre>
     <p class="lead">Всё делается в браузере на github.com. Ничего устанавливать не нужно.</p>
     <h3>Первый раз</h3>
     <ol class="steps">
-      <li>Соберите у себя на компьютере папку курса. В ней <code>index.html</code>, <code>content.js</code> и папка <code>assets</code> с вложенными <code>img</code> и <code>audio</code>.</li>
+      <li>Соберите у себя на компьютере папку курса. В ней два файла, <code>index.html</code> и <code>content.js</code>. Папка <code>assets</code> добавится позже, вместе с первым изображением или первой записью.</li>
       <li>На github.com нажмите плюс справа сверху и выберите New repository. Имя задайте строчными латинскими буквами и дефисами, например <code>my-english-course</code>. Отметьте Public и нажмите Create repository.</li>
-      <li>Нажмите Add file, затем Upload files. Перетащите в окно содержимое папки курса, то есть оба файла и папку <code>assets</code>, а не саму внешнюю папку. Нажмите Commit changes.</li>
+      <li>Нажмите Add file, затем Upload files. Перетащите в окно содержимое папки курса, то есть оба файла, а не саму внешнюю папку. Нажмите Commit changes.</li>
       <li>Откройте вкладку Settings, затем Pages в левом меню. В разделе Source выберите Deploy from a branch, ветку main, папку root, и нажмите Save.</li>
       <li>Подождите пару минут и обновите страницу Pages. Сверху появится ссылка вида <code>https://ИМЯ.github.io/my-english-course/</code>. Откройте её на телефоне.</li>
     </ol>
@@ -651,10 +663,12 @@ Send content.js in full.</pre>
     </ol>
     <h3>Как добавить аудио или изображение</h3>
     <ol class="steps">
-      <li>Откройте в репозитории папку <code>assets/audio</code> или <code>assets/img</code>, нажмите Add file, затем Upload files и перетащите свой файл.</li>
+      <li>На своём компьютере положите файл в папку <code>assets/img</code> или <code>assets/audio</code> внутри папки курса, создав эти папки, если их там ещё нет.</li>
       <li>Имя файла задайте строчными латинскими буквами, без пробелов, например <code>unit1-dialogue.mp3</code>. Пробелы и кириллица в именах приводят к ссылкам, которые не открываются.</li>
+      <li>В репозитории нажмите Add file, затем Upload files и перетащите в окно папку <code>assets</code> целиком. GitHub сохранит её устройство и создаст то, чего в репозитории ещё нет.</li>
       <li>Откройте <code>content.js</code> и впишите путь в поле нужного подраздела, например <code>audio: "assets/audio/unit1-dialogue.mp3"</code>. Плеер появится сам.</li>
     </ol>
+    <p class="muted">Кнопки для создания пустой папки в GitHub нет, и это не недосмотр. Папка в репозитории существует только вместе с файлами внутри, поэтому <code>assets/img</code> и <code>assets/audio</code> появляются в тот момент, когда в них попадает первый файл.</p>
     <div class="note warn"><p>Пустая страница почти всегда означает, что файл назван не <code>index.html</code> или не задан источник в разделе Pages. Если страница открылась, но всё содержание пропало, значит не загрузился <code>content.js</code> — проверьте, что он лежит рядом с <code>index.html</code>, а не внутри папки. Страница, которая не меняется, — это память браузера, и лечится обновлением с зажатым Shift.</p></div>
   </div>
   <div data-l="en">
@@ -663,9 +677,9 @@ Send content.js in full.</pre>
     <p class="lead">Everything happens in the browser on github.com. Nothing has to be installed.</p>
     <h3>The first time</h3>
     <ol class="steps">
-      <li>Put the course folder together on your computer. It holds <code>index.html</code>, <code>content.js</code> and an <code>assets</code> folder with <code>img</code> and <code>audio</code> inside it.</li>
+      <li>Put the course folder together on your computer. It holds two files, <code>index.html</code> and <code>content.js</code>. The <code>assets</code> folder comes later, together with the first image or the first recording.</li>
       <li>On github.com click the plus sign at the top right and choose New repository. Name it in lower-case letters and hyphens, for example <code>my-english-course</code>. Tick Public and click Create repository.</li>
-      <li>Click Add file, then Upload files. Drag in the contents of the course folder, that is both files and the <code>assets</code> folder, rather than the outer folder itself. Click Commit changes.</li>
+      <li>Click Add file, then Upload files. Drag in the contents of the course folder, that is both files, rather than the outer folder itself. Click Commit changes.</li>
       <li>Open the Settings tab, then Pages in the left menu. Under Source choose Deploy from a branch, the main branch and the root folder, then click Save.</li>
       <li>Wait a couple of minutes and reload the Pages screen. A link appears at the top, of the form <code>https://NAME.github.io/my-english-course/</code>. Open it on a phone.</li>
     </ol>
@@ -678,10 +692,12 @@ Send content.js in full.</pre>
     </ol>
     <h3>Adding audio or an image</h3>
     <ol class="steps">
-      <li>Open <code>assets/audio</code> or <code>assets/img</code> in the repository, click Add file, then Upload files, and drag your file in.</li>
+      <li>On your own computer put the file into <code>assets/img</code> or <code>assets/audio</code> inside the course folder, creating those folders if they are not there yet.</li>
       <li>Name the file in lower-case letters with no spaces, for example <code>unit1-dialogue.mp3</code>. Spaces and non-Latin letters in file names produce links that do not open.</li>
+      <li>In the repository click Add file, then Upload files, and drag the whole <code>assets</code> folder in. GitHub keeps its structure and creates whatever the repository does not hold yet.</li>
       <li>Open <code>content.js</code> and write the path into the field of the section you want, for example <code>audio: "assets/audio/unit1-dialogue.mp3"</code>. The player appears by itself.</li>
     </ol>
+    <p class="muted">GitHub has no button for creating an empty folder, and that is not an oversight. A folder in a repository exists only together with the files inside it, so <code>assets/img</code> and <code>assets/audio</code> appear at the moment the first file lands in them.</p>
     <div class="note warn"><p>A blank page almost always means the file is not named <code>index.html</code> or the source was never set under Pages. If the page opens but all the content is missing, <code>content.js</code> did not load: check that it sits next to <code>index.html</code> rather than inside a folder. A page that refuses to change is the browser's memory, and a reload with Shift held fixes it.</p></div>
   </div>
 </section>
