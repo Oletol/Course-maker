@@ -92,7 +92,7 @@
     <ol class="steps">
       <li>Откройте console.firebase.google.com и войдите в аккаунт Google.</li>
       <li>Нажмите «Создать проект». Имя задайте латиницей, например <code>my-course</code>. Аналитику подключать не нужно.</li>
-      <li>В левом меню откройте Build, затем Firestore Database, и нажмите «Создать базу данных». Режим выберите производственный (production). Регион возьмите ближайший — сменить его потом нельзя.</li>
+      <li>В левом меню, в разделе Product categories, откройте Databases &amp; Storage и выберите в выпавшем списке Firestore, он в группе NoSQL. Нужен именно Firestore, а не Realtime Database, это две разные базы данных. Нажмите кнопку создания базы. Режим выберите производственный (production). Регион возьмите ближайший — сменить его потом нельзя.</li>
       <li>Перейдите на вкладку Rules, удалите всё, что там есть, вставьте текст ниже и нажмите Publish.</li>
     </ol>
     <div class="block">
@@ -105,7 +105,7 @@ service cloud.firestore {
         &amp;&amp; request.resource.data.displayName is string
         &amp;&amp; request.resource.data.displayName.size() &gt;= 2
         &amp;&amp; request.resource.data.displayName.size() &lt;= 40
-        &amp;&amp; request.resource.data.groupCode == <span class="fill">'WS-2026'</span>;
+        &amp;&amp; request.resource.data.groupCode in <span class="fill">['ENG-A', 'ENG-B']</span>;
       allow read, update, delete: if false;
     }
     match /{document=**} {
@@ -114,12 +114,13 @@ service cloud.firestore {
   }
 }</pre>
     </div>
-    <p>Код группы Вы придумываете сами. Это любая строка, например <code>NOV-2026</code> или <code>GROUP-7</code>. Её знаете Вы и Ваши обучающиеся, и нужна она для того, чтобы в базу не попадали записи от посторонних, нашедших ссылку. Замените <code>WS-2026</code> на свой код в правилах, впишите его же при сборке и сообщите обучающимся. Если эти три места не совпадут, запись в базу не пройдёт.</p>
+    <p>Коды групп Вы придумываете сами, по одному на каждую группу, которая будет проходить курс. Это любые строки, например <code>ENG-A</code> и <code>ENG-B</code>. Их знаете Вы и Ваши обучающиеся, и нужны они для того, чтобы в базу не попадали записи от посторонних, нашедших ссылку. Перечислите свои коды в правилах вместо <code>['ENG-A', 'ENG-B']</code>, впишите тот же список при сборке и сообщите каждой группе её код.</p>
+    <div class="note warn"><p>Когда появится новая группа, её код впишите в двух местах, в правила и в список в коде платформы. Если поправить только одно, регистрация у этой группы перестанет проходить, а выглядеть это будет как поломка платформы.</p></div>
     <div class="note"><p>Если свободных проектов Firebase не осталось, возьмите уже существующий. Тогда правила не заменяйте целиком, а добавьте в них только блок <code>match /participants/{docId}</code> из текста выше, не трогая остальные блоки. Последний блок с <code>match /{document=**}</code> в этом случае не нужен — всё, что не описано правилами, Firestore запрещает по умолчанию.</p></div>
     <ol class="steps" start="5">
       <li>Нажмите шестерёнку рядом с названием проекта и выберите Project settings. Внизу, в разделе Your apps, нажмите значок с угловыми скобками. Имя приложения любое, Firebase Hosting подключать не нужно, затем нажмите Register app.</li>
       <li>На экране появится блок <code>firebaseConfig</code>. Скопируйте его целиком в текстовый файл и сохраните под именем <code>my-config.txt</code>.</li>
-      <li>Записи участников смотрите там же — Firestore Database, вкладка Data, коллекция <code>participants</code>.</li>
+      <li>Записи участников смотрите там же, в Firestore, в коллекции <code>participants</code>.</li>
     </ol>
     <div class="note"><p>Значение <code>apiKey</code> в этом блоке — не пароль, а идентификатор проекта, поэтому он спокойно лежит в открытом коде сайта. Доступ к данным определяют правила. По правилам выше в коллекцию можно только добавить запись; прочитать, изменить или удалить данные из браузера нельзя. Видите их только Вы, в консоли.</p></div>
   </div>
@@ -130,7 +131,7 @@ service cloud.firestore {
     <ol class="steps">
       <li>Open console.firebase.google.com and sign in with a Google account.</li>
       <li>Click Create a project. Give it a plain name such as <code>my-course</code>. Analytics is not needed.</li>
-      <li>In the left menu open Build, then Firestore Database, and click Create database. Choose production mode. Pick the region closest to you — it cannot be changed later.</li>
+      <li>In the left menu, under Product categories, open Databases &amp; Storage and choose Firestore from the list that appears, in the NoSQL group. It must be Firestore and not Realtime Database, which is a different database. Click the button that creates the database. Choose production mode. Pick the region closest to you — it cannot be changed later.</li>
       <li>Open the Rules tab, delete everything in it, paste the text below and click Publish.</li>
     </ol>
     <div class="block">
@@ -143,7 +144,7 @@ service cloud.firestore {
         &amp;&amp; request.resource.data.displayName is string
         &amp;&amp; request.resource.data.displayName.size() &gt;= 2
         &amp;&amp; request.resource.data.displayName.size() &lt;= 40
-        &amp;&amp; request.resource.data.groupCode == <span class="fill">'WS-2026'</span>;
+        &amp;&amp; request.resource.data.groupCode in <span class="fill">['ENG-A', 'ENG-B']</span>;
       allow read, update, delete: if false;
     }
     match /{document=**} {
@@ -152,12 +153,13 @@ service cloud.firestore {
   }
 }</pre>
     </div>
-    <p>You invent the group code yourself. It is any string, for example <code>NOV-2026</code> or <code>GROUP-7</code>. You and your learners know it, and its purpose is to keep records from strangers who find the link out of your database. Replace <code>WS-2026</code> with your own code in the rules, put the same code in when building, and tell it to your learners. If those three places do not match, nothing can be written to the database.</p>
+    <p>You invent the group codes yourself, one for each group that will take the course. They are any strings, for example <code>ENG-A</code> and <code>ENG-B</code>. You and your learners know them, and their purpose is to keep records from strangers who find the link out of your database. List your own codes in the rules in place of <code>['ENG-A', 'ENG-B']</code>, put the same list in when building, and tell each group its code.</p>
+    <div class="note warn"><p>When a new group appears, add its code in two places, the rules and the list in the platform code. If you change only one of them, registration stops working for that group, and it looks like a broken platform.</p></div>
     <div class="note"><p>If you have no free Firebase projects left, use an existing one. In that case do not replace the rules wholesale; add only the <code>match /participants/{docId}</code> block from the text above, leaving the other blocks untouched. The final <code>match /{document=**}</code> block is then unnecessary, because Firestore denies anything the rules do not describe.</p></div>
     <ol class="steps" start="5">
       <li>Click the gear icon next to the project name and choose Project settings. At the bottom, under Your apps, click the angle brackets icon. Any app name will do, Firebase Hosting is not needed, then click Register app.</li>
       <li>A <code>firebaseConfig</code> block appears on screen. Copy the whole of it into a text file and save it as <code>my-config.txt</code>.</li>
-      <li>Registration records are in the same console — Firestore Database, the Data tab, the <code>participants</code> collection.</li>
+      <li>Registration records are in the same console, in Firestore, in the <code>participants</code> collection.</li>
     </ol>
     <div class="note"><p>The <code>apiKey</code> value in that block is not a password but a project identifier, which is why it can sit openly in the site's code. Access is decided by the rules. Under the rules above a record can only be added to the collection; nothing can be read, changed or deleted from a browser. You are the only one who sees the records, in the console.</p></div>
   </div>
@@ -269,7 +271,7 @@ service cloud.firestore {
 <span class="fill">ВСТАВЬТЕ СЮДА СОДЕРЖИМОЕ ФАЙЛА my-config.txt</span>
 
 Требования.
-1. Вместо заглушки на экране Registration сделай форму из двух полей. Display name — обязательное, от 2 до 40 знаков. Group code — обязательное, должно совпасть со значением константы GROUP_CODE, которую объяви в начале скрипта, я её заполню.
+1. Вместо заглушки на экране Registration сделай форму из двух полей. Display name — обязательное, от 2 до 40 знаков. Group code — обязательное, должно совпасть с одной из строк массива GROUPS, который объяви в начале скрипта, я его заполню. Сравнивай, убрав пробелы по краям и не различая регистр, но записывай в базу строку ровно в том виде, в каком она лежит в GROUPS.
 2. Под полями одно предложение простыми словами о том, что именно отправляется и кто это увидит, и флажок согласия, без которого продолжить нельзя. Подпись флажка должна быть понятна сама по себе.
 3. Проверяй поля в JavaScript до отправки. Ошибку показывай словами рядом с тем полем, к которому она относится. Не опирайся на цвет и не используй всплывающие окна.
 4. При отправке записывай ровно один документ в коллекцию participants с полями displayName, groupCode, platformId и createdAt. Константу platformId объяви в начале скрипта. Для createdAt возьми серверную отметку времени Firestore.
@@ -390,7 +392,7 @@ Use Firebase Firestore loaded from the Google CDN in the compat build, so that e
 <span class="fill">PASTE THE CONTENTS OF my-config.txt HERE</span>
 
 Requirements.
-1. Replace the placeholder on the Registration screen with a form of two fields. Display name, required, between 2 and 40 characters. Group code, required, which must match the value of a constant GROUP_CODE that you declare at the start of the script and I will fill in.
+1. Replace the placeholder on the Registration screen with a form of two fields. Display name, required, between 2 and 40 characters. Group code, required, which must match one of the strings in the array GROUPS that you declare at the start of the script and I will fill in. Compare after trimming spaces and ignoring capitals, but write to the database the string exactly as it stands in GROUPS.
 2. Below the fields, one sentence in plain words about what exactly is sent and who will see it, and a consent checkbox without which the learner cannot continue. The checkbox label must make sense on its own.
 3. Validate the fields in JavaScript before anything is sent. Show each error in words next to the field it belongs to. Do not rely on colour and do not use pop-up dialogs.
 4. On submit, write exactly one document to the collection participants, with the fields displayName, groupCode, platformId and createdAt. Declare platformId as a constant at the start of the script. For createdAt use the Firestore server timestamp.

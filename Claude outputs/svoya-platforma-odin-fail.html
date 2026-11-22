@@ -301,7 +301,7 @@ ul.cl li::before{content:"";position:absolute;left:3px;top:15px;width:13px;heigh
     <ol class="steps">
       <li>Откройте console.firebase.google.com и войдите в аккаунт Google.</li>
       <li>Нажмите «Создать проект». Имя задайте латиницей, например <code>my-course</code>. Аналитику подключать не нужно.</li>
-      <li>В левом меню откройте Build, затем Firestore Database, и нажмите «Создать базу данных». Режим выберите производственный (production). Регион возьмите ближайший — сменить его потом нельзя.</li>
+      <li>В левом меню, в разделе Product categories, откройте Databases &amp; Storage и выберите в выпавшем списке Firestore, он в группе NoSQL. Нужен именно Firestore, а не Realtime Database, это две разные базы данных. Нажмите кнопку создания базы. Режим выберите производственный (production). Регион возьмите ближайший — сменить его потом нельзя.</li>
       <li>Перейдите на вкладку Rules, удалите всё, что там есть, вставьте текст ниже и нажмите Publish.</li>
     </ol>
     <div class="block">
@@ -329,7 +329,7 @@ service cloud.firestore {
     <ol class="steps" start="5">
       <li>Нажмите шестерёнку рядом с названием проекта и выберите Project settings. Внизу, в разделе Your apps, нажмите значок с угловыми скобками. Имя приложения любое, Firebase Hosting подключать не нужно, затем нажмите Register app.</li>
       <li>На экране появится блок <code>firebaseConfig</code>. Скопируйте его целиком в текстовый файл и сохраните под именем <code>my-config.txt</code>.</li>
-      <li>Записи участников смотрите там же — Firestore Database, вкладка Data, коллекция <code>participants</code>.</li>
+      <li>Записи участников смотрите там же, в Firestore, в коллекции <code>participants</code>.</li>
     </ol>
     <div class="note"><p>Значение <code>apiKey</code> в этом блоке — не пароль, а идентификатор проекта, поэтому он спокойно лежит в открытом коде сайта. Доступ к данным определяют правила. По правилам выше в коллекцию можно только добавить запись; прочитать, изменить или удалить данные из браузера нельзя. Видите их только Вы, в консоли.</p></div>
   </div>
@@ -340,7 +340,7 @@ service cloud.firestore {
     <ol class="steps">
       <li>Open console.firebase.google.com and sign in with a Google account.</li>
       <li>Click Create a project. Give it a plain name such as <code>my-course</code>. Analytics is not needed.</li>
-      <li>In the left menu open Build, then Firestore Database, and click Create database. Choose production mode. Pick the region closest to you — it cannot be changed later.</li>
+      <li>In the left menu, under Product categories, open Databases &amp; Storage and choose Firestore from the list that appears, in the NoSQL group. It must be Firestore and not Realtime Database, which is a different database. Click the button that creates the database. Choose production mode. Pick the region closest to you — it cannot be changed later.</li>
       <li>Open the Rules tab, delete everything in it, paste the text below and click Publish.</li>
     </ol>
     <div class="block">
@@ -368,7 +368,7 @@ service cloud.firestore {
     <ol class="steps" start="5">
       <li>Click the gear icon next to the project name and choose Project settings. At the bottom, under Your apps, click the angle brackets icon. Any app name will do, Firebase Hosting is not needed, then click Register app.</li>
       <li>A <code>firebaseConfig</code> block appears on screen. Copy the whole of it into a text file and save it as <code>my-config.txt</code>.</li>
-      <li>Registration records are in the same console — Firestore Database, the Data tab, the <code>participants</code> collection.</li>
+      <li>Registration records are in the same console, in Firestore, in the <code>participants</code> collection.</li>
     </ol>
     <div class="note"><p>The <code>apiKey</code> value in that block is not a password but a project identifier, which is why it can sit openly in the site's code. Access is decided by the rules. Under the rules above a record can only be added to the collection; nothing can be read, changed or deleted from a browser. You are the only one who sees the records, in the console.</p></div>
   </div>
