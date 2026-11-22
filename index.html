@@ -94,37 +94,53 @@
       <li>Нажмите «Создать проект». Имя задайте латиницей, например <code>my-course</code>. Аналитику подключать не нужно.</li>
       <li>В левом меню, в разделе Product categories, откройте Databases &amp; Storage и выберите в выпавшем списке Firestore, он в группе NoSQL. Нужен именно Firestore, а не Realtime Database, это две разные базы данных. Нажмите кнопку создания базы. Режим выберите производственный (production). Регион возьмите ближайший — сменить его потом нельзя.</li>
       <li>В левом меню, в разделе Product categories, откройте Security и выберите Authentication. Нажмите кнопку начала работы, в списке способов входа выберите Email/Password и включите верхний переключатель. Второй, Email link, включать не нужно.</li>
-      <li>Перейдите на вкладку Users и нажмите Add user. Введите свою рабочую почту и пароль, который больше нигде не используется. Это Ваш преподавательский вход. В появившейся строке скопируйте значение User UID, оно понадобится в правилах.</li>
-      <li>Вернитесь в Firestore, откройте вкладку Rules, удалите всё, что там есть, вставьте текст ниже и нажмите Publish.</li>
+      <li>Перейдите на вкладку Users, нажмите Add user, введите свою рабочую почту и пароль, который больше нигде не используется. Это Ваш преподавательский вход.</li>
+      <li>Вернитесь в Firestore, на вкладку с данными, и нажмите Start collection. Идентификатор коллекции — <code>teachers</code>. Идентификатор документа — Ваша почта, та же самая, что на предыдущем шаге, знак в знак. Добавьте одно поле с именем <code>name</code>, тип string, значение — Ваше имя. Сохраните.</li>
+      <li>Откройте вкладку Rules, удалите всё, что там есть, вставьте текст ниже и нажмите Publish. Менять в нём ничего не нужно.</li>
     </ol>
     <div class="block">
       <div class="block-head"><b>Правила доступа</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
       <pre>rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    function isTeacher() {
+      return request.auth != null
+        &amp;&amp; exists(/databases/$(database)/documents/teachers/$(request.auth.token.email));
+    }
+
+    match /teachers/{email} {
+      allow read: if request.auth != null &amp;&amp; request.auth.token.email == email;
+      allow write: if false;
+    }
+
+    match /groups/{code} {
+      allow read: if true;
+      allow write: if isTeacher();
+    }
+
     match /participants/{docId} {
       allow create: if request.resource.data.keys().hasOnly(['displayName', 'groupCode', 'platformId', 'createdAt'])
         &amp;&amp; request.resource.data.displayName is string
         &amp;&amp; request.resource.data.displayName.size() &gt;= 2
         &amp;&amp; request.resource.data.displayName.size() &lt;= 40
-        &amp;&amp; request.resource.data.groupCode in <span class="fill">['ENG-A', 'ENG-B']</span>;
-      allow read: if request.auth != null
-        &amp;&amp; request.auth.uid == <span class="fill">'UID-ПРЕПОДАВАТЕЛЯ'</span>;
+        &amp;&amp; exists(/databases/$(database)/documents/groups/$(request.resource.data.groupCode));
+      allow read: if isTeacher();
       allow update, delete: if false;
     }
+
     match /{document=**} {
       allow read, write: if false;
     }
   }
 }</pre>
     </div>
-    <p>Коды групп Вы придумываете сами, по одному на каждую группу, которая будет проходить курс. Это любые короткие строки, например <code>ENG-A</code> и <code>ENG-B</code>. Обучающемуся запоминать их не нужно, он выберет свою группу из списка. Код нужен для того, чтобы записи раскладывались по группам и чтобы в базу не попадало произвольное содержимое. Перечислите свои коды в правилах вместо <code>['ENG-A', 'ENG-B']</code> и впишите тот же список при сборке.</p>
-    <p>Вторая строка в правилах разрешает чтение списка только одному человеку, владельцу указанного UID. Это Ваш преподавательский аккаунт из пятого шага. Вставьте вместо <code>'UID-ПРЕПОДАВАТЕЛЯ'</code> скопированное значение. Проверки на то, что вошёл хоть кто-нибудь, здесь недостаточно, потому что завести себе аккаунт в Вашем проекте может любой.</p>
-    <div class="note warn"><p>Когда появится новая группа, её код впишите в двух местах, в правила и в список в коде платформы. Если поправить только одно, регистрация у этой группы перестанет проходить, а выглядеть это будет как поломка платформы.</p></div>
-    <ol class="steps" start="7">
+    <p>Эти правила вставляются как есть и больше не открываются никогда. В них нет ни Вашей почты, ни кодов групп, ни других значений, которые пришлось бы подставлять. Всё, что меняется со временем, живёт в самой базе.</p>
+    <p>Читать список зарегистрировавшихся может только тот, чья почта лежит документом в коллекции <code>teachers</code>. Дописать себя туда через платформу нельзя, коллекция закрыта на запись, новые преподаватели добавляются только Вами и только в консоли. Проверки на то, что вошёл хоть кто-нибудь, здесь было бы мало, потому что завести себе аккаунт в Вашем проекте может любой.</p>
+    <p>Группы хранятся в коллекции <code>groups</code> и заводятся позже, на экране преподавателя. Зарегистрироваться можно только в ту группу, которая там есть, это проверяют правила. Добавили группу — она работает сразу, без правок правил и без переустановки платформы.</p>
+    <ol class="steps" start="8">
       <li>В левом меню нажмите Settings и выберите General. Прокрутите страницу вниз до раздела Your apps и нажмите значок с угловыми скобками, это веб-приложение. Имя приложения любое, Firebase Hosting подключать не нужно, затем нажмите Register app.</li>
       <li>На экране появится блок <code>firebaseConfig</code>. Скопируйте его целиком в текстовый файл и сохраните под именем <code>my-config.txt</code>. Если файл потеряется, этот же блок всегда лежит в Settings, General, раздел Your apps.</li>
-      <li>Список зарегистрировавшихся Вы увидите на экране преподавателя в самой платформе, он собирается на шестом запросе. Те же записи всегда доступны и в консоли, в Firestore, в коллекции <code>participants</code>.</li>
     </ol>
     <p>Блок выглядит примерно так, значения в нём будут Ваши собственные.</p>
     <div class="block">
@@ -139,7 +155,7 @@ service cloud.firestore {
 };</pre>
     </div>
     <p>Копируйте его целиком, вместе со словами <code>const firebaseConfig =</code> в начале и закрывающей фигурной скобкой с точкой с запятой в конце. Строки выше, которые начинаются со слова <code>import</code> или с двух косых черт, не нужны.</p>
-    <div class="note"><p>Значение <code>apiKey</code> в этом блоке — не пароль, а идентификатор проекта, поэтому он спокойно лежит в открытом коде сайта. Доступ к данным определяют правила. По правилам выше в коллекцию можно только добавить запись; прочитать, изменить или удалить данные из браузера нельзя. Видите их только Вы, в консоли.</p></div>
+    <div class="note"><p>Значение <code>apiKey</code> в этом блоке — не пароль, а идентификатор проекта, поэтому он спокойно лежит в открытом коде сайта. Доступ к данным определяют правила.</p></div>
   </div>
   <div data-l="en">
     <div class="kind num"><i></i><b>Step 02</b></div>
@@ -150,37 +166,53 @@ service cloud.firestore {
       <li>Click Create a project. Give it a plain name such as <code>my-course</code>. Analytics is not needed.</li>
       <li>In the left menu, under Product categories, open Databases &amp; Storage and choose Firestore from the list that appears, in the NoSQL group. It must be Firestore and not Realtime Database, which is a different database. Click the button that creates the database. Choose production mode. Pick the region closest to you — it cannot be changed later.</li>
       <li>In the left menu, under Product categories, open Security and choose Authentication. Click the button that starts it, pick Email/Password in the list of sign-in methods and turn on the first switch. The second one, Email link, is not needed.</li>
-      <li>Open the Users tab and click Add user. Enter your work e-mail and a password you use nowhere else. This is your teacher sign-in. In the row that appears, copy the User UID value, you will need it in the rules.</li>
-      <li>Go back to Firestore, open the Rules tab, delete everything in it, paste the text below and click Publish.</li>
+      <li>Open the Users tab, click Add user, and enter your work e-mail and a password you use nowhere else. This is your teacher sign-in.</li>
+      <li>Go back to Firestore, to the data tab, and click Start collection. The collection id is <code>teachers</code>. The document id is your e-mail, exactly the one from the previous step, character for character. Add one field called <code>name</code>, of type string, with your name as its value. Save.</li>
+      <li>Open the Rules tab, delete everything in it, paste the text below and click Publish. Nothing in it needs changing.</li>
     </ol>
     <div class="block">
       <div class="block-head"><b>Security rules</b><button class="btn btn-sm copy" type="button">Copy</button></div>
       <pre>rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    function isTeacher() {
+      return request.auth != null
+        &amp;&amp; exists(/databases/$(database)/documents/teachers/$(request.auth.token.email));
+    }
+
+    match /teachers/{email} {
+      allow read: if request.auth != null &amp;&amp; request.auth.token.email == email;
+      allow write: if false;
+    }
+
+    match /groups/{code} {
+      allow read: if true;
+      allow write: if isTeacher();
+    }
+
     match /participants/{docId} {
       allow create: if request.resource.data.keys().hasOnly(['displayName', 'groupCode', 'platformId', 'createdAt'])
         &amp;&amp; request.resource.data.displayName is string
         &amp;&amp; request.resource.data.displayName.size() &gt;= 2
         &amp;&amp; request.resource.data.displayName.size() &lt;= 40
-        &amp;&amp; request.resource.data.groupCode in <span class="fill">['ENG-A', 'ENG-B']</span>;
-      allow read: if request.auth != null
-        &amp;&amp; request.auth.uid == <span class="fill">'TEACHER-UID'</span>;
+        &amp;&amp; exists(/databases/$(database)/documents/groups/$(request.resource.data.groupCode));
+      allow read: if isTeacher();
       allow update, delete: if false;
     }
+
     match /{document=**} {
       allow read, write: if false;
     }
   }
 }</pre>
     </div>
-    <p>You invent the group codes yourself, one for each group that will take the course. They are any short strings, for example <code>ENG-A</code> and <code>ENG-B</code>. Learners do not have to remember them, they pick their group from a list. The code exists so that records sort by group and so that arbitrary content cannot reach the database. List your own codes in the rules in place of <code>['ENG-A', 'ENG-B']</code> and put the same list in when building.</p>
-    <p>The second line in the rules lets one person read the list, the owner of the UID named there. That is your teacher account from step five. Put the copied value in place of <code>'TEACHER-UID'</code>. Checking merely that somebody is signed in is not enough here, because anyone can create an account in your project.</p>
-    <div class="note warn"><p>When a new group appears, add its code in two places, the rules and the list in the platform code. If you change only one of them, registration stops working for that group, and it looks like a broken platform.</p></div>
-    <ol class="steps" start="7">
+    <p>These rules are pasted as they are and never opened again. They hold no e-mail of yours, no group codes, nothing you would have to substitute. Everything that changes over time lives in the database itself.</p>
+    <p>Only the person whose e-mail sits as a document in the <code>teachers</code> collection can read the list of registrations. Nobody can add themselves there through the platform, the collection is closed to writing, and new teachers are added by you alone, in the console. Checking merely that somebody is signed in would not be enough here, because anyone can create an account in your project.</p>
+    <p>Groups live in the <code>groups</code> collection and are created later, on the teacher screen. A learner can register only into a group that exists there, and the rules enforce it. Add a group and it works at once, with no edit to the rules and no redeployment of the platform.</p>
+    <ol class="steps" start="8">
       <li>In the left menu click Settings and choose General. Scroll down to the Your apps section and click the angle brackets icon, which stands for a web app. Any app name will do, Firebase Hosting is not needed, then click Register app.</li>
       <li>A <code>firebaseConfig</code> block appears on screen. Copy the whole of it into a text file and save it as <code>my-config.txt</code>. If the file goes missing, the same block always sits in Settings, General, the Your apps section.</li>
-      <li>You will see the list of registrations on the teacher screen inside the platform, built by the sixth request. The same records are always available in the console too, in Firestore, in the <code>participants</code> collection.</li>
     </ol>
     <p>The block looks roughly like this, with your own values in it.</p>
     <div class="block">
@@ -195,7 +227,7 @@ service cloud.firestore {
 };</pre>
     </div>
     <p>Copy the whole of it, including the words <code>const firebaseConfig =</code> at the start and the closing brace with its semicolon at the end. The lines above it that begin with <code>import</code> or with two slashes are not needed.</p>
-    <div class="note"><p>The <code>apiKey</code> value in that block is not a password but a project identifier, which is why it can sit openly in the site's code. Access is decided by the rules. Under the rules above a record can only be added to the collection; nothing can be read, changed or deleted from a browser. You are the only one who sees the records, in the console.</p></div>
+    <div class="note"><p>The <code>apiKey</code> value in that block is not a password but a project identifier, which is why it can sit openly in the site's code. Access is decided by the rules.</p></div>
   </div>
 </section>
 
@@ -305,18 +337,20 @@ service cloud.firestore {
 <span class="fill">ВСТАВЬТЕ СЮДА СОДЕРЖИМОЕ ФАЙЛА my-config.txt</span>
 
 Требования.
-1. Вместо заглушки на экране Registration сделай форму из двух полей. Display name — текстовое, обязательное, от 2 до 40 знаков. Group — выпадающий список, обязательный, собранный из массива GROUPS, который объяви в начале скрипта, я его заполню. Каждый элемент массива имеет поля code и name, например { code: "ENG-A", name: "Monday group" }. В списке показывай name, а в базу записывай code. Первым пунктом списка поставь незаполненное значение, чтобы группа выбиралась осознанно.
-2. Под полями одно предложение простыми словами о том, что именно отправляется и кто это увидит, и флажок согласия, без которого продолжить нельзя. Подпись флажка должна быть понятна сама по себе.
-3. Проверяй поля в JavaScript до отправки. Ошибку показывай словами рядом с тем полем, к которому она относится. Не опирайся на цвет и не используй всплывающие окна.
-4. При отправке записывай ровно один документ в коллекцию participants с полями displayName, groupCode, platformId и createdAt. Константу platformId объяви в начале скрипта. Для createdAt возьми серверную отметку времени Firestore.
-5. Платформа никогда ничего не читает, не перечисляет, не изменяет и не удаляет в этой коллекции. Запись — единственная операция во всём коде.
-6. Пока идёт отправка, кнопка заблокирована и подписана Sending. При успехе переходи на экран Unit. При ошибке покажи одно предложение о том, что регистрацию записать не удалось, дай кнопку Try again и всё равно пропусти дальше, на экран Unit, потому что сбой базы не должен останавливать занятие.
-7. Каждый вызов, который обращается к сети или к хранилищу браузера, оберни в try и catch, чтобы сбой в одном месте не ломал остальное.
-8. Не храни в браузере ничего об обучающемся дольше текущего посещения.
+1. При открытии экрана Registration прочитай коллекцию groups. У каждого документа идентификатор — это код группы, а поле name — её название для обучающегося.
+2. Вместо заглушки сделай форму из двух полей. Display name — текстовое, обязательное, от 2 до 40 знаков. Group — выпадающий список, обязательный, собранный из прочитанных групп. В списке показывай name, а в базу записывай код, то есть идентификатор документа. Первым пунктом поставь пустое значение, чтобы группа выбиралась осознанно.
+3. Если коллекция groups пуста или не прочиталась, не показывай пустой список. Покажи одно предложение о том, что группы ещё не заведены, и кнопку Try again.
+4. Под полями одно предложение простыми словами о том, что именно отправляется и кто это увидит, и флажок согласия, без которого продолжить нельзя. Подпись флажка должна быть понятна сама по себе.
+5. Проверяй поля в JavaScript до отправки. Ошибку показывай словами рядом с тем полем, к которому она относится. Не опирайся на цвет и не используй всплывающие окна.
+6. При отправке записывай ровно один документ в коллекцию participants с полями displayName, groupCode, platformId и createdAt. Константу platformId объяви в начале скрипта. Для createdAt возьми серверную отметку времени Firestore.
+7. Платформа никогда ничего не изменяет и не удаляет в коллекции participants и не читает её на этом экране.
+8. Пока идёт отправка, кнопка заблокирована и подписана Sending. При успехе переходи на экран Unit. При ошибке покажи одно предложение о том, что регистрацию записать не удалось, дай кнопку Try again и всё равно пропусти дальше, на экран Unit, потому что сбой базы не должен останавливать занятие.
+9. Каждый вызов, который обращается к сети или к хранилищу браузера, оберни в try и catch.
+10. Не храни в браузере ничего об обучающемся дольше текущего посещения.
 
 Присылай файл целиком.</pre>
     </div>
-    <p class="muted">Зарегистрируйтесь один раз и найдите свою запись в консоли Firebase. Потом попробуйте имя из одной буквы и неверный код группы — оба раза должен быть отказ словами, рядом с полем.</p>
+    <p class="muted">Пока групп нет, форма скажет об этом, и это правильно. Заведите одну группу прямо в консоли, в коллекции <code>groups</code>, чтобы проверить регистрацию сейчас. Дальше группы добавляются на экране преподавателя. Зарегистрируйтесь один раз, найдите свою запись в консоли, затем попробуйте имя из одной буквы — должен быть отказ словами, рядом с полем.</p>
 
     <h3>Задания</h3>
     <div class="block">
@@ -376,13 +410,14 @@ service cloud.firestore {
 1. Внизу экрана Welcome маленькая неброская ссылка Teacher. По нажатию открывается экран Sign in, а не экран Registration.
 2. Экран Sign in — поля Email и Password и кнопка Sign in. Вход делай через Firebase Authentication, способом email и пароль. Возможности зарегистрировать нового пользователя на этом экране быть не должно, только вход.
 3. Перед входом задай хранение сессии на время вкладки, в сборке compat это firebase.auth.Auth.Persistence.SESSION. Закрыли вкладку — вход сброшен. Платформу открывают с чужих компьютеров.
-4. После успешного входа открывается экран Teacher с таблицей из трёх столбцов — Name, Group и Registered. Сортируй по времени, новые записи сверху, время показывай в местном формате.
-5. Над таблицей выпадающий список групп, собранный из GROUPS, со значением All groups по умолчанию, и строка с числом показанных записей вида 14 records.
-6. В столбце Group показывай name из GROUPS. Если кода записи в GROUPS нет, покажи сам код.
+4. После входа открывается экран Teacher с двумя частями — Groups и Registrations.
+5. Часть Groups. Список заведённых групп, у каждой код и название. Под ним форма из двух полей, Code и Name, и кнопка Add group. Код — латинские буквы, цифры и дефис, от 2 до 20 знаков, пробелов нет. По нажатию создавай документ в коллекции groups, где идентификатор документа — это код, а поле name — название. Если группа с таким кодом уже есть, скажи об этом словами и ничего не перезаписывай.
+6. Часть Registrations. Таблица из трёх столбцов — Name, Group и Registered. Сортируй по времени, новые записи сверху, время показывай в местном формате. Над таблицей выпадающий список групп со значением All groups по умолчанию и строка с числом показанных записей вида 14 records. В столбце Group показывай название группы, а если её код в списке групп не найден, покажи сам код.
 7. Кнопка Sign out возвращает на экран Welcome.
 8. Если войти не удалось, покажи одно предложение простыми словами. Не выводи техническое сообщение Firebase и не уточняй, что именно неверно, почта или пароль.
-9. Чтение коллекции participants происходит только на этом экране и только после успешного входа. Больше нигде платформа ничего не читает.
-10. Пока список загружается, покажи строку Loading. Если чтение не удалось, покажи одно предложение и кнопку Try again.
+9. Если вход прошёл, но список прочитать не дали, покажи одно предложение о том, что у этой учётной записи нет прав преподавателя, и кнопку Sign out.
+10. Чтение коллекции participants происходит только на этом экране и только после входа. Больше нигде платформа её не читает.
+11. Пока данные загружаются, показывай строку Loading. При ошибке чтения — одно предложение и кнопку Try again.
 
 Присылай файл целиком.</pre>
     </div>
@@ -446,18 +481,20 @@ Use Firebase Firestore loaded from the Google CDN in the compat build, so that e
 <span class="fill">PASTE THE CONTENTS OF my-config.txt HERE</span>
 
 Requirements.
-1. Replace the placeholder on the Registration screen with a form of two fields. Display name, a text field, required, between 2 and 40 characters. Group, a drop-down list, required, built from the array GROUPS that you declare at the start of the script and I will fill in. Each item of the array has the fields code and name, for example { code: "ENG-A", name: "Monday group" }. Show name in the list and write code to the database. Make the first entry of the list empty, so that a group is chosen deliberately.
-2. Below the fields, one sentence in plain words about what exactly is sent and who will see it, and a consent checkbox without which the learner cannot continue. The checkbox label must make sense on its own.
-3. Validate the fields in JavaScript before anything is sent. Show each error in words next to the field it belongs to. Do not rely on colour and do not use pop-up dialogs.
-4. On submit, write exactly one document to the collection participants, with the fields displayName, groupCode, platformId and createdAt. Declare platformId as a constant at the start of the script. For createdAt use the Firestore server timestamp.
-5. The platform never reads, lists, changes or deletes anything in that collection. Writing is the only operation anywhere in the code.
-6. While the write is in progress, the button is disabled and labelled Sending. On success, go to the Unit screen. On failure, show one sentence saying the registration could not be recorded, offer a Try again button, and still let the learner through to the Unit screen, because a database failure must not stop the lesson.
-7. Wrap every call that touches the network or browser storage in try and catch, so that a failure in one place does not break the rest.
-8. Do not keep anything about the learner in the browser beyond the current visit.
+1. When the Registration screen opens, read the groups collection. Each document's id is the group code, and its name field is the group's name as a learner sees it.
+2. Replace the placeholder with a form of two fields. Display name, a text field, required, between 2 and 40 characters. Group, a drop-down list, required, built from the groups you read. Show name in the list and write the code, that is the document id, to the database. Make the first entry empty, so that a group is chosen deliberately.
+3. If the groups collection is empty or could not be read, do not show an empty list. Show one sentence saying that no groups have been created yet, and a Try again button.
+4. Below the fields, one sentence in plain words about what exactly is sent and who will see it, and a consent checkbox without which the learner cannot continue. The checkbox label must make sense on its own.
+5. Validate the fields in JavaScript before anything is sent. Show each error in words next to the field it belongs to. Do not rely on colour and do not use pop-up dialogs.
+6. On submit, write exactly one document to the collection participants, with the fields displayName, groupCode, platformId and createdAt. Declare platformId as a constant at the start of the script. For createdAt use the Firestore server timestamp.
+7. The platform never changes or deletes anything in the participants collection and never reads it on this screen.
+8. While the write is in progress, the button is disabled and labelled Sending. On success, go to the Unit screen. On failure, show one sentence saying the registration could not be recorded, offer a Try again button, and still let the learner through to the Unit screen, because a database failure must not stop the lesson.
+9. Wrap every call that touches the network or browser storage in try and catch.
+10. Do not keep anything about the learner in the browser beyond the current visit.
 
 Return the full file.</pre>
     </div>
-    <p class="muted">Register once and find your own record in the Firebase console. Then try a one-letter name and a wrong group code — both should be refused in words, next to the field.</p>
+    <p class="muted">While there are no groups the form says so, and that is correct. Create one group in the console, in the <code>groups</code> collection, so that you can test registration now. After this, groups are added on the teacher screen. Register once, find your record in the console, then try a one-letter name — it should be refused in words, next to the field.</p>
 
     <h3>Tasks</h3>
     <div class="block">
@@ -517,13 +554,14 @@ Return the full file.</pre>
 1. At the bottom of the Welcome screen, a small discreet link saying Teacher. It opens the Sign in screen, not the Registration screen.
 2. The Sign in screen has Email and Password fields and a Sign in button. Sign in through Firebase Authentication with email and password. There must be no way to create a new user on this screen, only to sign in.
 3. Before signing in, set session persistence to the lifetime of the tab, which in the compat build is firebase.auth.Auth.Persistence.SESSION. Close the tab and the sign-in is gone. The platform is opened on other people's computers.
-4. After a successful sign-in the Teacher screen opens, with a table of three columns, Name, Group and Registered. Sort by time, newest first, and show the time in the local format.
-5. Above the table a drop-down list of groups built from GROUPS, with All groups as the default, and a line with the number of rows shown, of the form 14 records.
-6. In the Group column show the name from GROUPS. If the record's code is not in GROUPS, show the code itself.
+4. After signing in, the Teacher screen opens with two parts, Groups and Registrations.
+5. The Groups part. A list of the groups that exist, each with its code and name. Below it a form of two fields, Code and Name, and an Add group button. A code is Latin letters, digits and hyphens, between 2 and 20 characters, no spaces. On the button, create a document in the groups collection whose document id is the code and whose name field is the name. If a group with that code already exists, say so in words and overwrite nothing.
+6. The Registrations part. A table of three columns, Name, Group and Registered. Sort by time, newest first, and show the time in the local format. Above the table a drop-down list of groups with All groups as the default, and a line with the number of rows shown, of the form 14 records. In the Group column show the group's name, and if its code is not among the groups, show the code itself.
 7. A Sign out button returns to the Welcome screen.
 8. If signing in fails, show one sentence in plain words. Do not print the technical Firebase message and do not say which of the two was wrong, the e-mail or the password.
-9. Reading the participants collection happens only on this screen and only after a successful sign-in. Nowhere else does the platform read anything.
-10. While the list loads, show a Loading line. If the read fails, show one sentence and a Try again button.
+9. If the sign-in succeeded but the list could not be read, show one sentence saying this account has no teacher rights, and a Sign out button.
+10. Reading the participants collection happens only on this screen and only after signing in. Nowhere else does the platform read it.
+11. While data loads, show a Loading line. If a read fails, show one sentence and a Try again button.
 
 Return the full file.</pre>
     </div>
@@ -654,6 +692,7 @@ Fix it throughout the file, not only where I pointed, and send the whole file ag
       <li>Результат модуля виден до первого задания, понятными обучающемуся словами.</li>
       <li>Форма регистрации говорит, что отправляется и кто это увидит, до того как что-то введено.</li>
       <li>Группа выбирается из списка, а не вводится вручную.</li>
+      <li>Новая группа, заведённая на экране преподавателя, сразу появляется в списке при регистрации.</li>
       <li>Любое задание проходится с одной клавиатуры, без мыши.</li>
       <li>Неверный ответ получает обратную связь, которая называет ошибку, а не только помечает её.</li>
       <li>Каждый неверный вариант в задании на выбор — ошибка, которую делают настоящие обучающиеся.</li>
@@ -675,6 +714,7 @@ Fix it throughout the file, not only where I pointed, and send the whole file ag
       <li>The unit outcome is visible before the first task, in words a learner understands.</li>
       <li>The registration form says what is sent and who will see it, before anything is typed.</li>
       <li>The group is chosen from a list rather than typed.</li>
+      <li>A new group created on the teacher screen appears at once in the list on the registration form.</li>
       <li>Every task can be completed with the keyboard alone, without a mouse.</li>
       <li>A wrong answer gets feedback that names the error rather than merely marking it.</li>
       <li>Every wrong option in the multiple choice is a mistake real learners make.</li>
