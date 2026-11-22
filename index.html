@@ -268,9 +268,10 @@ service cloud.firestore {
 10. Никогда не обозначай верный и неверный ответ только цветом. Всегда дублируй словами.
 11. Изображения и звук бери только из папки assets по относительному пути, который задан в содержании. Ничего из интернета. Декоративную графику рисуй в SVG или средствами CSS.
 12. Никогда не используй всплывающие окна браузера — alert, confirm и prompt. Любое сообщение и любой вопрос рисуй прямо на странице.
-13. Никогда не присылай фрагмент, заплатку или указание вставить что-то самостоятельно.
-14. Если ответ не помещается целиком, не сокращай код, не выбрасывай части и не пиши «остальное без изменений». Продолжай писать файл, пока он не кончится, а если ответ оборвётся, я попрошу продолжить.
-15. В ответе только блок кода. Без пояснений до и после него.</pre>
+13. Всё, на что можно нажать, делай элементом button. Элемент a не используй вообще, адрес страницы не меняется никогда.
+14. Никогда не присылай фрагмент, заплатку или указание вставить что-то самостоятельно.
+15. Если ответ не помещается целиком, не сокращай код, не выбрасывай части и не пиши «остальное без изменений». Продолжай писать файл, пока он не кончится, а если ответ оборвётся, я попрошу продолжить.
+16. В ответе только блок кода. Без пояснений до и после него.</pre>
     </div>
   </div>
   <div data-l="en">
@@ -293,9 +294,10 @@ service cloud.firestore {
 10. Never mark an answer right or wrong by colour alone. Always say it in words as well.
 11. Take images and sound only from the assets folder, by the relative path given in the content. Nothing from the internet. Draw decorative graphics in SVG or with CSS.
 12. Never use the browser's pop-up windows, that is alert, confirm and prompt. Draw every message and every question on the page itself.
-13. Never send a fragment, a patch, or an instruction to insert something myself.
-14. If an answer does not fit, do not shorten the code, drop parts or write "the rest is unchanged". Keep writing the file until it ends, and if the answer is cut off I will ask you to continue.
-15. Answer with the code block only. No explanation before or after it.</pre>
+13. Everything clickable is a button element. Never use an a element at all, and the page address never changes.
+14. Never send a fragment, a patch, or an instruction to insert something myself.
+15. If an answer does not fit, do not shorten the code, drop parts or write "the rest is unchanged". Keep writing the file until it ends, and if the answer is cut off I will ask you to continue.
+16. Answer with the code block only. No explanation before or after it.</pre>
     </div>
   </div>
 </section>
@@ -336,12 +338,12 @@ service cloud.firestore {
 Собери каркас платформы курса. Пришли два файла, по одному в двух сообщениях подряд — сначала index.html, потом content.js с примером заполнения.
 
 Требования к index.html.
-1. Четыре экрана, которые показываются по одному — Welcome, Registration, Module, Finish. Переключение делай в JavaScript, скрывая и показывая секции. Не создавай отдельных страниц и никогда не меняй адрес страницы, в том числе не используй ссылки вида href="#".
+1. Четыре экрана, которые показываются по одному — Welcome, Registration, Module, Finish. Переключение делай в JavaScript, скрывая и показывая секции. Не создавай отдельных страниц и никогда не меняй адрес страницы. Элемент a не используй вообще, всё, на что можно нажать, делай элементом button.
 2. Подключи content.js обычным тегом script. Оба тега script поставь последними внутри body, после всей разметки, сначала content.js, потом твой скрипт. Если COURSE не загрузился, покажи вместо пустой страницы одно предложение о том, что файл content.js не найден и должен лежать рядом с index.html.
 3. Заголовок вкладки браузера бери из settings.courseTitle.
 4. Закреплённая полоса сверху — settings.courseTitle слева, название текущего подраздела справа.
-5. Экран Welcome выводит ровно эти пять значений, каждое по одному разу и в этом порядке: settings.courseTitle, settings.unitTitle, settings.audience, settings.outcome, settings.teacherName. Ни одно из них не выводи дважды и не подставляй вместо другого. Ниже кнопка Start, в самом низу маленькая неброская ссылка Teacher.
-6. Экран Registration — заголовок, одно предложение-заглушка и кнопка Continue. Ссылка Teacher на этом шаге ещё никуда не ведёт и ничего не делает, но адрес страницы при нажатии на неё меняться не должен.
+5. Экран Welcome выводит ровно эти пять значений, каждое по одному разу и в этом порядке: settings.courseTitle, settings.unitTitle, settings.audience, settings.outcome, settings.teacherName. Ни одно из них не выводи дважды и не подставляй вместо другого. Ниже кнопка Start, в самом низу кнопка Teacher, без рамки и фона, выглядит как мелкая надпись.
+6. Экран Registration — заголовок, одно предложение-заглушка и кнопка Continue. Кнопка Teacher на этом шаге ещё ничего не делает.
 7. Экран Module. Слева или сверху, в зависимости от ширины экрана, список подразделов из COURSE.sections с отметкой пройденных. Рядом содержимое выбранного подраздела — его заголовок, вступительный текст, затем изображение и аудиоплеер, если у подраздела заданы поля image и audio, затем место под задания с комментарием TASKS GO HERE. Внизу кнопки Back и Next, которые ведут по подразделам, а с последнего — на экран Finish.
 8. Отметка пройденного подраздела держится только в памяти страницы. Ничего не сохраняется, при перезагрузке всё начинается заново.
 9. Экран Finish — два предложения с поздравлением, предложение о том, что ничего не сохранено и модуль можно пройти снова, и кнопка Back to start.
@@ -372,7 +374,7 @@ const COURSE = {
 Присылай файлы целиком.</pre>
     </div>
     <p class="muted">Создайте в репозитории пустые папки <code>assets/img</code> и <code>assets/audio</code> сразу, чтобы потом не думать, куда класть файлы.</p>
-    <div class="note"><p>Прежде чем идти дальше, проверьте четыре вещи. На экране Welcome пять разных предложений, и результат модуля не напечатан дважды. В заголовке вкладки браузера стоит название курса, а не слово Course. Нажатие на ссылку Teacher не меняет адрес страницы. И главное: поменяйте название курса в <code>content.js</code>, обновите страницу, и если заголовок изменился, значит механика и содержание действительно разделены.</p></div>
+    <div class="note"><p>Прежде чем идти дальше, проверьте четыре вещи. На экране Welcome пять разных предложений, и результат модуля не напечатан дважды. В заголовке вкладки браузера стоит название курса, а не слово Course. Нажатие на кнопку Teacher не меняет адрес страницы. И главное: поменяйте название курса в <code>content.js</code>, обновите страницу, и если заголовок изменился, значит механика и содержание действительно разделены.</p></div>
 
     <h3>Запрос 2. Регистрация</h3>
     <div class="block">
@@ -404,7 +406,7 @@ const COURSE = {
       <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
       <pre>Добавь в index.html экран преподавателя. Всё, что уже работает, оставь как есть. content.js не трогай.
 
-1. Ссылка Teacher на экране Welcome открывает экран Sign in, а не экран Registration.
+1. Кнопка Teacher на экране Welcome открывает экран Sign in, а не экран Registration.
 2. Экран Sign in — поля Email и Password и кнопка Sign in. Вход делай через Firebase Authentication, способом email и пароль. Возможности зарегистрировать нового пользователя быть не должно, только вход.
 3. Перед входом задай хранение сессии на время вкладки, в сборке compat это firebase.auth.Auth.Persistence.SESSION. Закрыли вкладку — вход сброшен. Платформу открывают с чужих компьютеров.
 4. После входа открывается экран Teacher с двумя частями — Groups и Registrations.
@@ -498,12 +500,12 @@ My name as learners will see it:</pre>
 Build the shell of a course platform. Send two files, one per message, one after the other, index.html first and then content.js filled in as an example.
 
 Requirements for index.html.
-1. Four screens shown one at a time, Welcome, Registration, Module and Finish. Switch them in JavaScript by hiding and showing sections. Do not create separate pages and never change the page address, which includes not using links of the form href="#".
+1. Four screens shown one at a time, Welcome, Registration, Module and Finish. Switch them in JavaScript by hiding and showing sections. Do not create separate pages and never change the page address. Never use an a element at all, and make everything clickable a button element.
 2. Load content.js with a plain script tag. Put both script tags last inside the body, after all the markup, content.js first and your own script second. If COURSE did not load, show one sentence saying that content.js was not found and must sit next to index.html, instead of an empty page.
 3. Take the browser tab's title from settings.courseTitle.
 4. A fixed bar at the top, settings.courseTitle on the left and the current section's title on the right.
-5. The Welcome screen shows exactly these five values, each once and in this order: settings.courseTitle, settings.unitTitle, settings.audience, settings.outcome, settings.teacherName. Do not show any of them twice and do not put one in place of another. Below them a Start button, and at the very bottom a small discreet link saying Teacher.
-6. The Registration screen: a heading, one placeholder sentence and a Continue button. The Teacher link leads nowhere yet and does nothing, but clicking it must not change the page address.
+5. The Welcome screen shows exactly these five values, each once and in this order: settings.courseTitle, settings.unitTitle, settings.audience, settings.outcome, settings.teacherName. Do not show any of them twice and do not put one in place of another. Below them a Start button, and at the very bottom a Teacher button with no border and no background, looking like a small line of text.
+6. The Registration screen: a heading, one placeholder sentence and a Continue button. The Teacher button does nothing yet.
 7. The Module screen. Depending on the width of the screen, at the side or at the top, a list of the sections from COURSE.sections, marking the ones already visited. Next to it the chosen section: its title, its intro text, then an image and an audio player if the section has image and audio fields, then a place for the tasks holding only a comment that says TASKS GO HERE. At the bottom Back and Next buttons that move through the sections, and from the last one to the Finish screen.
 8. The mark on a visited section lives only in the page's memory. Nothing is saved, and a reload starts everything again.
 9. The Finish screen: two sentences of congratulation, a sentence saying that nothing was saved and the unit can be done again, and a Back to start button.
@@ -534,7 +536,7 @@ const COURSE = {
 Send both files in full.</pre>
     </div>
     <p class="muted">Create the empty <code>assets/img</code> and <code>assets/audio</code> folders in the repository straight away, so that later you know where files go.</p>
-    <div class="note"><p>Before going on, check four things. The Welcome screen shows five different sentences, and the unit outcome is not printed twice. The browser tab's title is the course title rather than the word Course. Clicking the Teacher link does not change the page address. And above all, change the course title in <code>content.js</code>, reload the page, and if the heading changed, the mechanics and the content really are apart.</p></div>
+    <div class="note"><p>Before going on, check four things. The Welcome screen shows five different sentences, and the unit outcome is not printed twice. The browser tab's title is the course title rather than the word Course. Clicking the Teacher button does not change the page address. And above all, change the course title in <code>content.js</code>, reload the page, and if the heading changed, the mechanics and the content really are apart.</p></div>
 
     <h3>Request 2. Registration</h3>
     <div class="block">
@@ -566,7 +568,7 @@ Send index.html in full.</pre>
       <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Copy</button></div>
       <pre>Add a teacher screen to index.html. Keep everything that already works. Leave content.js alone.
 
-1. The Teacher link on the Welcome screen opens the Sign in screen, not the Registration screen.
+1. The Teacher button on the Welcome screen opens the Sign in screen, not the Registration screen.
 2. The Sign in screen has Email and Password fields and a Sign in button. Sign in through Firebase Authentication with email and password. There must be no way to create a new user, only to sign in.
 3. Before signing in, set session persistence to the lifetime of the tab, which in the compat build is firebase.auth.Auth.Persistence.SESSION. Close the tab and the sign-in is gone. The platform is opened on other people's computers.
 4. After signing in, the Teacher screen opens with two parts, Groups and Registrations.
