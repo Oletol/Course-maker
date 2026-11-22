@@ -259,7 +259,7 @@ service cloud.firestore {
 1. У платформы два файла. index.html — механика. content.js — содержание курса. В одном ответе присылай один файл, тот, который я назвал, и всегда целиком, с первой строки до последней.
 2. Механика ничего не знает о конкретном курсе. Все заголовки, тексты, задания и пути к медиа она берёт из объекта COURSE, объявленного в content.js. В index.html не должно остаться ни одного учебного текста. Служебные надписи интерфейса — названия кнопок, заголовки экранов, сообщения об ошибках — наоборот, пиши прямо в index.html по-английски, в содержание они не выносятся.
 3. Когда я прошу содержание, присылай только content.js и не трогай index.html. Когда я прошу правку механики, присылай только index.html.
-4. Только чистые HTML, CSS и JavaScript. Без React, Vue, jQuery, npm, сборки и любых фреймворков. Стили внутри элемента style, скрипт внутри элемента script, оба в index.html.
+4. Только чистые HTML, CSS и JavaScript. Без React, Vue, jQuery, npm, сборки и любых фреймворков. Стили внутри элемента style, скрипт внутри элемента script, оба в index.html. Элемент style ставь в head, а все элементы script последними внутри body, после всей разметки.
 5. Сначала телефон. Страница должна работать на телефоне в вертикальном положении, без горизонтальной прокрутки.
 6. Язык интерфейса — английский.
 7. Никогда не используй символы стрелок в интерфейсе. Пиши словами — Next, Back, Continue, Check.
@@ -284,7 +284,7 @@ service cloud.firestore {
 1. The platform has two files. index.html holds the mechanics. content.js holds the course content. Send one file per answer, the one I named, and always in full, from the first line to the last.
 2. The mechanics know nothing about any particular course. Every heading, text, task and media path comes from the COURSE object declared in content.js. Not one line of teaching text may stay in index.html. Interface wording, on the other hand — button labels, screen headings, error messages — is written straight into index.html in English and never moved into the content.
 3. When I ask for content, send content.js only and leave index.html alone. When I ask for a change to the mechanics, send index.html only.
-4. Plain HTML, CSS and JavaScript only. No React, Vue, jQuery, npm, build step or frameworks of any kind. The CSS inside a style element and the JavaScript inside a script element, both in index.html.
+4. Plain HTML, CSS and JavaScript only. No React, Vue, jQuery, npm, build step or frameworks of any kind. The CSS inside a style element and the JavaScript inside a script element, both in index.html. Put the style element in the head and every script element last inside the body, after all the markup.
 5. Mobile first. It must work on a phone held upright, with no horizontal scrolling.
 6. The interface language is English.
 7. Never use arrow characters in the interface. Use words such as Next, Back, Continue, Check.
@@ -337,7 +337,7 @@ service cloud.firestore {
 
 Требования к index.html.
 1. Четыре экрана, которые показываются по одному — Welcome, Registration, Module, Finish. Переключение делай в JavaScript, скрывая и показывая секции. Не создавай отдельных страниц и никогда не меняй адрес страницы, в том числе не используй ссылки вида href="#".
-2. Подключи content.js обычным тегом script до своего скрипта. Если COURSE не загрузился, покажи вместо пустой страницы одно предложение о том, что файл content.js не найден и должен лежать рядом с index.html.
+2. Подключи content.js обычным тегом script. Оба тега script поставь последними внутри body, после всей разметки, сначала content.js, потом твой скрипт. Если COURSE не загрузился, покажи вместо пустой страницы одно предложение о том, что файл content.js не найден и должен лежать рядом с index.html.
 3. Заголовок вкладки браузера бери из settings.courseTitle.
 4. Закреплённая полоса сверху — settings.courseTitle слева, название текущего подраздела справа.
 5. Экран Welcome выводит ровно эти пять значений, каждое по одному разу и в этом порядке: settings.courseTitle, settings.unitTitle, settings.audience, settings.outcome, settings.teacherName. Ни одно из них не выводи дважды и не подставляй вместо другого. Ниже кнопка Start, в самом низу маленькая неброская ссылка Teacher.
@@ -499,7 +499,7 @@ Build the shell of a course platform. Send two files, one per message, one after
 
 Requirements for index.html.
 1. Four screens shown one at a time, Welcome, Registration, Module and Finish. Switch them in JavaScript by hiding and showing sections. Do not create separate pages and never change the page address, which includes not using links of the form href="#".
-2. Load content.js with a plain script tag before your own script. If COURSE did not load, show one sentence saying that content.js was not found and must sit next to index.html, instead of an empty page.
+2. Load content.js with a plain script tag. Put both script tags last inside the body, after all the markup, content.js first and your own script second. If COURSE did not load, show one sentence saying that content.js was not found and must sit next to index.html, instead of an empty page.
 3. Take the browser tab's title from settings.courseTitle.
 4. A fixed bar at the top, settings.courseTitle on the left and the current section's title on the right.
 5. The Welcome screen shows exactly these five values, each once and in this order: settings.courseTitle, settings.unitTitle, settings.audience, settings.outcome, settings.teacherName. Do not show any of them twice and do not put one in place of another. Below them a Start button, and at the very bottom a small discreet link saying Teacher.

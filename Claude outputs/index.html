@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course</title>
+    <style>
+        /* CSS variables initialized with fallbacks, updated by JS from COURSE.settings */
+        :root {
+            --primary-color: #1e3a8a;
+            --accent-color: #059669;
+            --bg-color: #ffffff;
+            --text-color: #1f2937;
+            --error-color: #dc2626;
+        }
+
+        /* Reset and base mobile-first styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-top: 60px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Fixed top bar styling */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 1000;
+            font-weight: bold;
+        }
+        .top-bar-left {
+            font-size: 18px;
+        }
+        .top-bar-right {
+            font-size: 16px;
+            text-align: right;
+            max-width: 50%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Screen container visibility and layout */
+        .screen {
+            display: none;
+            flex: 1;
+            padding: 24px 16px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Typography scaling and contrast */
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 16px;
+        }
+        h1 { font-size: 28px; }
+        h2 { font-size: 24px; }
+        p {
+            margin-bottom: 16px;
+            font-size: 18px;
+        }
+
+        /* Interactive button styles */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: var(--accent-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            min-height: 48px;
+        }
+        .btn:hover {
+            filter: brightness(0.9);
+        }
+        .btn:focus-visible {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        .btn-secondary {
+            background-color: var(--primary-color);
+        }
+
+        /* Unobtrusive teacher link styling */
+        .teacher-link {
+            margin-top: auto;
+            text-align: center;
+            padding: 24px 0;
+        }
+        .teacher-link a {
+            color: var(--text-color);
+            font-size: 14px;
+            text-decoration: underline;
+            opacity: 0.7;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .teacher-link a:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Module screen responsive layout */
+        .module-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        @media (min-width: 768px) {
+            .module-layout {
+                flex-direction: row;
+            }
+        }
+
+        /* Section list navigation styling */
+        .section-list {
+            flex: 1;
+            list-style: none;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        .section-list li {
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-list li:hover {
+            background-color: #f3f4f6;
+        }
+        .section-list li:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        .section-list li.active {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+        .section-list li.completed::before {
+            content: "Completed";
+            font-size: 12px;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        /* Section content area styling */
+        .section-content {
+            flex: 2;
+            padding: 16px;
+            background-color: #f9fafb;
+            border-radius: 8px;
+        }
+        .section-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+        .section-content audio {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+        .tasks-placeholder {
+            border: 2px dashed #d1d5db;
+            padding: 24px;
+            text-align: center;
+            color: #6b7280;
+            font-style: italic;
+            margin-top: 16px;
+        }
+
+        /* Navigation buttons container */
+        .nav-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+
+        /* Error message display */
+        .error-message {
+            color: var(--error-color);
+            font-size: 18px;
+            text-align: center;
+            padding: 40px 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed top bar -->
+    <header class="top-bar">
+        <div class="top-bar-left" id="top-bar-left">Course Title</div>
+        <div class="top-bar-right" id="top-bar-right"></div>
+    </header>
+
+    <!-- Welcome screen -->
+    <section id="screen-welcome" class="screen active">
+        <h1 id="welcome-course-title"></h1>
+        <h2 id="welcome-unit-title"></h2>
+        <p id="welcome-audience"></p>
+        <p id="welcome-outcome"></p>
+        <p id="welcome-teacher"></p>
+        <button id="btn-start" class="btn">Start</button>
+        <div class="teacher-link">
+            <a href="#" role="button">Teacher</a>
+        </div>
+    </section>
+
+    <!-- Registration screen -->
+    <section id="screen-registration" class="screen">
+        <h2>Registration</h2>
+        <p>Please enter your details to begin the module.</p>
+        <button id="btn-continue" class="btn">Continue</button>
+        <div class="teacher-link">
+            <a href="#" role="button">Teacher</a>
+        </div>
+    </section>
+
+    <!-- Module screen -->
+    <section id="screen-module" class="screen">
+        <div class="module-layout">
+            <ul id="section-list" class="section-list" aria-label="Module sections">
+            </ul>
+            <div id="section-content" class="section-content">
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <button id="btn-back" class="btn btn-secondary">Back</button>
+            <button id="btn-next" class="btn">Next</button>
+        </div>
+    </section>
+
+    <!-- Finish screen -->
+    <section id="screen-finish" class="screen">
+        <h2>Congratulations!</h2>
+        <p>You have successfully completed the module.</p>
+        <p>Please note that your progress is not saved, and you can retake the module at any time.</p>
+        <button id="btn-restart" class="btn">Back to start</button>
+        <div class="teacher-link">
+            <a href="#" role="button">Teacher</a>
+        </div>
+    </section>
+    <!-- Load course content before main logic -->
+    <script src="content.js"></script>
+    
+    <script>
+        // Check if COURSE object is available
+        if (typeof COURSE === 'undefined') {
+            document.body.innerHTML = '<p class="error-message">The file content.js is not found and must be located next to index.html.</p>';
+        } else {
+            // Initialize document title and CSS variables from settings
+            document.title = COURSE.settings.courseTitle;
+            document.documentElement.style.setProperty('--primary-color', COURSE.settings.primaryColour);
+            document.documentElement.style.setProperty('--accent-color', COURSE.settings.accentColour);
+
+            // Application state
+            let currentSectionIndex = 0;
+            let completedSections = new Set();
+
+            // DOM element references
+            const topBarLeft = document.getElementById('top-bar-left');
+            const topBarRight = document.getElementById('top-bar-right');
+            const screens = {
+                welcome: document.getElementById('screen-welcome'),
+                registration: document.getElementById('screen-registration'),
+                module: document.getElementById('screen-module'),
+                finish: document.getElementById('screen-finish')
+            };
+
+            // Populate Welcome screen with exact settings fields
+            document.getElementById('welcome-course-title').textContent = COURSE.settings.courseTitle;
+            document.getElementById('welcome-unit-title').textContent = COURSE.settings.unitTitle;
+            document.getElementById('welcome-audience').textContent = COURSE.settings.audience;
+            document.getElementById('welcome-outcome').textContent = COURSE.settings.outcome;
+            document.getElementById('welcome-teacher').textContent = COURSE.settings.teacherName;
+            topBarLeft.textContent = COURSE.settings.courseTitle;
+
+            // Screen switching logic
+            function showScreen(screenName) {
+                Object.values(screens).forEach(screen => screen.classList.remove('active'));
+                screens[screenName].classList.add('active');
+                
+                if (screenName === 'module') {
+                    renderModule();
+                } else {
+                    topBarRight.textContent = '';
+                }
+            }
+
+            // Render module section list and content
+            function renderModule() {
+                const section = COURSE.sections[currentSectionIndex];
+                topBarRight.textContent = section.title;
+
+                // Render section list
+                const listContainer = document.getElementById('section-list');
+                listContainer.innerHTML = '';
+                COURSE.sections.forEach((sec, index) => {
+                    const li = document.createElement('li');
+                    li.textContent = sec.title;
+                    li.tabIndex = 0;
+                    li.setAttribute('role', 'button');
+                    if (index === currentSectionIndex) {
+                        li.classList.add('active');
+                    }
+                    if (completedSections.has(index)) {
+                        li.classList.add('completed');
+                    }
+                    
+                    const navigateToSection = () => {
+                        currentSectionIndex = index;
+                        renderModule();
+                    };
+
+                    li.addEventListener('click', navigateToSection);
+                    li.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            navigateToSection();
+                        }
+                    });
+                    listContainer.appendChild(li);
+                });
+
+                // Render section content
+                const contentContainer = document.getElementById('section-content');
+                contentContainer.innerHTML = '';
+                
+                const title = document.createElement('h2');
+                title.textContent = section.title;
+                contentContainer.appendChild(title);
+
+                const intro = document.createElement('p');
+                intro.textContent = section.intro;
+                contentContainer.appendChild(intro);
+
+                if (section.image) {
+                    const img = document.createElement('img');
+                    img.src = section.image;
+                    img.alt = section.imageAlt || 'Section image';
+                    contentContainer.appendChild(img);
+                }
+
+                if (section.audio) {
+                    const audio = document.createElement('audio');
+                    audio.controls = true;
+                    audio.src = section.audio;
+                    contentContainer.appendChild(audio);
+                }
+
+                const tasksPlaceholder = document.createElement('div');
+                tasksPlaceholder.className = 'tasks-placeholder';
+                tasksPlaceholder.textContent = 'TASKS GO HERE';
+                contentContainer.appendChild(tasksPlaceholder);
+
+                // Update navigation buttons state
+                const btnBack = document.getElementById('btn-back');
+                const btnNext = document.getElementById('btn-next');
+
+                btnBack.style.visibility = currentSectionIndex === 0 ? 'hidden' : 'visible';
+                btnNext.textContent = currentSectionIndex === COURSE.sections.length - 1 ? 'Finish' : 'Next';
+            }
+
+            // Event listeners for navigation
+            document.getElementById('btn-start').addEventListener('click', () => {
+                showScreen('registration');
+            });
+
+            document.getElementById('btn-continue').addEventListener('click', () => {
+                showScreen('module');
+            });
+
+            document.getElementById('btn-back').addEventListener('click', () => {
+                if (currentSectionIndex > 0) {
+                    completedSections.add(currentSectionIndex);
+                    currentSectionIndex--;
+                    renderModule();
+                }
+            });
+
+            document.getElementById('btn-next').addEventListener('click', () => {
+                completedSections.add(currentSectionIndex);
+                if (currentSectionIndex < COURSE.sections.length - 1) {
+                    currentSectionIndex++;
+                    renderModule();
+                } else {
+                    showScreen('finish');
+                }
+            });
+
+            document.getElementById('btn-restart').addEventListener('click', () => {
+                currentSectionIndex = 0;
+                completedSections.clear();
+                showScreen('welcome');
+            });
+
+            // Prevent default behavior for teacher links
+            document.querySelectorAll('.teacher-link a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                });
+            });
+
+            // Show initial screen
+            showScreen('welcome');
+        }
+    </script>
+</body>
+</html>
