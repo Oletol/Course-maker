@@ -397,7 +397,7 @@ const COURSE = {
       <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
       <pre>Добавь в index.html регистрацию участников. Всё, что уже работает, оставь как есть. content.js не трогай.
 
-Используй Firebase Firestore, подключённый с CDN Google в варианте compat, чтобы всё работало без установки. Вот мои настройки, вставь их ровно так, как написано, ничего внутри не меняя.
+Используй Firebase Firestore, подключённый с CDN Google в варианте compat, чтобы всё работало без установки. Инициализируй его строкой firebase.initializeApp(firebaseConfig), базу получай строкой firebase.firestore(), серверную отметку времени — firebase.firestore.FieldValue.serverTimestamp(). Имена без приставки firebase, такие как initializeApp, относятся к модульному варианту SDK, в compat их нет, и страница от них открывается пустой. Вот мои настройки, вставь их ровно так, как написано, ничего внутри не меняя.
 
 <span class="fill">ВСТАВЬТЕ СЮДА СОДЕРЖИМОЕ ФАЙЛА my-config.txt</span>
 
@@ -576,7 +576,7 @@ Send the file in full.</pre>
       <div class="block-head"><b>index.html</b><button class="btn btn-sm copy" type="button">Copy</button></div>
       <pre>Add participant registration to index.html. Keep everything that already works. Leave content.js alone.
 
-Use Firebase Firestore loaded from the Google CDN in the compat build, so that everything works with no installation. Here are my settings. Insert them exactly as written and change nothing inside them.
+Use Firebase Firestore loaded from the Google CDN in the compat build, so that everything works with no installation. Initialise it with firebase.initializeApp(firebaseConfig), get the database with firebase.firestore(), and take the server timestamp from firebase.firestore.FieldValue.serverTimestamp(). Names without the firebase prefix, such as initializeApp, belong to the modular build of the SDK; compat does not have them, and they make the page open blank. Here are my settings. Insert them exactly as written and change nothing inside them.
 
 <span class="fill">PASTE THE CONTENTS OF my-config.txt HERE</span>
 
@@ -728,7 +728,29 @@ Send content.js in full.</pre>
   <div data-l="ru">
     <div class="kind check"><i></i><b>Шаг 06</b></div>
     <h2>Если не работает</h2>
-    <p class="lead">Три запроса на обычные сбои. Править код руками не нужно ни в одном из случаев.</p>
+    <p class="lead">Четыре запроса на обычные сбои. Править код руками не нужно ни в одном из случаев.</p>
+    <h3>Страница пустая или не работает ничего</h3>
+    <p>Это самый тяжёлый из обычных сбоев и самый простой в починке. Браузер уже знает причину и держит её одной строкой наготове, её нужно только достать и передать модели. Понимать строку не требуется.</p>
+    <ol class="steps">
+      <li>Нажмите на странице правой кнопкой мыши и выберите Inspect или «Просмотреть код», затем вкладку Console. На Windows к той же вкладке ведёт клавиша F12, на Mac сочетание Command, Option и J. В Safari консоль сначала включается в настройках браузера, на вкладке «Дополнения», пунктом про меню разработки.</li>
+      <li>В консоли будет одна или несколько красных строк. Нужна самая первая сверху, остальные обычно её следствия.</li>
+      <li>Выделите эту строку и скопируйте целиком, вместе с непонятными словами и номерами. Разбираться в ней не нужно, модели нужен текст, а не Ваше объяснение.</li>
+      <li>Вставьте строку в запрос ниже, на место пропуска, и укажите, после какого запроса по счёту всё перестало работать. Платформа работала до него, значит причина в том, что модель изменила именно в этот раз, и это сильно сужает поиск.</li>
+    </ol>
+    <div class="block">
+      <div class="block-head"><b>Страница пустая</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Файл, который ты прислал, не работает. Страница открывается пустая.
+
+Это началось после запроса <span class="fill">номер запроса</span>.
+
+В консоли браузера красная строка:
+<span class="fill">вставьте строку целиком</span>
+
+Ничего не переделывай и не трогай то, что уже работает. Найди самую мелкую причину, исправь только её и пришли исправленный файл целиком. После блока кода одним предложением скажи, что было сломано.</pre>
+    </div>
+    <div class="note"><p>Если до консоли добраться не удалось или Вы смотрите с телефона, где её нет, отправьте тот же запрос без красной строки, написав вместо неё, что заглянуть в консоль не получилось. Модель будет искать причину дольше и может ошибиться, поэтому с компьютера строку лучше всё-таки достать.</p></div>
+
+    <h3>Остальные сбои</h3>
     <div class="block">
       <div class="block-head"><b>Что-то работает не так</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
       <pre>Файл, который ты прислал, работает неправильно.
@@ -760,7 +782,29 @@ Send content.js in full.</pre>
   <div data-l="en">
     <div class="kind check"><i></i><b>Step 06</b></div>
     <h2>If it breaks</h2>
-    <p class="lead">Three requests for the ordinary failures. In none of these cases do you edit the code by hand.</p>
+    <p class="lead">Four requests for the ordinary failures. In none of these cases do you edit the code by hand.</p>
+    <h3>The page is blank or nothing works</h3>
+    <p>This is the worst of the ordinary failures and the easiest to repair. The browser already knows the cause and holds it ready in a single line; all you do is fetch that line and hand it to the model. You do not need to understand it.</p>
+    <ol class="steps">
+      <li>Right-click the page and choose Inspect, then the Console tab. On Windows the F12 key opens the same tab, on a Mac it is Command, Option and J together. In Safari the console has to be switched on first, in the browser settings, on the Advanced tab, with the option about the develop menu.</li>
+      <li>The console will hold one or more red lines. You want the very first one from the top; the rest are usually its consequences.</li>
+      <li>Select that line and copy it whole, including the words and numbers that mean nothing to you. Do not try to work it out. The model needs the text, not your explanation of it.</li>
+      <li>Paste the line into the request below, in place of the gap, and say which request by number was the one after which everything stopped working. The platform worked before it, so the cause is in what the model changed that time, and that narrows the search a great deal.</li>
+    </ol>
+    <div class="block">
+      <div class="block-head"><b>The page is blank</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>The file you sent does not work. The page opens blank.
+
+This started after request <span class="fill">request number</span>.
+
+The red line in the browser console is this:
+<span class="fill">paste the whole line</span>
+
+Do not rebuild anything and do not touch what already works. Find the smallest cause, fix only that, and send the corrected file in full. After the code block, say in one sentence what was broken.</pre>
+    </div>
+    <div class="note"><p>If you could not reach the console, or you are looking at the page on a phone, where there is none, send the same request without the red line and write instead that you could not look in the console. The model will take longer to find the cause and may get it wrong, so on a computer it is worth fetching the line after all.</p></div>
+
+    <h3>The other failures</h3>
     <div class="block">
       <div class="block-head"><b>Something works wrongly</b><button class="btn btn-sm copy" type="button">Copy</button></div>
       <pre>The file you sent does not work properly.
