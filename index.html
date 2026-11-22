@@ -114,7 +114,8 @@ service cloud.firestore {
   }
 }</pre>
     </div>
-    <p>Код группы <code>WS-2026</code> замените на свой. Тот же код понадобится при сборке — без него запись в базу не пройдёт.</p>
+    <p>Код группы Вы придумываете сами. Это любая строка, например <code>NOV-2026</code> или <code>GROUP-7</code>. Её знаете Вы и Ваши обучающиеся, и нужна она для того, чтобы в базу не попадали записи от посторонних, нашедших ссылку. Замените <code>WS-2026</code> на свой код в правилах, впишите его же при сборке и сообщите обучающимся. Если эти три места не совпадут, запись в базу не пройдёт.</p>
+    <div class="note"><p>Если свободных проектов Firebase не осталось, возьмите уже существующий. Тогда правила не заменяйте целиком, а добавьте в них только блок <code>match /participants/{docId}</code> из текста выше, не трогая остальные блоки. Последний блок с <code>match /{document=**}</code> в этом случае не нужен — всё, что не описано правилами, Firestore запрещает по умолчанию.</p></div>
     <ol class="steps" start="5">
       <li>Нажмите шестерёнку рядом с названием проекта и выберите Project settings. Внизу, в разделе Your apps, нажмите значок с угловыми скобками. Имя приложения любое, Firebase Hosting подключать не нужно, затем нажмите Register app.</li>
       <li>На экране появится блок <code>firebaseConfig</code>. Скопируйте его целиком в текстовый файл и сохраните под именем <code>my-config.txt</code>.</li>
@@ -151,7 +152,8 @@ service cloud.firestore {
   }
 }</pre>
     </div>
-    <p>Replace the group code <code>WS-2026</code> with your own. You will need the same code when building, because without it nothing can be written to the database.</p>
+    <p>You invent the group code yourself. It is any string, for example <code>NOV-2026</code> or <code>GROUP-7</code>. You and your learners know it, and its purpose is to keep records from strangers who find the link out of your database. Replace <code>WS-2026</code> with your own code in the rules, put the same code in when building, and tell it to your learners. If those three places do not match, nothing can be written to the database.</p>
+    <div class="note"><p>If you have no free Firebase projects left, use an existing one. In that case do not replace the rules wholesale; add only the <code>match /participants/{docId}</code> block from the text above, leaving the other blocks untouched. The final <code>match /{document=**}</code> block is then unnecessary, because Firestore denies anything the rules do not describe.</p></div>
     <ol class="steps" start="5">
       <li>Click the gear icon next to the project name and choose Project settings. At the bottom, under Your apps, click the angle brackets icon. Any app name will do, Firebase Hosting is not needed, then click Register app.</li>
       <li>A <code>firebaseConfig</code> block appears on screen. Copy the whole of it into a text file and save it as <code>my-config.txt</code>.</li>
