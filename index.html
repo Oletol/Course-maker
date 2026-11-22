@@ -306,7 +306,7 @@ service cloud.firestore {
   <div data-l="ru">
     <div class="kind num"><i></i><b>Шаг 04</b></div>
     <h2>Сборка</h2>
-    <p class="lead">Шесть запросов, по одному за раз, и на каждый запрос один файл в ответ. Запросы 1, 3, 4 и 5 наращивают механику в <code>index.html</code>, запросы 2 и 6 наполняют <code>content.js</code>. Первая публикация делается после запроса 2, когда оба файла уже есть, дальше после каждого запроса обновляйте сайт и смотрите, что получилось. Перед каждым запросом вставляйте правила из шага 03.</p>
+    <p class="lead">Шесть запросов, по одному за раз, и на каждый запрос один файл в ответ. Запросы 1, 3, 4 и 5 наращивают механику в <code>index.html</code>, запросы 2 и 6 наполняют <code>content.js</code>. Первая публикация делается после запроса 2, когда оба файла уже есть, дальше после каждого запроса обновляйте сайт и смотрите, что получилось. Перед каждым запросом вставляйте правила из шага 03. Каждый запрос отправляется один раз, повторять его нельзя, а если ответ оказался плохим, идите в шаг 06.</p>
 
     <h3>Задание на курс</h3>
     <p>Сначала заполните этот блок своими словами. Всё, что не решите здесь, ИИ решит за Вас.</p>
@@ -485,7 +485,7 @@ const COURSE = {
   <div data-l="en">
     <div class="kind num"><i></i><b>Step 04</b></div>
     <h2>Building</h2>
-    <p class="lead">Six requests, one at a time, and one file in answer to each. Requests 1, 3, 4 and 5 build the mechanics in <code>index.html</code>, requests 2 and 6 fill <code>content.js</code>. The first publication happens after request 2, once both files exist, and from then on you reload the site and look at the result after each one. Paste the rules from step 03 before every request.</p>
+    <p class="lead">Six requests, one at a time, and one file in answer to each. Requests 1, 3, 4 and 5 build the mechanics in <code>index.html</code>, requests 2 and 6 fill <code>content.js</code>. The first publication happens after request 2, once both files exist, and from then on you reload the site and look at the result after each one. Paste the rules from step 03 before every request. Each request is sent once and never repeated; if an answer comes back bad, go to step 06.</p>
 
     <h3>Course brief</h3>
     <p>Fill this in first, in your own words. Everything you do not decide here, the AI will decide for you.</p>
@@ -728,7 +728,7 @@ Send content.js in full.</pre>
   <div data-l="ru">
     <div class="kind check"><i></i><b>Шаг 06</b></div>
     <h2>Если не работает</h2>
-    <p class="lead">Четыре запроса на обычные сбои. Править код руками не нужно ни в одном из случаев.</p>
+    <p class="lead">Пять запросов на обычные сбои. Править код руками не нужно ни в одном из случаев. И ни при каком сбое не отправляйте повторно большой запрос из шага 04: модель начнёт писать файл заново и потеряет собранное.</p>
     <h3>Страница пустая или не работает ничего</h3>
     <p>Это самый тяжёлый из обычных сбоев и самый простой в починке. Браузер уже знает причину и держит её одной строкой наготове, её нужно только достать и передать модели. Понимать строку не требуется.</p>
     <ol class="steps">
@@ -749,6 +749,26 @@ Send content.js in full.</pre>
 Ничего не переделывай и не трогай то, что уже работает. Найди самую мелкую причину, исправь только её и пришли исправленный файл целиком. После блока кода одним предложением скажи, что было сломано.</pre>
     </div>
     <div class="note"><p>Если до консоли добраться не удалось или Вы смотрите с телефона, где её нет, отправьте тот же запрос без красной строки, написав вместо неё, что заглянуть в консоль не получилось. Модель будет искать причину дольше и может ошибиться, поэтому с компьютера строку лучше всё-таки достать.</p></div>
+
+    <h3>Платформа потеряла то, что работало</h3>
+    <p>Самый опасный сбой. Модель прислала файл, в котором пропали экраны или возможности, собранные прежними запросами. Чаще всего это случается, если один и тот же большой запрос отправлен дважды: воспроизводить сотни строк дорого, и модель пишет короткий файл заново, буквально отвечая на текст запроса. Чинить такой файл бессмысленно, в него нужно вернуть сохранённую рабочую версию.</p>
+    <ol class="steps">
+      <li>Возьмите последнюю рабочую версию <code>index.html</code>. Она лежит в папке курса на компьютере, а если Вы уже публиковались, то и в репозитории на GitHub.</li>
+      <li>Откройте новую пустую переписку. Старая уже сбила модель с толку, и в ней всё повторится.</li>
+      <li>Вставьте правила из шага 03, затем запрос ниже вместе с файлом, и дождитесь короткого ответа.</li>
+      <li>Теперь продолжайте с того запроса шага 04, на котором остановились. Задание на курс и прошлые запросы заново присылать не нужно, они уже внутри файла.</li>
+    </ol>
+    <div class="block">
+      <div class="block-head"><b>Вернуть рабочую версию</b><button class="btn btn-sm copy" type="button">Копировать</button></div>
+      <pre>Вот рабочий index.html моей платформы курса. Он собран предыдущими запросами и сейчас работает. Дальше работай только от него.
+
+<span class="fill">вставьте файл целиком</span>
+
+Ничего в нём не переписывай, не упрощай и не выбрасывай. Экраны, надписи, оформление и логика остаются как есть. Следующим сообщением я пришлю, что к нему добавить.
+
+Только на это сообщение правило про ответ одним блоком кода не применяй. Ответь одной короткой строкой, что файл получен, и не присылай ни кода, ни пояснений.</pre>
+    </div>
+    <div class="note"><p>Последняя строка здесь важна. Без неё модель сразу начнёт присылать файл обратно и может переписать его по дороге.</p></div>
 
     <h3>Остальные сбои</h3>
     <div class="block">
@@ -782,7 +802,7 @@ Send content.js in full.</pre>
   <div data-l="en">
     <div class="kind check"><i></i><b>Step 06</b></div>
     <h2>If it breaks</h2>
-    <p class="lead">Four requests for the ordinary failures. In none of these cases do you edit the code by hand.</p>
+    <p class="lead">Five requests for the ordinary failures. In none of these cases do you edit the code by hand. And whatever goes wrong, never send a large request from step 04 a second time: the model starts the file again from scratch and loses what was built.</p>
     <h3>The page is blank or nothing works</h3>
     <p>This is the worst of the ordinary failures and the easiest to repair. The browser already knows the cause and holds it ready in a single line; all you do is fetch that line and hand it to the model. You do not need to understand it.</p>
     <ol class="steps">
@@ -803,6 +823,26 @@ The red line in the browser console is this:
 Do not rebuild anything and do not touch what already works. Find the smallest cause, fix only that, and send the corrected file in full. After the code block, say in one sentence what was broken.</pre>
     </div>
     <div class="note"><p>If you could not reach the console, or you are looking at the page on a phone, where there is none, send the same request without the red line and write instead that you could not look in the console. The model will take longer to find the cause and may get it wrong, so on a computer it is worth fetching the line after all.</p></div>
+
+    <h3>The platform lost something that worked</h3>
+    <p>The worst failure of the lot. The model sends back a file in which screens or features built by earlier requests have gone. It usually happens when the same large request is sent twice: reproducing hundreds of lines is expensive, so the model writes a short file from scratch that answers the text of the request literally. Repairing such a file is pointless; what it needs is your saved working version back.</p>
+    <ol class="steps">
+      <li>Take the last working <code>index.html</code>. It is in the course folder on your computer, and if you have published already, in the repository on GitHub as well.</li>
+      <li>Open a new empty conversation. The old one has already led the model astray, and the same thing will happen again there.</li>
+      <li>Paste the rules from step 03, then the request below together with the file, and wait for the short answer.</li>
+      <li>Now carry on from the request in step 04 where you stopped. You do not need to send the course brief or the earlier requests again, they are already inside the file.</li>
+    </ol>
+    <div class="block">
+      <div class="block-head"><b>Put the working version back</b><button class="btn btn-sm copy" type="button">Copy</button></div>
+      <pre>Here is the working index.html of my course platform. Earlier requests built it and it works as it stands. From here on, work only from this file.
+
+<span class="fill">paste the whole file</span>
+
+Do not rewrite, simplify or drop anything in it. The screens, the wording, the styling and the logic all stay as they are. In my next message I will tell you what to add to it.
+
+For this message only, do not apply the rule about answering with a code block. Answer with one short line saying the file has arrived, and send neither code nor explanation.</pre>
+    </div>
+    <div class="note"><p>That last line matters. Without it the model starts sending the file straight back, and may rewrite it on the way.</p></div>
 
     <h3>The other failures</h3>
     <div class="block">
