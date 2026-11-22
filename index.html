@@ -336,19 +336,20 @@ service cloud.firestore {
 Собери каркас платформы курса. Пришли два файла, по одному в двух сообщениях подряд — сначала index.html, потом content.js с примером заполнения.
 
 Требования к index.html.
-1. Четыре экрана, которые показываются по одному — Welcome, Registration, Module, Finish. Переключение делай в JavaScript, скрывая и показывая секции. Не создавай отдельных страниц и не меняй адрес.
-2. Подключи content.js обычным тегом script до своего скрипта. Весь текст на экранах бери из объекта COURSE. Если COURSE не загрузился, покажи одно понятное предложение вместо пустой страницы.
-3. Закреплённая полоса сверху — название курса слева, название текущего подраздела справа. Заголовок вкладки браузера тоже бери из settings.courseTitle.
-4. Экран Welcome — название курса, название модуля, предложение из settings.audience о том, для кого модуль, результат модуля целиком, имя преподавателя, кнопка Start и внизу маленькая неброская ссылка Teacher. Ни одно из этих предложений не пиши в index.html, все они берутся из COURSE.
-5. Экран Registration — пока только заголовок, одно предложение-заглушка и кнопка Continue. Ссылка Teacher на этом шаге ещё никуда не ведёт, просто оставь её на месте и ничего по ней не делай.
-6. Экран Module. Слева или сверху, в зависимости от ширины экрана, список подразделов из COURSE.sections с отметкой пройденных. Справа содержимое выбранного подраздела — его заголовок, вступительный текст, затем изображение и аудиоплеер, если у подраздела заданы поля image и audio, затем место под задания с комментарием TASKS GO HERE. Внизу кнопки Back и Next, которые ведут по подразделам, а с последнего — на экран Finish.
-7. Отметка пройденного подраздела держится только в памяти страницы. Ничего не сохраняется, при перезагрузке всё начинается заново.
-8. Экран Finish — два предложения с поздравлением, предложение о том, что ничего не сохранено и модуль можно пройти снова, и кнопка Back to start.
-9. Оформление на пользовательских свойствах CSS, построенных из цветов в COURSE.settings. Много воздуха, один шрифт, никакого декора, который сам несёт смысл.
-10. Над каждым крупным блоком кода одна строка комментария простыми словами.
+1. Четыре экрана, которые показываются по одному — Welcome, Registration, Module, Finish. Переключение делай в JavaScript, скрывая и показывая секции. Не создавай отдельных страниц и никогда не меняй адрес страницы, в том числе не используй ссылки вида href="#".
+2. Подключи content.js обычным тегом script до своего скрипта. Если COURSE не загрузился, покажи вместо пустой страницы одно предложение о том, что файл content.js не найден и должен лежать рядом с index.html.
+3. Заголовок вкладки браузера бери из settings.courseTitle.
+4. Закреплённая полоса сверху — settings.courseTitle слева, название текущего подраздела справа.
+5. Экран Welcome выводит ровно эти пять значений, каждое по одному разу и в этом порядке: settings.courseTitle, settings.unitTitle, settings.audience, settings.outcome, settings.teacherName. Ни одно из них не выводи дважды и не подставляй вместо другого. Ниже кнопка Start, в самом низу маленькая неброская ссылка Teacher.
+6. Экран Registration — заголовок, одно предложение-заглушка и кнопка Continue. Ссылка Teacher на этом шаге ещё никуда не ведёт и ничего не делает, но адрес страницы при нажатии на неё меняться не должен.
+7. Экран Module. Слева или сверху, в зависимости от ширины экрана, список подразделов из COURSE.sections с отметкой пройденных. Рядом содержимое выбранного подраздела — его заголовок, вступительный текст, затем изображение и аудиоплеер, если у подраздела заданы поля image и audio, затем место под задания с комментарием TASKS GO HERE. Внизу кнопки Back и Next, которые ведут по подразделам, а с последнего — на экран Finish.
+8. Отметка пройденного подраздела держится только в памяти страницы. Ничего не сохраняется, при перезагрузке всё начинается заново.
+9. Экран Finish — два предложения с поздравлением, предложение о том, что ничего не сохранено и модуль можно пройти снова, и кнопка Back to start.
+10. Оформление на пользовательских свойствах CSS, построенных из цветов в COURSE.settings. Много воздуха, один шрифт, никакого декора, который сам несёт смысл.
+11. Над каждым крупным блоком кода одна строка комментария простыми словами.
 
 Требования к content.js.
-11. Файл объявляет одну константу COURSE и больше ничего. Структура такая.
+12. Файл объявляет одну константу COURSE и больше ничего. Структура такая.
 
 const COURSE = {
   settings: {
@@ -365,12 +366,13 @@ const COURSE = {
   ]
 };
 
-12. Поля image, imageAlt и audio необязательные. Если они есть, это относительные пути вида assets/img/market.jpg и assets/audio/dialogue.mp3.
-13. Заполни его по моему заданию на курс, по одному подразделу на каждый пункт из списка подразделов, с пустым массивом tasks.
+13. Поля image, imageAlt и audio необязательные. Если они есть, это относительные пути вида assets/img/market.jpg и assets/audio/dialogue.mp3.
+14. Заполни его по моему заданию на курс, по одному подразделу на каждый пункт из списка подразделов, с пустым массивом tasks.
 
 Присылай файлы целиком.</pre>
     </div>
-    <p class="muted">Создайте в репозитории пустые папки <code>assets/img</code> и <code>assets/audio</code> сразу, чтобы потом не думать, куда класть файлы. Проверьте, что смена названия курса в <code>content.js</code> меняет заголовок на сайте — это и есть доказательство того, что механика и содержание разделены.</p>
+    <p class="muted">Создайте в репозитории пустые папки <code>assets/img</code> и <code>assets/audio</code> сразу, чтобы потом не думать, куда класть файлы.</p>
+    <div class="note"><p>Прежде чем идти дальше, проверьте четыре вещи. На экране Welcome пять разных предложений, и результат модуля не напечатан дважды. В заголовке вкладки браузера стоит название курса, а не слово Course. Нажатие на ссылку Teacher не меняет адрес страницы. И главное: поменяйте название курса в <code>content.js</code>, обновите страницу, и если заголовок изменился, значит механика и содержание действительно разделены.</p></div>
 
     <h3>Запрос 2. Регистрация</h3>
     <div class="block">
@@ -496,19 +498,20 @@ My name as learners will see it:</pre>
 Build the shell of a course platform. Send two files, one per message, one after the other, index.html first and then content.js filled in as an example.
 
 Requirements for index.html.
-1. Four screens shown one at a time, Welcome, Registration, Module and Finish. Switch them in JavaScript by hiding and showing sections. Do not create separate pages and do not change the address.
-2. Load content.js with a plain script tag before your own script. Take every word on screen from the COURSE object. If COURSE did not load, show one clear sentence instead of an empty page.
-3. A fixed bar at the top, the course title on the left and the current section's title on the right. Take the browser tab's title from settings.courseTitle as well.
-4. The Welcome screen: the course title, the unit title, the sentence from settings.audience saying who the unit is for, the unit outcome in full, the teacher's name, a Start button, and at the bottom a small discreet link saying Teacher. Write none of these sentences into index.html, they all come from COURSE.
-5. The Registration screen: for now only a heading, one placeholder sentence and a Continue button. The Teacher link leads nowhere yet at this step, so leave it in place and make it do nothing.
-6. The Module screen. Depending on the width of the screen, at the side or at the top, a list of the sections from COURSE.sections, marking the ones already visited. Next to it the chosen section: its title, its intro text, then an image and an audio player if the section has image and audio fields, then a place for the tasks holding only a comment that says TASKS GO HERE. At the bottom Back and Next buttons that move through the sections, and from the last one to the Finish screen.
-7. The mark on a visited section lives only in the page's memory. Nothing is saved, and a reload starts everything again.
-8. The Finish screen: two sentences of congratulation, a sentence saying that nothing was saved and the unit can be done again, and a Back to start button.
-9. Style it with CSS custom properties built from the colours in COURSE.settings. Generous white space, one typeface, no decoration that carries meaning on its own.
-10. Above each major block of code, one line of comment in plain words.
+1. Four screens shown one at a time, Welcome, Registration, Module and Finish. Switch them in JavaScript by hiding and showing sections. Do not create separate pages and never change the page address, which includes not using links of the form href="#".
+2. Load content.js with a plain script tag before your own script. If COURSE did not load, show one sentence saying that content.js was not found and must sit next to index.html, instead of an empty page.
+3. Take the browser tab's title from settings.courseTitle.
+4. A fixed bar at the top, settings.courseTitle on the left and the current section's title on the right.
+5. The Welcome screen shows exactly these five values, each once and in this order: settings.courseTitle, settings.unitTitle, settings.audience, settings.outcome, settings.teacherName. Do not show any of them twice and do not put one in place of another. Below them a Start button, and at the very bottom a small discreet link saying Teacher.
+6. The Registration screen: a heading, one placeholder sentence and a Continue button. The Teacher link leads nowhere yet and does nothing, but clicking it must not change the page address.
+7. The Module screen. Depending on the width of the screen, at the side or at the top, a list of the sections from COURSE.sections, marking the ones already visited. Next to it the chosen section: its title, its intro text, then an image and an audio player if the section has image and audio fields, then a place for the tasks holding only a comment that says TASKS GO HERE. At the bottom Back and Next buttons that move through the sections, and from the last one to the Finish screen.
+8. The mark on a visited section lives only in the page's memory. Nothing is saved, and a reload starts everything again.
+9. The Finish screen: two sentences of congratulation, a sentence saying that nothing was saved and the unit can be done again, and a Back to start button.
+10. Style it with CSS custom properties built from the colours in COURSE.settings. Generous white space, one typeface, no decoration that carries meaning on its own.
+11. Above each major block of code, one line of comment in plain words.
 
 Requirements for content.js.
-11. The file declares one constant, COURSE, and nothing else. The shape is this.
+12. The file declares one constant, COURSE, and nothing else. The shape is this.
 
 const COURSE = {
   settings: {
@@ -525,12 +528,13 @@ const COURSE = {
   ]
 };
 
-12. The image, imageAlt and audio fields are optional. When present they are relative paths of the form assets/img/market.jpg and assets/audio/dialogue.mp3.
-13. Fill it in from my course brief, one section per entry in my list of sections, with an empty tasks array.
+13. The image, imageAlt and audio fields are optional. When present they are relative paths of the form assets/img/market.jpg and assets/audio/dialogue.mp3.
+14. Fill it in from my course brief, one section per entry in my list of sections, with an empty tasks array.
 
 Send both files in full.</pre>
     </div>
-    <p class="muted">Create the empty <code>assets/img</code> and <code>assets/audio</code> folders in the repository straight away, so that later you know where files go. Check that changing the course title in <code>content.js</code> changes the heading on the site. That is the proof that mechanics and content are genuinely apart.</p>
+    <p class="muted">Create the empty <code>assets/img</code> and <code>assets/audio</code> folders in the repository straight away, so that later you know where files go.</p>
+    <div class="note"><p>Before going on, check four things. The Welcome screen shows five different sentences, and the unit outcome is not printed twice. The browser tab's title is the course title rather than the word Course. Clicking the Teacher link does not change the page address. And above all, change the course title in <code>content.js</code>, reload the page, and if the heading changed, the mechanics and the content really are apart.</p></div>
 
     <h3>Request 2. Registration</h3>
     <div class="block">
