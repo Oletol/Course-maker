@@ -159,3 +159,23 @@ ul.cl li::before{content:"";position:absolute;left:3px;top:15px;width:13px;heigh
   .sheet>section{padding:28px 0}
   h2{font-size:23px} .lead{font-size:17px} pre{font-size:12.5px;padding:14px}
 }
+
+/* Разделы руководства */
+.sheet>section.part{background:var(--soft);border:1px solid var(--line);border-top:1px solid var(--line);
+  border-radius:var(--radius-lg);padding:24px 26px;margin:14px auto 0}
+.part .pn{font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 8px}
+.part h2{margin-bottom:8px}
+.sheet .part p{margin:0;color:var(--muted)}
+
+/* Форма сборки архива */
+.mk{border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:0 0 18px;background:var(--soft)}
+.mk .f{display:block;margin:0 0 14px}
+.mk .fl{font-weight:600;font-size:15px;margin:0 0 6px}
+:root:not([data-lang="en"]) .mk .fl[data-l="ru"],:root[data-lang="en"] .mk .fl[data-l="en"]{display:block}
+.mk textarea,.mk input{width:100%;font-family:var(--mono);font-size:13.5px;color:var(--ink);
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:11px 13px}
+.mk textarea{resize:vertical;line-height:1.55}
+.mk input{min-height:44px;font-family:var(--ui);font-size:15px}
+.mk .row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.mk .st.bad{color:var(--warn)} .mk .st.good{color:var(--good)}

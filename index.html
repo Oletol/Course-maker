@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Своя платформа курса — Cherdak</title>
-<meta name="description" content="Как собрать сайт курса с регистрацией участников и интерактивными заданиями при помощи ИИ. Учебный проект канала «Чердак», t.me/engattic.">
+<meta name="description" content="Сайт курса с регистрацией участников и интерактивными заданиями: собрать с нуля при помощи ИИ или взять готовую оболочку. Учебный проект канала «Чердак», t.me/engattic.">
 <meta name="theme-color" content="#14284A">
 <meta property="og:title" content="Своя платформа курса — Cherdak">
-<meta property="og:description" content="Как собрать сайт курса с регистрацией участников и интерактивными заданиями при помощи ИИ. Проект канала «Чердак», t.me/engattic.">
+<meta property="og:description" content="Сайт курса с регистрацией участников и интерактивными заданиями: собрать с нуля при помощи ИИ или взять готовую оболочку. Проект канала «Чердак», t.me/engattic.">
 <meta property="og:image" content="assets/img/logo.svg">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/logo.svg">
@@ -29,13 +29,10 @@
 <header class="topbar">
   <a class="brand" href="#view"><img src="assets/img/logo.svg" alt=""><span>Cherdak</span></a>
   <nav class="nav" aria-label="Разделы">
-    <a href="#need"><span data-l="ru">Что нужно</span><span data-l="en">What you need</span></a>
-    <a href="#db"><span data-l="ru">База данных</span><span data-l="en">Database</span></a>
-    <a href="#rules"><span data-l="ru">Правила для ИИ</span><span data-l="en">Rules for the AI</span></a>
-    <a href="#build"><span data-l="ru">Сборка</span><span data-l="en">Building</span></a>
-    <a href="#publish"><span data-l="ru">Публикация</span><span data-l="en">Publishing</span></a>
-    <a href="#fix"><span data-l="ru">Если не работает</span><span data-l="en">If it breaks</span></a>
-    <a href="#check"><span data-l="ru">Проверка</span><span data-l="en">Final check</span></a>
+    <a href="#start"><span data-l="ru">Два пути</span><span data-l="en">Two paths</span></a>
+    <a href="#a"><span data-l="ru">Своими руками</span><span data-l="en">Build it yourself</span></a>
+    <a href="#b"><span data-l="ru">Готовая оболочка</span><span data-l="en">The ready shell</span></a>
+    <a href="#c"><span data-l="ru">Материалы</span><span data-l="en">Materials</span></a>
   </nav>
   <div class="tools">
     <button class="icon-btn" id="theme" type="button" aria-label="Сменить тему">
@@ -53,11 +50,63 @@
   <p class="eyebrow" data-l="en">Guide</p>
   <h1 data-l="ru">Своя платформа курса</h1>
   <h1 data-l="en">Your own course platform</h1>
-  <p data-l="ru">Как собрать сайт курса с регистрацией участников и интерактивными заданиями при помощи ИИ. Нужны только браузер, аккаунт GitHub и база данных Firebase.</p>
-  <p data-l="en">How to build a course website with participant registration and interactive tasks using AI. All you need is a browser, a GitHub account and a Firebase database.</p>
+  <p data-l="ru">Два пути. Собрать платформу с нуля при помощи ИИ или взять готовую оболочку, вписать свои ключи и опубликовать. Нужны только браузер, аккаунт GitHub и база данных Firebase.</p>
+  <p data-l="en">Two paths. Build a platform from nothing with an AI, or take a ready shell, add your own keys and publish it. All you need is a browser, a GitHub account and a Firebase database.</p>
 </div>
 
 <main id="view" class="sheet" tabindex="-1">
+
+<section id="start">
+  <div data-l="ru">
+    <div class="kind idea"><i></i><b>Начало</b></div>
+    <h2>Два пути</h2>
+    <p class="lead">Платформу курса можно собрать с нуля при помощи ИИ, а можно взять готовую оболочку и настроить её под себя. Пути независимы, и проходить оба не нужно.</p>
+    <div class="cards">
+      <div class="c">
+        <h4>Путь A. Своими руками</h4>
+        <p>Семь шагов и шесть запросов к ИИ. На выходе простая платформа с регистрацией участников, тремя типами заданий и экраном преподавателя, содержание которой правится в отдельном файле. Занимает занятие целиком и показывает, из чего платформа состоит.</p>
+      </div>
+      <div class="c">
+        <h4>Путь B. Готовая оболочка</h4>
+        <p>Код уже написан. Вы вставляете на этой странице ключи своего проекта Firebase, скачиваете свои файлы и публикуете их. В оболочке конструктор курса, пять типов упражнений, группы, отложенная проверка, тесты на время и выгрузка юнита в Word. Занимает около получаса.</p>
+      </div>
+    </div>
+    <p>Как выглядит платформа пути A, видно на <a href="example/">живом примере</a>: это файл, который модель выдала на занятии.</p>
+    <p>Третий раздел, «Материалы», продолжает путь B и рассказывает, как наполнять готовую оболочку своим курсом.</p>
+    <div class="note"><p>Для обоих путей нужны аккаунт GitHub и бесплатный проект Firebase. Платить не нужно ни за что, бесплатных ограничений хватает на учебную группу с запасом.</p></div>
+  </div>
+  <div data-l="en">
+    <div class="kind idea"><i></i><b>Start here</b></div>
+    <h2>Two paths</h2>
+    <p class="lead">You can build a course platform from nothing with an AI, or take a ready shell and set it up for yourself. The paths are independent, and there is no need to go through both.</p>
+    <div class="cards">
+      <div class="c">
+        <h4>Path A. Build it yourself</h4>
+        <p>Seven steps and six requests to an AI. What comes out is a simple platform with participant registration, three kinds of task and a teacher's screen, whose content is edited in a file of its own. It takes a whole lesson and shows what a platform is made of.</p>
+      </div>
+      <div class="c">
+        <h4>Path B. The ready shell</h4>
+        <p>The code is already written. You paste the keys of your own Firebase project on this page, download your files and publish them. The shell has a course builder, five kinds of exercise, groups, deferred checking, timed tests and a Word export of a unit. It takes about half an hour.</p>
+      </div>
+    </div>
+    <p>What a path A platform looks like can be seen in a <a href="example/">live example</a>: that file is what a model produced in the lesson.</p>
+    <p>The third section, Materials, carries on from path B and shows how to fill the ready shell with your own course.</p>
+    <div class="note"><p>Both paths need a GitHub account and a free Firebase project. Nothing has to be paid for: the free limits are more than a teaching group uses.</p></div>
+  </div>
+</section>
+
+<section class="part" id="a">
+  <div data-l="ru">
+    <p class="pn">Путь A</p>
+    <h2>Собрать своими руками</h2>
+    <p>Семь шагов. ИИ пишет код по вашим запросам, вы ничего не правите руками.</p>
+  </div>
+  <div data-l="en">
+    <p class="pn">Path A</p>
+    <h2>Build it yourself</h2>
+    <p>Seven steps. The AI writes the code from your requests, and you fix nothing by hand.</p>
+  </div>
+</section>
 
 <section id="need">
   <div data-l="ru">
@@ -930,6 +979,356 @@ Fix it throughout the file, not only where I pointed, and send the whole file ag
   </div>
 </section>
 
+<section class="part" id="b">
+  <div data-l="ru">
+    <p class="pn">Путь B</p>
+    <h2>Готовая оболочка</h2>
+    <p>Четыре шага. Код оболочки лежит на этой странице, вы добавляете к нему ключи своего проекта Firebase и получаете свои файлы.</p>
+  </div>
+  <div data-l="en">
+    <p class="pn">Path B</p>
+    <h2>The ready shell</h2>
+    <p>Four steps. The code of the shell is on this page; you add the keys of your own Firebase project to it and get your own files.</p>
+  </div>
+</section>
+
+<section id="b-keys">
+  <div data-l="ru">
+    <div class="kind num"><i></i><b>Шаг 01</b></div>
+    <h2>Ключи и файлы</h2>
+    <p class="lead">Firebase это база данных от Google. В ней будут храниться ваши группы, ответы обучающихся и результаты проверки. Проект заводится за три минуты, платить не нужно.</p>
+    <ol class="steps">
+      <li>Откройте <code>console.firebase.google.com</code> и нажмите Create a project. Имя любое, латиницей. Google Analytics можно выключить. Тариф по умолчанию бесплатный, Spark, его хватает и повышать его не нужно.</li>
+      <li>На странице проекта нажмите значок <code>&lt;/&gt;</code> (Add app, Web). Название любое. Firebase Hosting не отмечайте, сайт будет лежать на GitHub.</li>
+      <li>Firebase покажет блок кода, который начинается словами <code>const firebaseConfig = {</code>. Скопируйте его целиком, вместе с закрывающей скобкой.</li>
+      <li>Вставьте скопированное в поле ниже, впишите название курса и нажмите кнопку. Браузер соберёт архив с вашими файлами.</li>
+    </ol>
+  </div>
+  <div data-l="en">
+    <div class="kind num"><i></i><b>Step 01</b></div>
+    <h2>Keys and files</h2>
+    <p class="lead">Firebase is a database by Google. It will keep your groups, the learners' answers and the results of checking. A project takes three minutes to make and costs nothing.</p>
+    <ol class="steps">
+      <li>Open <code>console.firebase.google.com</code> and click Create a project. Any name, in Latin letters. Google Analytics may be switched off. The default plan is the free Spark: it is enough and must not be upgraded.</li>
+      <li>On the project page click the <code>&lt;/&gt;</code> icon (Add app, Web). Any nickname. Do not tick Firebase Hosting: the site will live on GitHub.</li>
+      <li>Firebase shows a piece of code that begins with <code>const firebaseConfig = {</code>. Copy all of it, the closing bracket included.</li>
+      <li>Paste it into the field below, type the title of your course and click the button. The browser puts your files together into an archive.</li>
+    </ol>
+  </div>
+
+  <div class="mk" id="mk">
+    <label class="f">
+      <span class="fl" data-l="ru">Блок firebaseConfig из консоли Firebase</span>
+      <span class="fl" data-l="en">The firebaseConfig block from the Firebase console</span>
+      <textarea id="mk-cfg" rows="9" spellcheck="false" placeholder="const firebaseConfig = {&#10;  apiKey: &quot;AIza…&quot;,&#10;  authDomain: &quot;my-course.firebaseapp.com&quot;,&#10;  projectId: &quot;my-course&quot;,&#10;  …&#10;};"></textarea>
+    </label>
+    <label class="f">
+      <span class="fl" data-l="ru">Название курса</span>
+      <span class="fl" data-l="en">Title of the course</span>
+      <input type="text" id="mk-title" placeholder="English for Economists">
+    </label>
+    <div class="row">
+      <button class="btn" type="button" id="mk-go"><span data-l="ru">Собрать мои файлы</span><span data-l="en">Build my files</span></button>
+      <span class="muted" id="mk-st"></span>
+    </div>
+  </div>
+
+  <div data-l="ru">
+    <div class="note"><p>Ничего из того, что вы вставили, со страницы не уходит. Архив собирается прямо в браузере. Сами ключи не секретны, они лежат в открытом виде на любом сайте с Firebase, а данные защищают правила базы, которые вы поставите на шаге 03.</p></div>
+  </div>
+  <div data-l="en">
+    <div class="note"><p>Nothing you paste leaves this page. The archive is put together inside your browser. The keys themselves are not secret: they sit in plain sight on every site that uses Firebase, and the data are protected by the database rules you will set in step 03.</p></div>
+  </div>
+</section>
+
+<section id="b-publish">
+  <div data-l="ru">
+    <div class="kind num"><i></i><b>Шаг 02</b></div>
+    <h2>Публикация</h2>
+    <p class="lead">Сайт будет лежать на GitHub Pages. Это бесплатно и делается в браузере.</p>
+    <ol class="steps">
+      <li>Распакуйте скачанный архив. Внутри папка <code>docs</code>, файл <code>firestore.rules</code> и короткая записка о том, что делать дальше.</li>
+      <li>На github.com нажмите плюс справа сверху, New repository. Имя задайте строчными латинскими буквами и дефисами, например <code>my-english-course</code>. Отметьте Public и нажмите Create repository.</li>
+      <li>Нажмите Add file, затем Upload files. Перетащите в окно папку <code>docs</code> целиком и файл <code>firestore.rules</code>. Нажмите Commit changes.</li>
+      <li>Откройте Settings, затем Pages. В разделе Source выберите Deploy from a branch, ветку main, папку <code>/docs</code>, и нажмите Save.</li>
+      <li>Подождите две-три минуты и откройте <code>https://ВАШ-ЛОГИН.github.io/ИМЯ-РЕПОЗИТОРИЯ/setup.html</code>. Дальше всё идёт на этой странице.</li>
+    </ol>
+    <div class="note warn"><p>Если по адресу ничего нет, подождите ещё минуту и обновите страницу с зажатой клавишей Shift. Пустая страница почти всегда означает, что в разделе Pages выбрана не та папка. Там должна стоять <code>/docs</code>, а не root.</p></div>
+  </div>
+  <div data-l="en">
+    <div class="kind num"><i></i><b>Step 02</b></div>
+    <h2>Publishing</h2>
+    <p class="lead">The site will live on GitHub Pages. It is free and done in the browser.</p>
+    <ol class="steps">
+      <li>Unpack the archive you downloaded. Inside there is a <code>docs</code> folder, a file called <code>firestore.rules</code> and a short note about what to do next.</li>
+      <li>On github.com click the plus sign at the top right, then New repository. Name it in lower-case Latin letters and hyphens, for example <code>my-english-course</code>. Tick Public and click Create repository.</li>
+      <li>Click Add file, then Upload files. Drag in the whole <code>docs</code> folder and the file <code>firestore.rules</code>. Click Commit changes.</li>
+      <li>Open Settings, then Pages. Under Source choose Deploy from a branch, the main branch and the <code>/docs</code> folder, then click Save.</li>
+      <li>Wait two or three minutes and open <code>https://YOUR-LOGIN.github.io/YOUR-REPOSITORY/setup.html</code>. Everything else happens on that page.</li>
+    </ol>
+    <div class="note warn"><p>If there is nothing at that address, wait another minute and reload with the Shift key held down. A blank page almost always means the wrong folder is chosen under Pages. It has to be <code>/docs</code>, not root.</p></div>
+  </div>
+</section>
+
+<section id="b-setup">
+  <div data-l="ru">
+    <div class="kind check"><i></i><b>Шаг 03</b></div>
+    <h2>Настройка базы</h2>
+    <p class="lead">Страница <code>setup.html</code> это инструкция внутри вашего сайта. Семь шагов, и она сама проверяет каждый из них и показывает зелёную отметку.</p>
+    <ol class="steps">
+      <li>Шаги 1 и 2, файлы на GitHub и ключи Firebase, уже зелёные: вы прошли их на шагах 01 и 02 этого раздела.</li>
+      <li>Шаг 3 включает вход по почте и паролю. Build, Authentication, Get started, Sign-in method, Email/Password, первый переключатель Enable.</li>
+      <li>Шаг 4 создаёт базу и ставит правила. Build, Firestore Database, Create database, регион поближе, режим production. Затем вкладка Rules, удалить всё, вставить правила кнопкой со страницы setup и нажать Publish.</li>
+      <li>Шаг 5 делает ваш преподавательский аккаунт. Вы вводите почту и пароль прямо на странице setup, она показывает ваш UID, и вы создаёте в базе коллекцию <code>teachers</code> с документом, имя которого в точности равно этому UID.</li>
+      <li>Шаг 6 открывает Teacher's Edition. Шаг 7 рассказывает, куда класть картинки и аудио.</li>
+    </ol>
+    <div class="note"><p>Правила базы вставляются целиком и один раз, менять в них ничего не нужно. Именно они отвечают за то, что ключи заданий лежат отдельно от того, что получают обучающиеся, и что чужой человек не прочитает работы вашей группы.</p></div>
+  </div>
+  <div data-l="en">
+    <div class="kind check"><i></i><b>Step 03</b></div>
+    <h2>Setting up the database</h2>
+    <p class="lead">The page <code>setup.html</code> is a guide inside your own site. Seven steps, and it checks each one for you and shows a green mark.</p>
+    <ol class="steps">
+      <li>Steps 1 and 2, the files on GitHub and the Firebase keys, are green already: you did them in steps 01 and 02 of this section.</li>
+      <li>Step 3 switches on sign-in with an email and a password. Build, Authentication, Get started, Sign-in method, Email/Password, the first switch Enable.</li>
+      <li>Step 4 creates the database and sets its rules. Build, Firestore Database, Create database, a region near you, production mode. Then the Rules tab: delete everything, paste the rules with the button on the setup page and click Publish.</li>
+      <li>Step 5 makes your teacher account. You type an email and a password on the setup page itself, it shows you your UID, and you create a collection called <code>teachers</code> with a document whose name is exactly that UID.</li>
+      <li>Step 6 opens Teacher's Edition. Step 7 tells you where pictures and audio go.</li>
+    </ol>
+    <div class="note"><p>The rules are pasted whole and once; nothing in them has to be changed. They are what keeps the answer keys apart from what the learners receive, and what stops a stranger from reading your group's work.</p></div>
+  </div>
+</section>
+
+<section id="b-fix">
+  <div data-l="ru">
+    <div class="kind check"><i></i><b>Шаг 04</b></div>
+    <h2>Если не работает</h2>
+    <h3>Сайт открылся, но setup.html пишет, что ключей нет</h3>
+    <p>Файл <code>docs/js/firebase-config.js</code> не доехал до репозитория. Откройте в репозитории папку <code>docs/js</code> и проверьте, что он там есть. Если нет, загрузите папку <code>docs</code> ещё раз.</p>
+    <h3>Teacher's Edition говорит, что доступа нет</h3>
+    <p>Имя документа в коллекции <code>teachers</code> должно в точности совпадать с UID, без пробелов по краям. Проще всего удалить документ и создать заново, скопировав UID кнопкой со страницы setup.</p>
+    <h3>Обучающийся не может зарегистрироваться</h3>
+    <p>Сначала создайте группу. Teacher's Edition, Groups &amp; students, код группы придумываете вы, и его вы даёте группе. Без существующего кода регистрация не пройдёт.</p>
+    <h3>В книге студента пусто</h3>
+    <p>Юнит не открыт группе. Teacher's Edition, Access &amp; results, строка юнита, кнопка открытия для вашей группы.</p>
+    <h3>Страница не меняется после правок</h3>
+    <p>Это память браузера. Обновите с зажатой клавишей Shift, на Mac с Cmd и Shift.</p>
+  </div>
+  <div data-l="en">
+    <div class="kind check"><i></i><b>Step 04</b></div>
+    <h2>If it breaks</h2>
+    <h3>The site opens, but setup.html says the keys are missing</h3>
+    <p>The file <code>docs/js/firebase-config.js</code> never reached the repository. Open the <code>docs/js</code> folder there and check that it is in place. If it is not, upload the <code>docs</code> folder again.</p>
+    <h3>Teacher's Edition says you have no access</h3>
+    <p>The name of the document in the <code>teachers</code> collection must match the UID exactly, with no spaces around it. The quickest fix is to delete the document and make it again, copying the UID with the button on the setup page.</p>
+    <h3>A learner cannot create an account</h3>
+    <p>Create a group first. Teacher's Edition, Groups &amp; students; the group code is yours to invent, and you give it to the group. Without an existing code, registration does not go through.</p>
+    <h3>The student's book is empty</h3>
+    <p>The unit is not open for the group. Teacher's Edition, Access &amp; results, the row of the unit, the button that opens it for your group.</p>
+    <h3>The page does not change after an edit</h3>
+    <p>That is the browser's memory. Reload with the Shift key held down, on a Mac with Cmd and Shift.</p>
+  </div>
+</section>
+
+<section class="part" id="c">
+  <div data-l="ru">
+    <p class="pn">Материалы</p>
+    <h2>Как наполнять оболочку</h2>
+    <p>Продолжение пути B. Весь курс собирается в браузере, в конструкторе внутри Teacher's Edition. Код для этого открывать не нужно.</p>
+  </div>
+  <div data-l="en">
+    <p class="pn">Materials</p>
+    <h2>Filling the shell</h2>
+    <p>This carries on from path B. The whole course is put together in the browser, in the builder inside Teacher's Edition. No code has to be opened for it.</p>
+  </div>
+</section>
+
+<section id="c-start">
+  <div data-l="ru">
+    <div class="kind idea"><i></i><b>Шаг 01</b></div>
+    <h2>Образцовый юнит</h2>
+    <p class="lead">Начинать с пустого экрана тяжело, поэтому в оболочке есть готовый юнит со всеми типами блоков сразу. Его стоит добавить первым и разобрать.</p>
+    <ol class="steps">
+      <li>Откройте <code>teacher.html</code> на своём сайте и войдите почтой и паролем преподавателя.</li>
+      <li>Слева выберите Course builder и нажмите Add the sample unit.</li>
+      <li>Откройте этот юнит и пролистайте его сверху донизу. В нём есть текст, правило, картинка, аудио, карточки, преподавательская заметка и упражнения всех пяти типов.</li>
+      <li>Посмотрите на тот же юнит глазами обучающегося. Кнопка Student view внизу слева открывает книгу студента.</li>
+      <li>Когда станет понятно, как устроен юнит, удалите образец или оставьте его как шпаргалку. Обучающиеся его не увидят, пока вы не откроете юнит группе.</li>
+    </ol>
+  </div>
+  <div data-l="en">
+    <div class="kind idea"><i></i><b>Step 01</b></div>
+    <h2>The sample unit</h2>
+    <p class="lead">Starting from an empty screen is hard, so the shell carries a ready unit with every kind of block in it. It is worth adding first and taking apart.</p>
+    <ol class="steps">
+      <li>Open <code>teacher.html</code> on your site and sign in with your teacher email and password.</li>
+      <li>On the left choose Course builder and click Add the sample unit.</li>
+      <li>Open that unit and read it from top to bottom. It has a text, a rule box, a picture, audio, flashcards, a teaching note and exercises of all five kinds.</li>
+      <li>Look at the same unit through a learner's eyes. The Student view button at the bottom left opens the student's book.</li>
+      <li>Once the shape of a unit is clear, delete the sample or keep it as a crib. Learners see nothing of it until you open the unit for a group.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="c-build">
+  <div data-l="ru">
+    <div class="kind num"><i></i><b>Шаг 02</b></div>
+    <h2>Юниты, подразделы, блоки</h2>
+    <p class="lead">Курс состоит из юнитов, юнит из подразделов, подраздел из блоков. Блок это кирпич содержания, и типов блоков девять.</p>
+    <h3>Что можно положить в подраздел</h3>
+    <ul class="pts">
+      <li><b>Текст</b> четырёх видов, инструкция, текст для чтения, правило в рамке и вопросы для обсуждения. Жирное и курсив ставятся звёздочками.</li>
+      <li><b>Картинка</b>, одна или несколько в ряд, с подписью и описанием для незрячих.</li>
+      <li><b>Аудио</b> и <b>видео</b>. Видео встраивается ссылкой на Rutube или другой сайт, аудио лежит файлом рядом с курсом.</li>
+      <li><b>Карточки</b> со словом, транскрипцией, переводом и примером. Слова карточек считаются словарём юнита.</li>
+      <li><b>Упражнение</b> одного из пяти типов, о них следующий шаг.</li>
+      <li><b>Преподавательская заметка</b>. Её видите только вы, в книге студента её нет. Туда удобно складывать цели, скрипты аудио и комментарии к ключам.</li>
+    </ul>
+    <p>Порядок блоков меняется стрелками вверх и вниз, блок копируется и удаляется кнопками рядом. Номера упражнений проставляются сами.</p>
+    <div class="note"><p>Нажимайте Save в конструкторе почаще. Пока вы не нажали, изменения живут только в этой вкладке. После сохранения они сразу уходят в базу, и обучающиеся увидят их при следующем открытии страницы.</p></div>
+  </div>
+  <div data-l="en">
+    <div class="kind num"><i></i><b>Step 02</b></div>
+    <h2>Units, sections, blocks</h2>
+    <p class="lead">A course is made of units, a unit of sections, a section of blocks. A block is a brick of content, and there are nine kinds of brick.</p>
+    <h3>What can go into a section</h3>
+    <ul class="pts">
+      <li><b>Text</b> of four kinds: an instruction, a reading text, a rule in a box and questions to discuss. Bold and italics are set with asterisks.</li>
+      <li><b>A picture</b>, one or several in a row, with a caption and a description for screen readers.</li>
+      <li><b>Audio</b> and <b>video</b>. Video is embedded by a link to Rutube or another site; audio sits as a file next to the course.</li>
+      <li><b>Flashcards</b> with the word, its transcription, a translation and an example. The words on the cards count as the vocabulary of the unit.</li>
+      <li><b>An exercise</b> of one of the five kinds; the next step is about them.</li>
+      <li><b>A teaching note.</b> Only you see it; it is not in the student's book. A good place for aims, audio scripts and comments on the keys.</li>
+    </ul>
+    <p>The order of blocks is changed with the up and down arrows, and a block is copied or deleted with the buttons beside it. Exercises are numbered by themselves.</p>
+    <div class="note"><p>Click Save in the builder often. Until you do, the changes live only in that tab. Once saved they go straight to the database, and the learners see them the next time they open the page.</p></div>
+  </div>
+</section>
+
+<section id="c-ex">
+  <div data-l="ru">
+    <div class="kind num"><i></i><b>Шаг 03</b></div>
+    <h2>Упражнения и ключи</h2>
+    <p class="lead">Пять типов упражнений. У четырёх есть ключ, и оболочка проверяет их сама; пятый проверяете вы.</p>
+    <ul class="pts">
+      <li><b>Пропуск.</b> Предложение с пропуском и ответ. Если правильных ответов несколько, они пишутся через точку с запятой, и засчитывается любой.</li>
+      <li><b>Выбор из списка.</b> Тот же пропуск, но вместо поля выпадающий список. Правильный вариант помечается звёздочкой перед ним.</li>
+      <li><b>Выбор ответа.</b> Вопрос и варианты A, B, C. Правильный тоже со звёздочкой.</li>
+      <li><b>Сопоставление.</b> Общий список вариантов сверху и пункты, к каждому из которых выбирается буква.</li>
+      <li><b>Открытый ответ.</b> Письмо, перевод, свои предложения. Ключ здесь это образец ответа, который видите только вы, а баллы и комментарий вы ставите руками в Student work.</li>
+    </ul>
+    <h3>Что решается у каждого упражнения</h3>
+    <ul class="pts">
+      <li><b>Когда показывать результат.</b> Либо вы нажимаете «Check this exercise now» над упражнением, и группа сразу видит проверку, либо результаты открываются вместе со всем юнитом.</li>
+      <li><b>Сколько баллов</b> за пункт у открытого ответа и сколько слов в нём минимум.</li>
+      <li><b>Без ключа.</b> Опрос или мнение, где любой ответ верный и ничего не считается.</li>
+    </ul>
+    <div class="note warn"><p>Ключи хранятся отдельно от того, что получают обучающиеся: в книгу студента уходит юнит без ответов. Поэтому ключи можно писать прямо в конструкторе и не бояться, что их найдут в коде страницы.</p></div>
+  </div>
+  <div data-l="en">
+    <div class="kind num"><i></i><b>Step 03</b></div>
+    <h2>Exercises and keys</h2>
+    <p class="lead">Five kinds of exercise. Four of them have a key and the shell checks them itself; the fifth you check yourself.</p>
+    <ul class="pts">
+      <li><b>Gap fill.</b> A sentence with a gap and the answer. When several answers are right, they are written with semicolons between them and any of them counts.</li>
+      <li><b>Choose from a list.</b> The same gap, but a dropdown instead of a field. The right option is marked with an asterisk in front of it.</li>
+      <li><b>Multiple choice.</b> A question with options A, B, C. The right one carries an asterisk too.</li>
+      <li><b>Matching.</b> One list of options at the top and items, each of which takes a letter.</li>
+      <li><b>Open answer.</b> Writing, translation, sentences of one's own. The key here is a model answer that only you see, and you give the points and the comment by hand in Student work.</li>
+    </ul>
+    <h3>What is decided for every exercise</h3>
+    <ul class="pts">
+      <li><b>When the result is shown.</b> Either you click “Check this exercise now” above it and the group sees the marking at once, or the results open together with the whole unit.</li>
+      <li><b>How many points</b> an item of an open answer is worth, and how many words it needs at least.</li>
+      <li><b>No key at all</b> for a survey or an opinion, where any answer is right and nothing is counted.</li>
+    </ul>
+    <div class="note warn"><p>The keys are kept apart from what the learners receive: the student's book gets the unit without the answers. So the keys can be written straight into the builder, with no fear of someone finding them in the code of the page.</p></div>
+  </div>
+</section>
+
+<section id="c-group">
+  <div data-l="ru">
+    <div class="kind web"><i></i><b>Шаг 04</b></div>
+    <h2>Группа, выдача, проверка</h2>
+    <ol class="steps">
+      <li><b>Группа.</b> Teacher's Edition, Groups &amp; students. Код группы придумываете вы, например <code>ENG101</code>, и даёте его обучающимся. Регистрация без существующего кода не проходит.</li>
+      <li><b>Выдача.</b> Access &amp; results, строка юнита, кнопка открытия для группы. Пока юнит закрыт, в книге студента его нет.</li>
+      <li><b>Работа.</b> Ответы сохраняются сами, пока обучающийся печатает. Под каждым упражнением есть кнопка Done, а весь юнит сдаётся кнопкой Submit.</li>
+      <li><b>Проверка по одному упражнению.</b> Откройте юнит в Teacher's Edition и нажмите «Check this exercise now» над нужным упражнением. Группа сразу увидит, что верно и что нет.</li>
+      <li><b>Проверка всего юнита.</b> Access &amp; results, кнопка Release. Юнит закрывается, баллы и правильные ответы открываются всей группе разом.</li>
+      <li><b>Открытые ответы.</b> Student work, выберите обучающегося, поставьте баллы и напишите комментарий, нажмите Save marks. Кнопка Return for revision возвращает работу на доработку.</li>
+      <li><b>Тест на время.</b> Делается в конструкторе как отдельная часть юнита, открывается группе и закрывается по кнопке.</li>
+    </ol>
+  </div>
+  <div data-l="en">
+    <div class="kind web"><i></i><b>Step 04</b></div>
+    <h2>Group, access, checking</h2>
+    <ol class="steps">
+      <li><b>The group.</b> Teacher's Edition, Groups &amp; students. The group code is yours to invent, say <code>ENG101</code>, and you give it to the learners. Registration without an existing code does not go through.</li>
+      <li><b>Access.</b> Access &amp; results, the row of the unit, the button that opens it for the group. While a unit is closed it is not in the student's book at all.</li>
+      <li><b>The work.</b> Answers save themselves as the learner types. Under every exercise there is a Done button, and the whole unit is handed in with Submit.</li>
+      <li><b>Checking one exercise.</b> Open the unit in Teacher's Edition and click “Check this exercise now” above the exercise you mean. The group sees at once what is right and what is not.</li>
+      <li><b>Checking the whole unit.</b> Access &amp; results, the Release button. The unit closes and the points and correct answers open for the whole group at once.</li>
+      <li><b>Open answers.</b> Student work, choose a learner, give the points, write a comment and click Save marks. The Return for revision button sends the work back.</li>
+      <li><b>A timed test.</b> It is made in the builder as a part of the unit of its own, opened for the group and closed with a button.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="c-ai">
+  <div data-l="ru">
+    <div class="kind idea"><i></i><b>Шаг 05</b></div>
+    <h2>Юнит с помощью ИИ</h2>
+    <p class="lead">Юнит можно написать в переписке с моделью и загрузить файлом, а не набирать по блоку руками.</p>
+    <ol class="steps">
+      <li>Teacher's Edition, Import and export, кнопка Copy the prompt. В запросе уже описан формат файла и все типы блоков.</li>
+      <li>Вставьте запрос в переписку с любой моделью и допишите своё, тему юнита, уровень, для кого и сколько упражнений каждого типа.</li>
+      <li>Ответ модели, то есть файл <code>.json</code> или блок кода, вставьте в поле импорта на той же странице и нажмите Import. Ошибку импорта можно скопировать обратно в переписку, модель её исправит.</li>
+      <li>Откройте полученный юнит в конструкторе и прочитайте целиком. Проверьте ключи, факты и уровень. Модель ошибается, а отвечаете за материал вы.</li>
+    </ol>
+    <div class="note warn"><p>Не вставляйте в переписку с моделью имена и работы обучающихся. В запросе для конструктора их и нет, он про содержание юнита.</p></div>
+    <p>На той же странице лежит выгрузка. Export сохраняет весь курс одним файлом, это ваша резервная копия; храните её на своём компьютере, а не в репозитории. Юнит выгружается и в Word, отдельно для обучающихся и отдельно для преподавателя с ключами.</p>
+  </div>
+  <div data-l="en">
+    <div class="kind idea"><i></i><b>Step 05</b></div>
+    <h2>A unit written with an AI</h2>
+    <p class="lead">A unit can be written in a chat with a model and imported as a file, instead of being typed block by block.</p>
+    <ol class="steps">
+      <li>Teacher's Edition, Import and export, the Copy the prompt button. The request already describes the format of the file and every kind of block.</li>
+      <li>Paste the request into a chat with any model and add your own part: the topic of the unit, the level, who it is for and how many exercises of each kind.</li>
+      <li>Paste the model's answer, that is the <code>.json</code> file or the block of code, into the import field on the same page and click Import. An import error can be copied back into the chat, and the model will fix it.</li>
+      <li>Open the unit you get in the builder and read all of it. Check the keys, the facts and the level. A model makes mistakes, and the material is your responsibility.</li>
+    </ol>
+    <div class="note warn"><p>Do not paste the names or the work of learners into a chat with a model. The builder's prompt holds none of that: it is about the content of a unit.</p></div>
+    <p>The same page holds the export. Export saves the whole course as one file, which is your backup; keep it on your computer rather than in the repository. A unit also exports to Word, once for the learners and once for the teacher with the keys.</p>
+  </div>
+</section>
+
+<section id="c-media">
+  <div data-l="ru">
+    <div class="kind web"><i></i><b>Шаг 06</b></div>
+    <h2>Картинки и аудио</h2>
+    <ol class="steps">
+      <li>На своём компьютере положите файл в папку <code>docs/media</code> внутри папки курса. Удобно завести внутри папку на юнит, например <code>docs/media/u1</code>.</li>
+      <li>Имя файла задайте строчными латинскими буквами без пробелов, например <code>u1-dialogue.mp3</code>. Пробелы и кириллица дают ссылки, которые не открываются.</li>
+      <li>В репозитории нажмите Add file, Upload files и перетащите папку <code>media</code> целиком. GitHub сохранит её устройство.</li>
+      <li>В конструкторе в блоке картинки или аудио впишите путь без <code>docs</code>, например <code>media/u1/dialogue.mp3</code>. Проигрыватель появится сам.</li>
+    </ol>
+    <p class="muted">Кнопки для создания пустой папки на GitHub нет, и это не недосмотр. Папка в репозитории существует только вместе с файлами внутри, поэтому <code>media/u1</code> появляется в тот момент, когда в неё попадает первый файл.</p>
+  </div>
+  <div data-l="en">
+    <div class="kind web"><i></i><b>Step 06</b></div>
+    <h2>Pictures and audio</h2>
+    <ol class="steps">
+      <li>On your own computer put the file into the <code>docs/media</code> folder inside the course folder. A folder per unit inside it, say <code>docs/media/u1</code>, keeps things tidy.</li>
+      <li>Name the file in lower-case Latin letters with no spaces, for example <code>u1-dialogue.mp3</code>. Spaces and non-Latin letters give links that do not open.</li>
+      <li>In the repository click Add file, Upload files and drag the whole <code>media</code> folder in. GitHub keeps its structure.</li>
+      <li>In the builder, in a picture or audio block, write the path without <code>docs</code>, for example <code>media/u1/dialogue.mp3</code>. The player appears by itself.</li>
+    </ol>
+    <p class="muted">GitHub has no button for creating an empty folder, and that is not an oversight. A folder in a repository exists only together with the files inside it, so <code>media/u1</code> appears at the moment the first file lands in it.</p>
+  </div>
+</section>
+
 </main>
 
 <footer class="footer">
@@ -964,6 +1363,160 @@ Fix it throughout the file, not only where I pointed, and send the whole file ag
       b.addEventListener('click', function(){ setLang(b.dataset.set); });
     });
     setLang(root.dataset.lang === 'en' ? 'en' : 'ru');
+
+    // Раздел «Готовая оболочка»: сборка архива с файлами и ключами Firebase
+    (function(){
+      var go = document.getElementById('mk-go');
+      if(!go) return;
+      var st = document.getElementById('mk-st');
+      var TXT = {
+        ru: { miss:'В тексте нет поля «%s». Скопируйте блок целиком, от const firebaseConfig = { до закрывающей }.',
+              work:'Собираю файлы…', pack:'Упаковываю архив…',
+              ok:'Готово. Архив course-site.zip лежит в загрузках.',
+              nopack:'Файлы оболочки не загрузились. Проверьте соединение и обновите страницу.',
+              old:'Этот браузер не умеет распаковывать архив. Откройте страницу в свежем Chrome, Safari или Firefox.',
+              err:'Не получилось собрать архив. Обновите страницу и попробуйте ещё раз.' },
+        en: { miss:'I cannot find “%s” in the text. Copy the whole block, from const firebaseConfig = { to the closing }.',
+              work:'Putting the files together…', pack:'Making the archive…',
+              ok:'Done. The archive course-site.zip is in your downloads.',
+              nopack:'The files of the shell did not load. Check the connection and reload the page.',
+              old:'This browser cannot build the archive. Open the page in a recent Chrome, Safari or Firefox.',
+              err:'The archive could not be built. Reload the page and try again.' }
+      };
+      var L = function(){ return TXT[document.documentElement.dataset.lang === 'en' ? 'en' : 'ru']; };
+      var say = function(msg, cls){ st.textContent = msg; st.className = 'st muted' + (cls ? ' ' + cls : ''); };
+
+      var FIELDS = ['apiKey','authDomain','projectId','storageBucket','messagingSenderId','appId','measurementId'];
+      function parseConfig(text){
+        var out = {};
+        FIELDS.forEach(function(k){
+          var m = text.match(new RegExp('["\\x27]?' + k + '["\\x27]?\\s*:\\s*["\\x27]([^"\\x27]+)["\\x27]'));
+          if(m) out[k] = m[1].trim();
+        });
+        ['apiKey','authDomain','projectId','appId'].forEach(function(k){
+          if(!out[k]) throw new Error(k);
+        });
+        return out;
+      }
+      function configFile(cfg, title){
+        return '// Firebase settings of this course (made on the workshop page).\n'
+          + '// These values are not secret: the data are protected by the Firestore rules.\n'
+          + 'const firebaseConfig = ' + JSON.stringify(cfg, null, 2).replace(/"(\w+)":/g, '$1:') + ';\n\n'
+          + 'export { firebaseConfig };\n\n'
+          + '// The first name of the course: shown until you set the title in Teacher\'s Edition, Course settings.\n'
+          + 'export const COURSE_TITLE = ' + JSON.stringify(title || 'My Course') + ';\n';
+      }
+
+      function loadPack(){
+        if(window.SHELL_PACK) return Promise.resolve();
+        return new Promise(function(res, rej){
+          var s = document.createElement('script');
+          s.src = 'assets/shell-files.js';
+          s.onload = res;
+          s.onerror = function(){ rej(new Error('pack')); };
+          document.head.appendChild(s);
+        });
+      }
+      function unpack(){
+        var bin = atob(window.SHELL_PACK);
+        var u8 = new Uint8Array(bin.length);
+        for(var i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+        var ds = new DecompressionStream('gzip');
+        return new Response(new Blob([u8]).stream().pipeThrough(ds)).arrayBuffer()
+          .then(function(buf){ return JSON.parse(new TextDecoder().decode(buf)); });
+      }
+
+      var TABLE = (function(){
+        var t = new Uint32Array(256);
+        for(var n = 0; n < 256; n++){
+          var c = n;
+          for(var k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+          t[n] = c >>> 0;
+        }
+        return t;
+      })();
+      function crc32(u8){
+        var c = 0xFFFFFFFF;
+        for(var i = 0; i < u8.length; i++) c = TABLE[(c ^ u8[i]) & 0xFF] ^ (c >>> 8);
+        return (c ^ 0xFFFFFFFF) >>> 0;
+      }
+      function deflate(data){
+        if(!window.CompressionStream) return Promise.resolve(null);
+        try{
+          var cs = new CompressionStream('deflate-raw');
+          return new Response(new Blob([data]).stream().pipeThrough(cs)).arrayBuffer()
+            .then(function(b){ return new Uint8Array(b); }, function(){ return null; });
+        }catch(e){ return Promise.resolve(null); }
+      }
+      async function makeZip(entries){
+        var enc = new TextEncoder(), parts = [], central = [], offset = 0;
+        for(var i = 0; i < entries.length; i++){
+          var name = entries[i].name, data = enc.encode(entries[i].text);
+          var comp = await deflate(data);
+          var method = 0, out = data;
+          if(comp && comp.length < data.length){ method = 8; out = comp; }
+          var nb = enc.encode(name), crc = crc32(data);
+          var lh = new Uint8Array(30 + nb.length), v = new DataView(lh.buffer);
+          v.setUint32(0, 0x04034b50, true); v.setUint16(4, 20, true); v.setUint16(6, 0x0800, true);
+          v.setUint16(8, method, true); v.setUint16(10, 0, true); v.setUint16(12, 0x21, true);
+          v.setUint32(14, crc, true); v.setUint32(18, out.length, true); v.setUint32(22, data.length, true);
+          v.setUint16(26, nb.length, true); v.setUint16(28, 0, true);
+          lh.set(nb, 30);
+          parts.push(lh, out);
+          var ch = new Uint8Array(46 + nb.length), cv = new DataView(ch.buffer);
+          cv.setUint32(0, 0x02014b50, true); cv.setUint16(4, 20, true); cv.setUint16(6, 20, true);
+          cv.setUint16(8, 0x0800, true); cv.setUint16(10, method, true); cv.setUint16(12, 0, true);
+          cv.setUint16(14, 0x21, true); cv.setUint32(16, crc, true);
+          cv.setUint32(20, out.length, true); cv.setUint32(24, data.length, true);
+          cv.setUint16(28, nb.length, true); cv.setUint32(42, offset, true);
+          ch.set(nb, 46);
+          central.push(ch);
+          offset += lh.length + out.length;
+        }
+        var cdSize = central.reduce(function(n, c){ return n + c.length; }, 0);
+        var eo = new Uint8Array(22), ev = new DataView(eo.buffer);
+        ev.setUint32(0, 0x06054b50, true);
+        ev.setUint16(8, entries.length, true); ev.setUint16(10, entries.length, true);
+        ev.setUint32(12, cdSize, true); ev.setUint32(16, offset, true);
+        return new Blob(parts.concat(central, [eo]), { type: 'application/zip' });
+      }
+
+      go.addEventListener('click', async function(){
+        var cfg;
+        try{
+          cfg = parseConfig(document.getElementById('mk-cfg').value);
+        }catch(e){
+          say(L().miss.replace('%s', e.message), 'bad');
+          return;
+        }
+        if(!window.DecompressionStream){ say(L().old, 'bad'); return; }
+        go.disabled = true;
+        say(L().work);
+        try{
+          await loadPack();
+        }catch(e){
+          go.disabled = false; say(L().nopack, 'bad'); return;
+        }
+        try{
+          var files = await unpack();
+          files['docs/js/firebase-config.js'] = configFile(cfg, document.getElementById('mk-title').value.trim());
+          say(L().pack);
+          var entries = Object.keys(files).sort().map(function(k){
+            return { name: 'course-site/' + k, text: files[k] };
+          });
+          var blob = await makeZip(entries);
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url; a.download = 'course-site.zip';
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+          say(L().ok, 'good');
+        }catch(e){
+          say(L().err, 'bad');
+        }
+        go.disabled = false;
+      });
+    })();
 
     document.querySelectorAll('.copy').forEach(function(btn){
       var labels = { ru: ['Копировать','Скопировано','Выделите вручную'],
